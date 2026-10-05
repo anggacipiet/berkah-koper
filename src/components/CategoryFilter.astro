@@ -1,0 +1,56 @@
+---
+import { CATEGORY_LABELS } from '../types/product';
+
+interface Props {
+  basePath?: string;
+}
+
+const { basePath = '/katalog' } = Astro.props;
+
+const allCategories = [
+  { value: 'semua', label: '🗂️ Semua Produk' },
+  ...Object.entries(CATEGORY_LABELS).map(([value, label]) => ({ value, label })),
+];
+---
+
+<div class="flex flex-wrap gap-2" role="list" aria-label="Filter kategori produk" id="category-filter">
+  {allCategories.map(({ value, label }) => {
+    const href = value === 'semua' ? basePath : `${basePath}?kategori=${value}`;
+    return (
+      <a
+        href={href}
+        role="listitem"
+        data-kategori={value}
+        class="filter-chip"
+      >
+        {label}
+      </a>
+    );
+  })}
+</div>
+
+<script>
+  // Baca URL param saat client load dan tandai chip aktif
+  function setActiveChip() {
+    const params   = new URLSearchParams(window.location.search);
+    const aktif    = params.get('kategori') ?? 'semua';
+    const chips    = document.querySelectorAll<HTMLAnchorElement>('#category-filter .filter-chip');
+
+    chips.forEach((chip) => {
+      const val = chip.dataset.kategori ?? '';
+      if (val === aktif) {
+        chip.classList.add('active');
+        chip.setAttribute('aria-current', 'page');
+      } else {
+        chip.classList.remove('active');
+        chip.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  // Run on load
+  setActiveChip();
+
+  // Run juga saat browser back/forward
+  window.addEventListener('popstate', setActiveChip);
+</script>

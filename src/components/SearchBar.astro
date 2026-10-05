@@ -1,0 +1,49 @@
+---
+interface Props {
+  placeholder?: string;
+  value?: string;
+  action?: string;
+}
+
+const {
+  placeholder = 'Cari koper, tas kabin, pouch…',
+  value       = '',
+  action      = '/katalog',
+} = Astro.props;
+---
+
+<form method="get" action={action} role="search" class="relative w-full" aria-label="Cari produk">
+  <!-- Search icon -->
+  <div class="pointer-events-none absolute inset-y-0 left-4 flex items-center" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 text-white/30">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+    </svg>
+  </div>
+
+  <input
+    type="search"
+    name="q"
+    id="search-input"
+    value={value}
+    placeholder={placeholder}
+    autocomplete="off"
+    spellcheck="false"
+    class="w-full rounded-full border border-white/12 bg-[#1a1a1a] py-3 pl-11 pr-24 text-sm text-white shadow-sm placeholder:text-white/30 focus:border-[#c9a448] focus:outline-none focus:ring-2 focus:ring-[#c9a448]/20 transition"
+    aria-label="Kata kunci pencarian"
+  />
+
+  <button
+    type="submit"
+    class="btn-primary absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 text-xs"
+    aria-label="Cari produk"
+  >
+    Cari
+  </button>
+</form>
+
+{value && (
+  <div class="mt-2 flex items-center gap-2 text-xs text-white/40">
+    <span>Hasil: <strong class="text-white/70">"{value}"</strong></span>
+    <a href={action} class="font-semibold text-[#c9a448] hover:underline" aria-label="Hapus pencarian">× Hapus</a>
+  </div>
+)}

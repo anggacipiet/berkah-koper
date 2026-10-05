@@ -1,0 +1,321 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import BundleCard from '../components/BundleCard.astro';
+import CategoryFilter from '../components/CategoryFilter.astro';
+import { getFeaturedProducts, getBundleProducts } from '../data/products';
+import { CATEGORY_LABELS } from '../types/product';
+
+const featured = getFeaturedProducts(8);
+const bundles  = getBundleProducts();
+
+const categories = [
+  { icon: '🧳', label: 'Koper',        slug: 'koper' },
+  { icon: '🎒', label: 'Tas Kabin',    slug: 'tas-kabin' },
+  { icon: '👜', label: 'Tas Paspor',   slug: 'tas-paspor' },
+  { icon: '👜', label: 'Selempang',    slug: 'tas-selempang' },
+  { icon: '🎒', label: 'Tas Sandal',   slug: 'tas-sandal' },
+  { icon: '🧴', label: 'Pouch',        slug: 'pouch' },
+  { icon: '📦', label: 'Bundling',     slug: 'bundling' },
+  { icon: '🛒', label: 'Aksesori',     slug: 'aksesori' },
+];
+
+const whyUs = [
+  { icon: '🏆', title: 'Kualitas Premium', desc: 'Tersedia bahan pilihan ABS, Polycarbonate, dan Polypropylene yang kuat dan tahan lama.' },
+  { icon: '🕋', title: 'Desain Fungsional', desc: 'Ruang penyimpanan optimal untuk pakaian ihram dan perlengkapan pribadi jamaah.' },
+  { icon: '🛞', title: 'Ringan & Nyaman',  desc: 'Dilengkapi 360° silent wheels untuk mobilitas tinggi di bandara dan area ibadah.' },
+  { icon: '🔒', title: 'Perlindungan Maksimal', desc: 'Dilengkapi kunci kombinasi 3-digit untuk keamanan barang berharga Anda.' },
+  { icon: '🎨', title: 'Custom Warna & Logo', desc: 'Pilih warna body dan aksesori bebas. Custom logo & nama jamaah gratis untuk pemesanan grup.' },
+  { icon: '🚚', title: 'Free Ongkir Jakarta', desc: 'Pengiriman gratis area Jakarta Barat (Kalideres) dan sekitarnya. Kirim ke seluruh Indonesia.' },
+];
+---
+
+<Layout>
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="hero-pattern overflow-hidden" aria-labelledby="hero-heading">
+    <div class="container-page grid min-h-[600px] items-center gap-12 py-20 lg:grid-cols-[1.1fr_.9fr]">
+
+      <div>
+        <!-- Eyebrow -->
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9a448]/40 bg-[#c9a448]/10 px-4 py-1.5 text-xs font-bold text-[#c9a448]">
+          ✦ Supplier Koper & Tas Haji & Umrah
+        </div>
+
+        <h1 id="hero-heading" class="max-w-2xl text-5xl font-black leading-[1.05] tracking-tight text-white md:text-6xl">
+          Perlengkapan Ibadah,
+          <span class="text-[#c9a448]">Dipersiapkan dengan Baik.</span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-lg leading-8 text-white/70">
+          Koper, tas kabin, tas paspor, pouch, dan paket bundling — semua yang Anda butuhkan untuk perjalanan Haji & Umrah yang nyaman dan tenang.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/katalog" class="btn-primary">
+            Lihat Semua Produk →
+          </a>
+          <a
+            href="https://wa.me/6285282400061?text=Assalamu%27alaikum%20Berkah%20Koper%2C%20saya%20ingin%20tanya%20produk%20untuk%20Haji%2FUmrah."
+            class="btn-wa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Konsultasi Gratis
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="mt-10 flex flex-wrap gap-6 text-sm text-white/60">
+          <div class="flex items-center gap-1.5"><span class="text-[#c9a448]">✓</span> Produk Berkualitas</div>
+          <div class="flex items-center gap-1.5"><span class="text-[#c9a448]">✓</span> Pengiriman Nasional</div>
+          <div class="flex items-center gap-1.5"><span class="text-[#c9a448]">✓</span> Pesan via WhatsApp</div>
+        </div>
+      </div>
+
+      <!-- Hero visual -->
+      <div class="relative hidden lg:block">
+        <div class="absolute -inset-8 rounded-[3rem] bg-[#c9a448]/10 blur-3xl"></div>
+        <div class="relative grid grid-cols-2 gap-4">
+
+          <!-- Foto utama kiri — katalog 5 koper -->
+          <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
+            <img
+              src="/images/hero-katalog-produk.jpg"
+              alt="Koleksi Koper Premium Berkah Koper — berbagai warna pilihan"
+              class="h-full w-full object-cover object-center"
+              width="600" height="800"
+              loading="eager"
+            />
+          </div>
+
+          <!-- Thumbnail kanan — 2 foto promo -->
+          <div class="mt-8 flex flex-col gap-4">
+            <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="/images/hero-promo-umroh-hijau.jpg"
+                alt="Promo Travel Umroh — Paket Hemat koper hijau set lengkap"
+                class="h-full w-full object-cover object-top"
+                width="400" height="533"
+                loading="eager"
+              />
+            </div>
+            <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="/images/hero-promo-umroh-cream.jpg"
+                alt="Promo Travel Umroh — Paket Hemat koper cream merah set lengkap"
+                class="h-full w-full object-cover object-top"
+                width="400" height="533"
+                loading="eager"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KATEGORI ───────────────────────────────────────────── -->
+  <section class="bg-[#111111] py-16" aria-labelledby="kategori-heading">
+    <div class="container-page">
+      <h2 id="kategori-heading" class="text-center text-2xl font-black text-white">Belanja Berdasarkan Kategori</h2>
+      <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+        {categories.map(({ icon, label, slug }) => (
+          <a
+            href={`/katalog?kategori=${slug}`}
+            class="card-lift flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-[#1a1a1a] px-3 py-5 text-center transition-colors hover:border-[#c9a448]/40"
+          >
+            <span class="text-3xl" aria-hidden="true">{icon}</span>
+            <span class="text-xs font-bold text-white/70">{label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BANNER KATALOG ──────────────────────────────────────── -->
+  <section class="bg-[#0d0d0d] py-16" aria-labelledby="banner-heading">
+    <div class="container-page">
+      <div class="gold-line"></div>
+      <h2 id="banner-heading" class="mt-4 text-3xl font-black text-white">Koper PP Premium</h2>
+      <p class="mt-2 text-white/50">Anti pecah, lentur & kuat — tersedia 20", 24" & 28" dengan pilihan warna bebas.</p>
+
+      <!-- Baris 1: Banner besar + banner kecil -->
+      <div class="mt-8 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
+
+        <!-- Banner koper hitam (foto produk set) -->
+        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+          <img
+            src="/images/Katalog 2026/Katalog 2026_page-0001.jpg"
+            alt="Koleksi koper Berkah Koper — warna & model lengkap Haji & Umrah"
+            class="h-full min-h-64 w-full object-cover lg:min-h-80"
+            loading="lazy" decoding="async" width="800" height="500"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper PP Premium</div>
+            <div class="mt-1 text-xl font-black text-white">Anti Pecah, Lentur & Kuat</div>
+            <div class="mt-1 text-sm text-white/70">Lihat detail →</div>
+          </div>
+        </a>
+
+        <!-- Banner anti pecah -->
+        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+          <img
+            src="/images/Katalog 2026/Katalog 2026_page-0003.jpg"
+            alt="Koper PP Polypropylene anti pecah — lentur dan kuat"
+            class="h-full min-h-64 w-full object-cover object-top lg:min-h-80"
+            loading="lazy" decoding="async" width="600" height="500"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Bahan PP Polypropylene</div>
+            <div class="mt-1 text-xl font-black text-white">Anti Pecah!</div>
+            <div class="mt-1 text-sm text-white/80">Tersedia uk. 20", 24" & 28"</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Baris 2: Pilihan warna -->
+      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Koper ABS stripe siku besi -->
+        <a href="/produk/koper-abs-stripe-siku-besi" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+          <img
+            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0004.jpg"
+            alt="Koper ABS stripe siku besi — 5 warna ukuran 18 20 24 inci"
+            class="h-56 w-full object-cover object-top"
+            loading="lazy" decoding="async" width="600" height="320"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper ABS Stripe</div>
+            <div class="mt-0.5 text-base font-black text-white">Siku Besi — 5 Warna</div>
+          </div>
+        </a>
+
+        <!-- Koper ABS diamond one color -->
+        <a href="/produk/koper-abs-diamond-one-color" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+          <img
+            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0005.jpg"
+            alt="Koper ABS diamond motif one color — 7 warna cerah ukuran 18 20 24 inci"
+            class="h-56 w-full object-cover object-top"
+            loading="lazy" decoding="async" width="600" height="320"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper ABS Diamond</div>
+            <div class="mt-0.5 text-base font-black text-white">One Color — 7 Warna</div>
+          </div>
+        </a>
+
+        <!-- Koper set 3 ukuran -->
+        <a href="/produk/koper-abs-set-3-ukuran" class="card-lift img-zoom group relative col-span-full overflow-hidden rounded-3xl bg-slate-100 sm:col-span-2 lg:col-span-1">
+          <img
+            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0012.jpg"
+            alt="Koper ABS set 3 ukuran 20 24 28 inci dalam satu warna pilihan"
+            class="h-56 w-full object-cover object-top"
+            loading="lazy" decoding="async" width="600" height="320"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Set 3 Ukuran</div>
+            <div class="mt-0.5 text-base font-black text-white">20" + 24" + 28"</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- CTA ke halaman produk -->
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="/produk/koper-pp-premium-haji-umrah" class="btn-primary">Koper PP Premium →</a>
+        <a href="/produk/koper-abs-stripe-siku-besi" class="btn-outline">Koper ABS/PC →</a>
+        <a href="/katalog?kategori=koper" class="btn-outline">Semua Koper →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUK UNGGULAN ───────────────────────────────────── -->
+  <section class="bg-[#0d0d0d] py-20" aria-labelledby="featured-heading">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="gold-line"></div>
+          <h2 id="featured-heading" class="mt-4 text-3xl font-black text-white">Produk Unggulan</h2>
+          <p class="mt-2 text-white/50">Pilihan terbaik yang paling banyak diminati jamaah.</p>
+        </div>
+        <a href="/katalog" class="btn-outline">Lihat Semua →</a>
+      </div>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {featured.map((product) => (
+          <ProductCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUNDLING ───────────────────────────────────────────── -->
+  <section id="bundling" class="bg-[#111111] py-20" aria-labelledby="bundling-heading">
+    <div class="container-page">
+      <div class="gold-line"></div>
+      <h2 id="bundling-heading" class="mt-4 text-3xl font-black text-white">Paket Bundling</h2>
+      <p class="mt-2 text-white/50">Hemat lebih besar dengan membeli paket lengkap sekaligus.</p>
+
+      <div class="mt-8 flex flex-col gap-6">
+        {bundles.map((product) => (
+          <BundleCard product={product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── KENAPA Berkah Koper ──────────────────────────────────── -->
+  <section id="tentang" class="bg-[#0d0d0d] py-20" aria-labelledby="whyus-heading">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div>
+          <div class="gold-line"></div>
+          <h2 id="whyus-heading" class="mt-4 text-3xl font-black text-white">Mengapa Memilih Berkah Koper?</h2>
+          <p class="mt-4 leading-7 text-white/50">
+            Hadirkan ketenangan pikiran di setiap langkah ibadah Anda. Fokus pada kekhusyukan, biarkan kami menjaga keamanan barang bawaan Anda.
+          </p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {whyUs.map(({ icon, title, desc }) => (
+            <div class="rounded-2xl border border-white/10 bg-[#111111] p-6">
+              <div class="text-2xl" aria-hidden="true">{icon}</div>
+              <h3 class="mt-3 font-bold text-white">{title}</h3>
+              <p class="mt-2 text-sm leading-6 text-white/50">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ────────────────────────────────────────── -->
+  <section class="py-16" style="background:linear-gradient(135deg,#1a1400 0%,#0d0d0d 100%);border-top:1px solid rgba(201,164,72,.2);border-bottom:1px solid rgba(201,164,72,.2)" aria-label="Hubungi kami">
+    <div class="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div>
+        <div class="text-sm font-bold uppercase tracking-widest text-[#c9a448]">Siap berangkat?</div>
+        <h2 class="mt-2 max-w-xl text-3xl font-black text-white">Lengkapi perlengkapan ibadah Anda sekarang.</h2>
+      </div>
+      <div class="flex shrink-0 flex-wrap gap-3">
+        <a href="/katalog" class="rounded-full border border-[#c9a448] bg-transparent px-6 py-3 font-bold text-[#c9a448] transition hover:bg-[#c9a448] hover:text-black">
+          Lihat Katalog
+        </a>
+        <a
+          href="https://wa.me/6285282400061?text=Assalamu%27alaikum%20Berkah Koper%2C%20saya%20ingin%20tanya%20produk."
+          class="rounded-full bg-[#c9a448] px-6 py-3 font-bold text-black transition hover:bg-[#e8c96a]"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chat WhatsApp →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
