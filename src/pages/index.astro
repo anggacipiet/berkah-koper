@@ -12,12 +12,8 @@ const bundles  = getBundleProducts();
 const categories = [
   { icon: '🧳', label: 'Koper',        slug: 'koper' },
   { icon: '🎒', label: 'Tas Kabin',    slug: 'tas-kabin' },
-  { icon: '👜', label: 'Tas Paspor',   slug: 'tas-paspor' },
-  { icon: '👜', label: 'Selempang',    slug: 'tas-selempang' },
+  { icon: '👜', label: 'Tas Selempang',slug: 'tas-selempang' },
   { icon: '🎒', label: 'Tas Sandal',   slug: 'tas-sandal' },
-  { icon: '🧴', label: 'Pouch',        slug: 'pouch' },
-  { icon: '📦', label: 'Bundling',     slug: 'bundling' },
-  { icon: '🛒', label: 'Aksesori',     slug: 'aksesori' },
 ];
 
 const whyUs = [
@@ -123,7 +119,7 @@ const whyUs = [
     <div class="container-page">
       <div class="gold-line mx-auto"></div>
       <h2 id="kategori-heading" class="mt-4 text-center text-xl font-bold tracking-wide text-white/60 uppercase text-sm">Belanja Berdasarkan Kategori</h2>
-      <div class="mt-6 grid grid-cols-4 gap-3 lg:grid-cols-8">
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {categories.map(({ icon, label, slug }) => (
           <a
             href={`/katalog?kategori=${slug}`}
