@@ -93,15 +93,17 @@ body {
   margin: 0;
 }
 
-/* ── Badge ───────────────────────────────────────────────────── */
+/* ── Badge — unified gold only ───────────────────────────────── */
 .badge {
-  display: inline-block; border-radius: 999px;
-  padding: .2rem .65rem; font-size: .68rem;
-  font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  display: inline-block; border-radius: 4px;
+  padding: .15rem .55rem; font-size: .62rem;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  background: rgba(201,164,72,.12);
+  color: var(--gold3);
+  border: 1px solid rgba(201,164,72,.3);
 }
-.badge-gold  { background: #2a2200; color: var(--gold3); border: 1px solid var(--gold2); }
-.badge-green { background: #0d2a1a; color: #4ade80; border: 1px solid #166534; }
-.badge-red   { background: #2a0d0d; color: #f87171; border: 1px solid #991b1b; }
+/* semua varian → sama, gold only */
+.badge-gold, .badge-green, .badge-red { background: rgba(201,164,72,.12); color: var(--gold3); border-color: rgba(201,164,72,.3); }
 
 /* ── Hero pattern — black-gold Kabah ────────────────────────── */
 .hero-pattern {
@@ -154,17 +156,27 @@ body {
 /* ── Floating WA button ──────────────────────────────────────── */
 .wa-float {
   position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100;
-  display: flex; align-items: center; gap: .6rem;
+  display: flex; align-items: center; justify-content: center;
   background: #25d366; color: #fff;
   font-weight: 700; font-size: .85rem;
-  border-radius: 999px; padding: .75rem 1.25rem .75rem 1rem;
+  border-radius: 999px;
+  /* Mobile: bulat sempurna */
+  width: 3.25rem; height: 3.25rem; padding: 0;
   box-shadow: 0 4px 20px rgba(37,211,102,.4);
   text-decoration: none;
   transition: transform .2s, box-shadow .2s;
   animation: wa-pulse 2.5s infinite;
 }
+/* Desktop: pill dengan teks */
+@media (min-width: 640px) {
+  .wa-float {
+    width: auto; height: auto;
+    padding: .75rem 1.25rem;
+    gap: .6rem;
+  }
+}
 .wa-float:hover {
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-2px) scale(1.06);
   box-shadow: 0 8px 28px rgba(37,211,102,.55); animation: none;
 }
 @keyframes wa-pulse {

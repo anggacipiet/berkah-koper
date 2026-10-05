@@ -121,15 +121,19 @@ const whyUs = [
   <!-- ── KATEGORI ───────────────────────────────────────────── -->
   <section class="bg-[#111111] py-16" aria-labelledby="kategori-heading">
     <div class="container-page">
-      <h2 id="kategori-heading" class="text-center text-2xl font-black text-white">Belanja Berdasarkan Kategori</h2>
-      <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+      <div class="gold-line mx-auto"></div>
+      <h2 id="kategori-heading" class="mt-4 text-center text-xl font-bold tracking-wide text-white/60 uppercase text-sm">Belanja Berdasarkan Kategori</h2>
+      <div class="mt-6 grid grid-cols-4 gap-3 lg:grid-cols-8">
         {categories.map(({ icon, label, slug }) => (
           <a
             href={`/katalog?kategori=${slug}`}
-            class="card-lift flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-[#1a1a1a] px-3 py-5 text-center transition-colors hover:border-[#c9a448]/40"
+            class="group flex flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#161616] px-2 py-4 text-center transition-all duration-200 hover:border-[#c9a448]/40 hover:bg-[#c9a448]/6"
           >
-            <span class="text-3xl" aria-hidden="true">{icon}</span>
-            <span class="text-xs font-bold text-white/70">{label}</span>
+            <!-- Icon container gold monochrome -->
+            <div class="flex size-10 items-center justify-center rounded-xl border border-[#c9a448]/20 bg-[#c9a448]/8 text-lg transition-all group-hover:border-[#c9a448]/50 group-hover:bg-[#c9a448]/15">
+              {icon}
+            </div>
+            <span class="text-[10px] font-semibold leading-tight text-white/50 group-hover:text-white/80 transition-colors">{label.replace(/^[^ ]+ /, '')}</span>
           </a>
         ))}
       </div>
@@ -285,10 +289,13 @@ const whyUs = [
         </div>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {whyUs.map(({ icon, title, desc }) => (
-            <div class="rounded-2xl border border-white/10 bg-[#111111] p-6">
-              <div class="text-2xl" aria-hidden="true">{icon}</div>
-              <h3 class="mt-3 font-bold text-white">{title}</h3>
-              <p class="mt-2 text-sm leading-6 text-white/50">{desc}</p>
+            <div class="group rounded-xl border border-white/8 bg-[#161616] p-5 transition-all hover:border-[#c9a448]/25 hover:bg-[#c9a448]/4">
+              <!-- Icon container gold -->
+              <div class="mb-4 flex size-9 items-center justify-center rounded-lg border border-[#c9a448]/20 bg-[#c9a448]/8 text-base">
+                {icon}
+              </div>
+              <h3 class="text-sm font-bold text-white/90">{title}</h3>
+              <p class="mt-1.5 text-xs leading-5 text-white/45">{desc}</p>
             </div>
           ))}
         </div>
