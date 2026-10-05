@@ -97,8 +97,8 @@ const jsonLd = JSON.stringify({
               </div>
             )}
 
-            <!-- Gambar utama -->
-            <div class="img-zoom aspect-square overflow-hidden rounded-2xl bg-[#222222]">
+            <!-- Gambar utama — klik untuk zoom -->
+            <div class="img-zoom aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-[#222222]" id="main-img-wrap">
               {images[0] ? (
                 <img
                   id="main-img"
@@ -292,12 +292,49 @@ const jsonLd = JSON.stringify({
 
     </div>
   </div>
+<!-- ── Lightbox ──────────────────────────────────────────────── -->
+<div
+  id="lightbox"
+  class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/92 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Zoom gambar produk"
+>
+  <!-- Tombol tutup -->
+  <button
+    id="lightbox-close"
+    class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-[#c9a448] hover:text-black"
+    aria-label="Tutup"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Gambar zoom -->
+  <div class="flex max-h-[90vh] max-w-[90vw] items-center justify-center p-4">
+    <img
+      id="lightbox-img"
+      src=""
+      alt=""
+      class="max-h-[85vh] max-w-[85vw] rounded-xl object-contain shadow-2xl"
+    />
+  </div>
+
+  <!-- Hint -->
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-white/30">
+    Klik di luar gambar atau tekan Esc untuk menutup
+  </div>
+</div>
+
 </Layout>
 
 <script>
   // Thumbnail gallery
   const mainImg   = document.getElementById('main-img') as HTMLImageElement | null;
+  const mainWrap  = document.getElementById('main-img-wrap');
   const thumbBtns = document.querySelectorAll<HTMLButtonElement>('.thumb-btn');
+
   thumbBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const src = btn.dataset.src;
@@ -307,6 +344,48 @@ const jsonLd = JSON.stringify({
         btn.classList.add('border-[#c9a448]');
       }
     });
+  });
+
+  // ── Lightbox ──────────────────────────────────────────────────
+  const lightbox    = document.getElementById('lightbox') as HTMLElement;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  function openLightbox(src: string, alt: string) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Klik gambar utama → buka lightbox
+  mainWrap?.addEventListener('click', () => {
+    if (mainImg?.src) openLightbox(mainImg.src, mainImg.alt);
+  });
+
+  // Klik thumbnail → update gambar utama DAN buka lightbox
+  thumbBtns.forEach((btn) => {
+    btn.addEventListener('dblclick', () => {
+      const src = btn.dataset.src ?? '';
+      const alt = btn.querySelector('img')?.alt ?? '';
+      if (src) openLightbox(src, alt);
+    });
+  });
+
+  // Tutup lightbox
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
   });
 
   // Size selector — update WA message dengan ukuran terpilih
