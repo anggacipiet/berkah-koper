@@ -5,13 +5,12 @@ interface Props {
 
 const { basePath = '/katalog' } = Astro.props;
 
-// Hanya 4 kategori + semua
 const allCategories = [
-  { value: 'semua',         label: 'Semua Produk' },
-  { value: 'koper',         label: 'Koper' },
-  { value: 'tas-kabin',     label: 'Tas Kabin' },
-  { value: 'tas-paspor',    label: 'Tas Paspor' },
-  { value: 'tas-selempang', label: 'Tas Selempang' },
+  { value: 'semua',     label: 'Semua Produk' },
+  { value: 'koper',     label: 'Koper' },
+  { value: 'tas-kabin', label: 'Tas Kabin' },
+  { value: 'tas-paspor-selempang', label: 'Tas Paspor/Selempang' },
+  { value: 'tas-sandal', label: 'Tas Sandal' },
 ];
 ---
 
@@ -19,12 +18,7 @@ const allCategories = [
   {allCategories.map(({ value, label }) => {
     const href = value === 'semua' ? basePath : `${basePath}?kategori=${value}`;
     return (
-      <a
-        href={href}
-        role="listitem"
-        data-kategori={value}
-        class="filter-chip"
-      >
+      <a href={href} role="listitem" data-kategori={value} class="filter-chip">
         {label}
       </a>
     );
@@ -33,22 +27,14 @@ const allCategories = [
 
 <script>
   function setActiveChip() {
-    const params   = new URLSearchParams(window.location.search);
-    const aktif    = params.get('kategori') ?? 'semua';
-    const chips    = document.querySelectorAll<HTMLAnchorElement>('#category-filter .filter-chip');
-
-    chips.forEach((chip) => {
+    const params = new URLSearchParams(window.location.search);
+    const aktif  = params.get('kategori') ?? 'semua';
+    document.querySelectorAll<HTMLAnchorElement>('#category-filter .filter-chip').forEach((chip) => {
       const val = chip.dataset.kategori ?? '';
-      if (val === aktif) {
-        chip.classList.add('active');
-        chip.setAttribute('aria-current', 'page');
-      } else {
-        chip.classList.remove('active');
-        chip.removeAttribute('aria-current');
-      }
+      chip.classList.toggle('active', val === aktif);
+      val === aktif ? chip.setAttribute('aria-current','page') : chip.removeAttribute('aria-current');
     });
   }
-
   setActiveChip();
   window.addEventListener('popstate', setActiveChip);
 </script>

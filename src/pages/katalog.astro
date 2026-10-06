@@ -98,8 +98,17 @@ const pageDesc  = 'Katalog lengkap koper dan tas Haji & Umrah Berkah Koper. Baha
       const desc     = item.dataset.desc ?? '';
       const category = item.dataset.category ?? '';
 
-      const matchCat = kategori === 'semua' || category === kategori;
-      const matchQ   = !q || name.includes(q) || desc.includes(q) || category.includes(q);
+      // tas-paspor-selempang = tampilkan tas-paspor DAN tas-selempang
+      let matchCat = false;
+      if (kategori === 'semua') {
+        matchCat = true;
+      } else if (kategori === 'tas-paspor-selempang') {
+        matchCat = category === 'tas-paspor' || category === 'tas-selempang';
+      } else {
+        matchCat = category === kategori;
+      }
+
+      const matchQ = !q || name.includes(q) || desc.includes(q) || category.includes(q);
 
       if (matchCat && matchQ) {
         item.style.display = '';
