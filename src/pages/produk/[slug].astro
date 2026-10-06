@@ -15,7 +15,7 @@ export const getStaticPaths: GetStaticPaths = () =>
   getAllProducts().map((p) => ({ params: { slug: p.slug } }));
 
 const { slug } = Astro.params;
-const product  = getProductBySlug(slug!);
+const product  = getProductBySlug(String(slug ?? ''));
 if (!product) return Astro.redirect('/katalog');
 
 const {
