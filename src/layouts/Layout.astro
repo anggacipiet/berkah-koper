@@ -121,7 +121,9 @@ const navLinks = [
           {navLinks.map(({ href, label }) => (
             <a
               href={href}
-              class="relative text-white/70 transition-colors hover:text-[#c9a448] after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-[#c9a448] after:transition-transform hover:after:scale-x-100"
+              data-nav-href={href}
+              class="nav-link relative pb-0.5 text-white/70 transition-colors hover:text-[#c9a448]"
+              style="border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;"
             >
               {label}
             </a>
@@ -270,6 +272,33 @@ const navLinks = [
       </svg>
       <span class="hidden sm:inline">Chat Sekarang</span>
     </a>
+
+    <!-- ── Active nav script ────────────────────────────────────── -->
+    <script>
+      const path = window.location.pathname;
+      document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach((link) => {
+        const href = link.dataset.navHref ?? '';
+        const isActive =
+          href === '/'        ? path === '/'
+          : href.startsWith('/#') ? false
+          : path.startsWith(href);
+        if (isActive) {
+          link.style.color       = '#c9a448';
+          link.style.borderColor = '#c9a448';
+          link.setAttribute('aria-current', 'page');
+        }
+        link.addEventListener('mouseenter', () => {
+          if (!link.getAttribute('aria-current')) {
+            link.style.borderColor = 'rgba(201,164,72,.5)';
+          }
+        });
+        link.addEventListener('mouseleave', () => {
+          if (!link.getAttribute('aria-current')) {
+            link.style.borderColor = 'transparent';
+          }
+        });
+      });
+    </script>
 
     <!-- ── Mobile menu script ────────────────────────────────────── -->
     <script>
