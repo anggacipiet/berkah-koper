@@ -731,8 +731,8 @@ export const products: Product[] = [
     price: 0,
     priceLabel: 'Hubungi untuk info harga',
     images: [
-      '/images/koper-custom-embos-pink.jpg',
-      '/images/koper-custom-embos-hitam.jpg',
+      '/images/koper-custom-embos/koper-custom-embos-pink.jpg',
+      '/images/koper-custom-embos/koper-custom-embos-hitam.jpg',
     ],
     isBundle: true,
     bundleItems: [
