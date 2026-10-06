@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.koperumroh.com/sitemap-index.xml
+
+Sitemap: https://berkah-koper.pages.dev/sitemap-index.xml

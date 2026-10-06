@@ -729,7 +729,7 @@ export const products: Product[] = [
   },
 
   {
-    slug: 'paket-bundling-haji-complete',
+    slug: 'koper-custom-embos-moulding',
     name: 'Koper Custom Embos Moulding',
     category: 'bundling',
     badge: 'CUSTOM',

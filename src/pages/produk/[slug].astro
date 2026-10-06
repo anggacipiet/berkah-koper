@@ -35,6 +35,10 @@ const related = getProductsByCategory(category)
 const pageTitle = `${name} — Berkah Koper`;
 const pageDesc  = product.shortDesc;
 const pageImage = images[0];
+const siteOrigin = Astro.site ?? new URL('https://berkah-koper.pages.dev');
+const absoluteImages = images.map((src) =>
+  src.startsWith('http') ? src : new URL(src, siteOrigin).href,
+);
 
 const badgeClass =
   badge === 'TERLARIS' ? 'badge-gold'
@@ -55,14 +59,14 @@ const jsonLd = JSON.stringify({
   '@type': 'Product',
   name,
   description,
-  image: images,
+  image: absoluteImages,
   brand: { '@type': 'Brand', name: 'Berkah Koper' },
   offers: {
     '@type': 'Offer',
-    priceCurrency: 'IDR',
     availability: inStock
       ? 'https://schema.org/InStock'
       : 'https://schema.org/OutOfStock',
+    url: new URL(`/produk/${product.slug}`, siteOrigin).href,
     seller: { '@type': 'Organization', name: 'Berkah Koper' },
   },
 });

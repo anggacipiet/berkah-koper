@@ -16,18 +16,21 @@ npm run build
 npm run preview
 ```
 
+## SEO teknis
+
+- Domain sementara di `astro.config.mjs` + `public/robots.txt`: `https://berkah-koper.pages.dev`
+- Sitemap otomatis: `@astrojs/sitemap` → `dist/sitemap-index.xml`
+- OG image absolut + schema Organization/LocalBusiness
+- Product schema tanpa harga (stok + URL saja)
+
 ## Sebelum production
 
-Ganti:
-- `Koperumroh` / nama legal perusahaan
-- nomor WhatsApp `6281234567890`
-- email `info@koperumroh.com`
-- alamat
-- harga paket contoh
-- foto hero
-- informasi legalitas/perizinan
-- domain pada `robots.txt`
-- metadata SEO
+Pastikan:
+- Beli domain sendiri (jangan pakai `berkahkoper.com` — sudah dipakai orang lain)
+- Update `site` di `astro.config.mjs` dan sitemap di `robots.txt`
+- Nama legal perusahaan, alamat lengkap, email
+- Foto produk & legalitas/perizinan
+- Google Search Console (submit sitemap)
 
 ## Deploy Cloudflare Pages
 

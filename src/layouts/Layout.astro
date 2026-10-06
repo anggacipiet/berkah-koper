@@ -15,7 +15,40 @@ const {
   type = 'website',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://berkahkoper.com');
+const SITE = Astro.site ?? new URL('https://berkah-koper.pages.dev');
+const canonicalURL = new URL(Astro.url.pathname, SITE);
+const ogImage = image.startsWith('http')
+  ? image
+  : new URL(image, SITE).href;
+
+const orgJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  name: 'Berkah Koper',
+  url: SITE.href.replace(/\/$/, ''),
+  logo: new URL('/images/logo.webp', SITE).href,
+  image: ogImage,
+  description,
+  telephone: '+6285282400061',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kalideres',
+    addressRegion: 'DKI Jakarta',
+    addressCountry: 'ID',
+  },
+  areaServed: 'ID',
+  sameAs: [
+    'https://instagram.com/berkahkoper',
+    'https://tiktok.com/@berkahkoper',
+    'https://facebook.com/berkahkoper',
+  ],
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '08:00',
+    closes: '20:00',
+  },
+});
 
 const WA_URL = "https://wa.me/6285282400061?text=Assalamu%27alaikum%20Berkah%20Koper%2C%20saya%20ingin%20tanya%20produk.";
 
@@ -43,7 +76,7 @@ const navLinks = [
     <!-- Open Graph -->
     <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image"       content={image} />
+    <meta property="og:image"       content={ogImage} />
     <meta property="og:type"        content={type} />
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:site_name"   content="Berkah Koper" />
@@ -53,7 +86,10 @@ const navLinks = [
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image"       content={image} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- Organization / LocalBusiness -->
+    <script type="application/ld+json" set:html={orgJsonLd} />
 
     <!-- Preconnect fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
