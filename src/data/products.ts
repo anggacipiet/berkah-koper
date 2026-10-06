@@ -694,7 +694,7 @@ export const products: Product[] = [
     name: 'Paket Bundling Umrah Starter',
     category: 'bundling',
     badge: 'HEMAT 20%',
-    shortDesc: 'Paket lengkap koper + tas untuk jamaah umrah — koper cabin, koper bagasi, tas selempang, tas serut branded.',
+    shortDesc: 'Paket lengkap koper + tas untuk jamaah umrah — koper cabin, koper bagasi, tas selempang, tas serut.',
     description:
       'Paket bundling umrah starter Berkah Koper — set lengkap siap berangkat. Tersedia dalam berbagai pilihan warna dan bisa dikustomisasi dengan logo travel Anda. Cocok untuk pemesanan grup jamaah.',
     price: 999000,
@@ -712,8 +712,8 @@ export const products: Product[] = [
     bundleItems: [
       'Koper Cabin (20")',
       'Koper Bagasi (24" atau 28")',
-      'Tas Selempang branded',
-      'Tas Serut branded',
+      'Tas Selempang',
+      'Tas Serut',
     ],
     features: [
       'Set lengkap siap berangkat umrah',
