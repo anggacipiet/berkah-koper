@@ -54,7 +54,7 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   'tas-kabin':     '🎒 Tas Kabin',
   'tas-paspor':    '👜 Tas Paspor',
   'tas-selempang': '👜 Tas Selempang',
-  'tas-sandal':    '🎒 Tas Sandal',
+  'tas-sandal':    '👟 Tas Sandal',
   'pouch':         '🧴 Pouch',
   'bundling':      '📦 Paket Bundling',
   'aksesori':      '🛒 Aksesori',

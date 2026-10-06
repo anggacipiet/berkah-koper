@@ -1,0 +1,86 @@
+---
+import type { ColorGroup } from '../types/product';
+
+interface Props {
+  colorGroups: ColorGroup[];
+  productName: string;
+}
+const { colorGroups } = Astro.props;
+const groupsJson = JSON.stringify(colorGroups);
+---
+
+<div class="color-picker-root flex flex-col gap-5" data-groups={groupsJson}>
+  {colorGroups.map((group, gi) => (
+    <div>
+      <div class="mb-2 flex items-center gap-2">
+        <span class="text-sm font-semibold text-[var(--navy)]">{group.label}</span>
+        <span class="selected-label text-xs text-[var(--gold-deep)]" data-group={gi}>— pilih warna</span>
+      </div>
+      <div class="flex flex-wrap gap-2" role="radiogroup" aria-label={group.label}>
+        {group.colors.map((color, ci) => (
+          <button
+            type="button"
+            role="radio"
+            aria-checked="false"
+            aria-label={color.name}
+            data-group={gi}
+            data-index={ci}
+            data-name={color.name}
+            data-hex={color.hex}
+            data-img-index={color.imageIndex ?? ''}
+            class:list={[
+              'color-swatch relative size-8 border border-black/10 outline outline-2 outline-transparent',
+              group.type === 'accent' ? 'rounded-lg' : 'rounded-full',
+            ]}
+            style={`background-color: ${color.hex}`}
+            title={color.name}
+          />
+        ))}
+      </div>
+    </div>
+  ))}
+  <div id="color-summary" class="hidden rounded-2xl bg-[#0a0a0a] p-4 text-sm ring-1 ring-[rgba(201,164,72,0.25)]">
+    <div class="text-xs font-semibold uppercase tracking-wider text-[var(--gold-deep)]">Pilihan Anda</div>
+    <ul id="summary-list" class="mt-2 space-y-1 text-[var(--navy)]"></ul>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.color-picker-root');
+  if (!root) throw new Error('ColorPicker root not found');
+  const groups: Array<{ label: string; colors: Array<{ name: string; hex: string }> }> =
+    JSON.parse(root.dataset.groups ?? '[]');
+  const selectedColors: Array<{ name: string; hex: string } | null> = groups.map(() => null);
+
+  function updateSummary(): void {
+    const summary = document.getElementById('color-summary');
+    const list = document.getElementById('summary-list');
+    const waButtons = document.querySelectorAll<HTMLAnchorElement>('[data-wa-base]');
+    if (!summary || !list) return;
+    if (!selectedColors.some(Boolean)) { summary.classList.add('hidden'); return; }
+    summary.classList.remove('hidden');
+    list.innerHTML = selectedColors
+      .map((sel, gi) => sel ? `<li>${groups[gi].label}: ${sel.name}</li>` : '')
+      .join('');
+    const colorInfo = selectedColors.map((sel, gi) => sel ? `${groups[gi].label}: ${sel.name}` : null).filter(Boolean).join(', ');
+    waButtons.forEach((btn) => {
+      btn.href = (btn.dataset.waBase ?? '') + encodeURIComponent(`\n\nPilihan warna: ${colorInfo}`);
+    });
+  }
+
+  root.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.color-swatch');
+    if (!btn) return;
+    const gi = parseInt(btn.dataset.group ?? '0', 10);
+    root.querySelectorAll<HTMLButtonElement>(`.color-swatch[data-group="${gi}"]`).forEach((b) => {
+      b.setAttribute('aria-checked', 'false');
+      b.style.outlineColor = 'transparent';
+    });
+    btn.setAttribute('aria-checked', 'true');
+    btn.style.outlineColor = '#c4a35a';
+    const label = root.querySelector<HTMLElement>(`.selected-label[data-group="${gi}"]`);
+    if (label) label.textContent = btn.dataset.name ?? '';
+    selectedColors[gi] = { name: btn.dataset.name ?? '', hex: btn.dataset.hex ?? '#000' };
+    updateSummary();
+  });
+</script>

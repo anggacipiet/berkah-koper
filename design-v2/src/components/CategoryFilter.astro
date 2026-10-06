@@ -1,0 +1,30 @@
+---
+import { CATEGORY_LABELS } from '../types/product';
+
+interface Props { basePath?: string; }
+const { basePath = '/katalog' } = Astro.props;
+const allCategories = [
+  { value: 'semua', label: 'Semua' },
+  ...Object.entries(CATEGORY_LABELS).map(([value, label]) => ({
+    value,
+    label: label.replace(/^[^ ]+ /, ''),
+  })),
+];
+---
+
+<div class="flex flex-wrap gap-2" role="list" aria-label="Filter kategori" id="v2-filter">
+  {allCategories.map(({ value, label }) => {
+    const href = value === 'semua' ? basePath : `${basePath}?kategori=${value}`;
+    return (
+      <a href={href} role="listitem" data-kategori={value} class="v2-chip">{label}</a>
+    );
+  })}
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const aktif = params.get('kategori') ?? 'semua';
+  document.querySelectorAll<HTMLAnchorElement>('#v2-filter .v2-chip').forEach((chip) => {
+    if (chip.dataset.kategori === aktif) chip.classList.add('active');
+  });
+</script>

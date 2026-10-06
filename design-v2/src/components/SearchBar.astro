@@ -1,0 +1,24 @@
+---
+interface Props {
+  placeholder?: string;
+  value?: string;
+  action?: string;
+}
+const {
+  placeholder = 'Cari koper atau tas…',
+  value = '',
+  action = '/katalog',
+} = Astro.props;
+---
+
+<form method="get" action={action} role="search" class="relative w-full" aria-label="Cari produk">
+  <input
+    type="search"
+    name="q"
+    value={value}
+    placeholder={placeholder}
+    class="w-full rounded-full border border-[rgba(201,164,72,0.25)] bg-[#111] py-3 pl-5 pr-24 text-sm text-[#f4ead2] placeholder:text-[var(--muted)] focus:border-[var(--gold)] focus:outline-none"
+    aria-label="Kata kunci"
+  />
+  <button type="submit" class="v2-btn v2-btn-navy absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 text-xs">Cari</button>
+</form>

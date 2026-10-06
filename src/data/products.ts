@@ -34,10 +34,10 @@ const IMG = {
   koperUkuran:    '/images/koper-ukuran-20-24-inch.jpg',
 
   // ── Non-koper — foto dari katalog Berkah Koper ───────────────────────────
-  tasKabin:    `${K26}/Katalog 2026_page-0002.jpg`, // koper teal + tas serut + tas paspor
-  tasPaspor:   `${K26}/Katalog 2026_page-0002.jpg`, // ada tas paspor di foto ini
-  tasSelempang:`${K26}/Katalog 2026_page-0006.jpg`, // foto set lengkap dengan tas
-  tasSandal:   `${K26}/Katalog 2026_page-0006.jpg`, // foto spesifikasi koper & tas
+  tasKabin:    `${K26}/Katalog 2026_page-0002.jpg`,
+  tasPaspor:   `${BK26}/Katalog Berkah Koper 2026_page-0021.jpg`,
+  tasSelempang:`${BK26}/Katalog Berkah Koper 2026_page-0021.jpg`,
+  tasSandal:   `${BK26}/Katalog Berkah Koper 2026_page-0021.jpg`,
   pouch:       `${K26}/Katalog 2026_page-0006.jpg`, // foto tas & aksesori perjalanan
   bundling:    `${K26}/Katalog 2026_page-0001.jpg`, // cover katalog — semua produk
   aksesori:    `${BK26}/Katalog Berkah Koper 2026_page-0004.jpg`, // detail produk koper
