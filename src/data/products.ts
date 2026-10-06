@@ -733,6 +733,13 @@ export const products: Product[] = [
     images: [
       '/images/koper-custom-embos/koper-custom-embos-pink.jpg',
       '/images/koper-custom-embos/koper-custom-embos-hitam.jpg',
+      '/images/koper-custom-embos/koper-silver-rosegold.jpg',
+      '/images/koper-custom-embos/koper-cream-rosegold.jpg',
+      '/images/koper-custom-embos/koper-hitam-rosegold.jpg',
+      '/images/koper-custom-embos/koper-kuning-diamond.jpg',
+      '/images/koper-custom-embos/koper-gunmetal-diamond.jpg',
+      '/images/koper-custom-embos/koper-hitam-orange.jpg',
+      '/images/koper-custom-embos/koper-merah-masjid.jpg',
     ],
     isBundle: true,
     bundleItems: [
