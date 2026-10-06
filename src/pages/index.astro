@@ -12,8 +12,8 @@ const bundles  = getBundleProducts();
 const categories = [
   { icon: '🧳', label: 'Koper',        slug: 'koper' },
   { icon: '🎒', label: 'Tas Kabin',    slug: 'tas-kabin' },
+  { icon: '👜', label: 'Tas Paspor',   slug: 'tas-paspor' },
   { icon: '👜', label: 'Tas Selempang',slug: 'tas-selempang' },
-  { icon: '🎒', label: 'Tas Sandal',   slug: 'tas-sandal' },
 ];
 
 const whyUs = [
@@ -129,7 +129,7 @@ const whyUs = [
             <div class="flex size-10 items-center justify-center rounded-xl border border-[#c9a448]/20 bg-[#c9a448]/8 text-lg transition-all group-hover:border-[#c9a448]/50 group-hover:bg-[#c9a448]/15">
               {icon}
             </div>
-            <span class="text-[10px] font-semibold leading-tight text-white/50 group-hover:text-white/80 transition-colors">{label.replace(/^[^ ]+ /, '')}</span>
+            <span class="text-[10px] font-semibold leading-tight text-white/50 group-hover:text-white/80 transition-colors">{label}</span>
           </a>
         ))}
       </div>

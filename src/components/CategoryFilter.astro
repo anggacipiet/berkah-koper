@@ -1,15 +1,17 @@
 ---
-import { CATEGORY_LABELS } from '../types/product';
-
 interface Props {
   basePath?: string;
 }
 
 const { basePath = '/katalog' } = Astro.props;
 
+// Hanya 4 kategori + semua
 const allCategories = [
-  { value: 'semua', label: '🗂️ Semua Produk' },
-  ...Object.entries(CATEGORY_LABELS).map(([value, label]) => ({ value, label })),
+  { value: 'semua',         label: 'Semua Produk' },
+  { value: 'koper',         label: 'Koper' },
+  { value: 'tas-kabin',     label: 'Tas Kabin' },
+  { value: 'tas-paspor',    label: 'Tas Paspor' },
+  { value: 'tas-selempang', label: 'Tas Selempang' },
 ];
 ---
 
@@ -30,7 +32,6 @@ const allCategories = [
 </div>
 
 <script>
-  // Baca URL param saat client load dan tandai chip aktif
   function setActiveChip() {
     const params   = new URLSearchParams(window.location.search);
     const aktif    = params.get('kategori') ?? 'semua';
@@ -48,9 +49,6 @@ const allCategories = [
     });
   }
 
-  // Run on load
   setActiveChip();
-
-  // Run juga saat browser back/forward
   window.addEventListener('popstate', setActiveChip);
 </script>
