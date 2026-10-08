@@ -1,0 +1,96 @@
+order: 1
+name: Koper PP Premium Haji & Umrah
+category: koper
+badge: TERLARIS
+shortDesc: Koper Polypropylene anti pecah, lentur & kuat — 10 warna, tersedia 20", 24" & 28".
+description: >-
+  Koper berbahan Polypropylene (PP) premium — anti pecah, lentur, dan sangat ringan. Tekstur motif
+  anyaman elegan. Tersedia dalam 10 pilihan warna body dan 12 pilihan warna aksesori One Color
+  System (roda, handle, corner guard). Cocok untuk perjalanan Haji & Umrah dengan kloter besar
+  karena bisa dikustomisasi warna per jamaah.
+price: 750000
+priceLabel: Mulai Rp 750.000
+images:
+  - /images/koper-pp-premium-haji-umrah/images/0.jpg
+  - /images/koper-pp-premium-haji-umrah/images/1.jpg
+  - /images/koper-pp-premium-haji-umrah/images/2.jpg
+  - /images/koper-pp-premium-haji-umrah/images/3.jpg
+  - /images/koper-pp-premium-haji-umrah/images/4.jpg
+  - /images/koper-pp-premium-haji-umrah/images/5.jpg
+  - /images/koper-pp-premium-haji-umrah/images/6.jpg
+sizes:
+  - 20"
+  - 24"
+  - 28"
+variants:
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 150000
+  - label: 28"
+    priceAdj: 300000
+colorGroups:
+  - label: Warna Body
+    type: body
+    colors:
+      - name: Putih
+        hex: '#f0ead6'
+      - name: Abu-Abu
+        hex: '#4a4a4a'
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru
+        hex: '#1a9bdc'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Ungu Muda
+        hex: '#c3aee0'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Pink
+        hex: '#e8917a'
+      - name: Hijau Alpukat
+        hex: '#7a8c4e'
+      - name: Biru Navy
+        hex: '#1e2d5a'
+  - label: Warna Aksesori (One Color System)
+    type: accent
+    colors:
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru BCA
+        hex: '#0a5fb4'
+      - name: Hijau Stabilo
+        hex: '#7aed0a'
+      - name: Gold
+        hex: '#d4a017'
+      - name: Kuning Kunyit
+        hex: '#c8960a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Merah Cabe
+        hex: '#c0141e'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Abu-Abu
+        hex: '#6a6a6a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Coklat
+        hex: '#7a4a2a'
+features:
+  - Bahan PP (Polypropylene) anti pecah & lentur
+  - Motif anyaman premium — tidak mudah tergores
+  - 10 pilihan warna body koper
+  - 12 pilihan warna aksesori One Color System
+  - Custom logo & nama jamaah (free)
+  - Roda double spinner silent 360°
+  - Kunci TSA terintegrasi
+  - Handle teleskopik aluminium multi-level
+  - Interior divider + strap pengikat
+  - Free ongkir area Jakarta
+weight: 3.2 kg (24")
+material: Polypropylene (PP) Premium
+inStock: true

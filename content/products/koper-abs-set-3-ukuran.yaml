@@ -1,0 +1,43 @@
+order: 8
+name: Koper ABS Set 3 Ukuran
+category: koper
+badge: HEMAT
+shortDesc: Set koper ABS/PC 3 ukuran sekaligus — 20", 24" & 28" dalam 1 warna pilihan.
+description: >-
+  Beli set 3 koper sekaligus dalam 1 warna pilihan: 20", 24", dan 28". Cocok untuk keluarga atau
+  kloter haji yang ingin seragam. Tersedia dalam 6 pilihan warna. Harga lebih hemat vs beli satuan.
+price: 1200000
+priceLabel: Rp 1.200.000 / set 3 koper
+images:
+  - /images/koper-abs-set-3-ukuran/images/0.jpg
+  - /images/koper-abs-set-3-ukuran/images/1.jpg
+  - /images/koper-abs-set-3-ukuran/images/2.jpg
+colorGroups:
+  - label: Pilihan Warna Set
+    type: body
+    colors:
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Hijau
+        hex: '#7aed0a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Navy
+        hex: '#1e2d5a'
+      - name: Kuning
+        hex: '#d4a017'
+features:
+  - Set lengkap 20" + 24" + 28" dalam 1 warna
+  - 7 pilihan warna tersedia
+  - Bahan ABS & Polycarbonate (PC)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Custom logo & nama (free)
+  - Free ongkir area Jakarta
+weight: 8.5 kg (total set)
+material: ABS + Polycarbonate (PC)
+inStock: true

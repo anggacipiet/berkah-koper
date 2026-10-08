@@ -1,0 +1,22 @@
+order: 21
+name: Tag Koper Nama Haji
+category: koper
+shortDesc: Label koper silikon tebal, tahan cuaca, mudah dibaca.
+description: Tag koper silikon premium. Bisa diisi nama, kloter, dan nomor telepon.
+price: 25000
+images:
+  - /images/tag-koper-nama-haji/images/0.jpg
+variants:
+  - label: Hijau
+    priceAdj: 0
+  - label: Kuning
+    priceAdj: 0
+  - label: Merah
+    priceAdj: 0
+features:
+  - Silikon tebal tahan cuaca
+  - Strap pengait kuat double-lock
+  - Isi 2 pcs per pack
+weight: 0.04 kg
+material: Silikon Premium
+inStock: true

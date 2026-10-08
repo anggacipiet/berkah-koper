@@ -1,0 +1,68 @@
+order: 2
+name: Koper PP Series 9901
+category: koper
+badge: BARU
+shortDesc: Koper PP Series 9901 — 12 warna kombinasi khaki, anti pecah & fleksibel terbukti.
+description: >-
+  Koper PP Series 9901 dengan kombinasi warna khaki yang elegan. Telah lulus tes kekuatan: drop
+  test, tes beban, dan flex test. Tersedia 12 pilihan warna. Roda putar 360° silent, kunci kombinasi
+  3 digit.
+price: 800000
+priceLabel: Mulai Rp 800.000
+images:
+  - /images/koper-pp-series-9901/images/0.jpg
+  - /images/koper-pp-series-9901/images/1.jpg
+  - /images/koper-pp-series-9901/images/2.jpg
+  - /images/koper-pp-series-9901/images/3.jpg
+  - /images/koper-pp-series-9901/images/4.jpg
+sizes:
+  - 20"
+  - 24"
+  - 28"
+variants:
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 150000
+  - label: 28"
+    priceAdj: 300000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Ungu
+        hex: '#9b59b6'
+      - name: B.Danau
+        hex: '#1a6b8a'
+      - name: Army
+        hex: '#3d5233'
+      - name: Putih
+        hex: '#f5f5f5'
+      - name: Navy
+        hex: '#1e2d5a'
+      - name: Apple
+        hex: '#8db600'
+      - name: R.Gold
+        hex: '#c4956a'
+      - name: Abu Tua
+        hex: '#4a4a4a'
+      - name: Abu Muda
+        hex: '#9a9a9a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Marom
+        hex: '#8b0000'
+      - name: G.Blue
+        hex: '#87ceeb'
+features:
+  - Series 9901 — kombinasi khaki premium
+  - 12 pilihan warna tersedia
+  - PP anti pecah & flexible — terbukti tes kekuatan
+  - Drop test ✓ Tes beban ✓ Flex test ✓
+  - Roda putar 360° silent wheels
+  - Kunci kombinasi 3 digit
+  - Custom logo & nama jamaah (free)
+  - Free ongkir area Jakarta
+weight: 3.0 kg (24")
+material: Polypropylene (PP)
+inStock: true

@@ -1,0 +1,16 @@
+order: 11
+name: Tas Kabin Slim 25L
+category: tas-kabin
+shortDesc: Tas kabin ramping untuk perjalanan ringan dan ibadah harian.
+description: Desain slim cocok untuk perjalanan ibadah sehari-hari atau umrah singkat.
+price: 249000
+images:
+  - /images/tas-kabin-slim-25l/images/0.jpg
+features:
+  - Desain slim & ringan
+  - Pocket terorganisir di depan
+  - Back panel berventilasi
+  - Strap anti-slip
+weight: 0.6 kg
+material: Polyester 420D
+inStock: true

@@ -4,15 +4,24 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "dev:v2": "astro dev --root design-v2 --port 4322",
-    "build:v2": "astro build --root design-v2",
-    "preview:v2": "astro preview --root design-v2 --port 4322"
+    "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/markdoc": "^0.12.11",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.4",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.1.13",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "astro": "^5.14.0",
+    "js-yaml": "^5.4.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9"
   }
 }

@@ -11,6 +11,8 @@
   --cream:   #fdf8ef;
   --white:   #ffffff;
   --text:    #1a1a1a;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 }
 
 html { scroll-behavior: smooth; }
@@ -19,8 +21,30 @@ body {
   margin: 0;
   color: var(--text);
   background: #0d0d0d;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  /* Plus Jakarta di size kecil cenderung rapat — longgarkan global */
+  letter-spacing: 0.015em;
+  word-spacing: 0.06em;
+}
+
+h1, h2, .font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  word-spacing: normal;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  letter-spacing: 0.015em;
+  word-spacing: 0.06em;
+}
+
+/* Deskripsi produk / bundling / katalog */
+p {
+  letter-spacing: 0.015em;
+  word-spacing: 0.06em;
 }
 
 /* ── Layout ─────────────────────────────────────────────────── */
@@ -235,6 +259,77 @@ body {
 .text-gold-gradient {
   background: linear-gradient(135deg, var(--gold3) 0%, var(--gold) 50%, var(--gold2) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ── Mitra / partner logo marquee ────────────────────────────── */
+.mitra-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(201,164,72,.1), transparent 55%),
+    linear-gradient(180deg, #111111 0%, #0d0d0d 100%);
+  border-top: 1px solid rgba(201,164,72,.12);
+  border-bottom: 1px solid rgba(201,164,72,.12);
+}
+.mitra-marquee {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(201,164,72,.14);
+  background: rgba(255,255,255,.02);
+  padding-block: 1rem;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.mitra-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding-inline: 1rem;
+  animation: mitra-scroll var(--mitra-duration, 50s) linear infinite;
+}
+.mitra-track--reverse {
+  animation-direction: reverse;
+}
+.mitra-marquee:hover .mitra-track {
+  animation-play-state: paused;
+}
+.mitra-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 15rem;
+  height: 7rem;
+  padding: .35rem .5rem;
+  border-radius: 1rem;
+  background: #f7f4ec;
+  border: 1px solid rgba(201,164,72,.18);
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+@media (min-width: 768px) {
+  .mitra-logo {
+    width: 17rem;
+    height: 8rem;
+    padding: .4rem .55rem;
+  }
+}
+.mitra-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.08);
+}
+.mitra-logo:hover {
+  border-color: rgba(201,164,72,.55);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+@keyframes mitra-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mitra-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────── */

@@ -1,0 +1,78 @@
+order: 4
+name: Koper ABS Stripe Siku Besi
+category: koper
+shortDesc: Koper ABS/PC stripe dengan penguat siku besi — 5 warna, uk 18", 20" & 24".
+description: >-
+  Koper bahan ABS & Polycarbonate (PC) dengan desain stripe vertikal dan penguat siku besi di setiap
+  sudut untuk perlindungan ekstra. Tersedia 5 pilihan warna. Roda putar 360° silent, kunci kombinasi
+  3 angka.
+price: 450000
+priceLabel: Mulai Rp 450.000
+images:
+  - /images/koper-abs-stripe-siku-besi/images/0.jpg
+  - /images/koper-abs-stripe-siku-besi/images/1.jpg
+  - /images/koper-abs-stripe-siku-besi/images/2.jpg
+sizes:
+  - 18"
+  - 20"
+  - 24"
+variants:
+  - label: 18"
+    priceAdj: -50000
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 100000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Biru
+        hex: '#1a4fa0'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Hijau
+        hex: '#7aed0a'
+  - label: Warna Aksesori (One Color System)
+    type: accent
+    colors:
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru BCA
+        hex: '#0a5fb4'
+      - name: Hijau Stabilo
+        hex: '#7aed0a'
+      - name: Gold
+        hex: '#d4a017'
+      - name: Kuning Kunyit
+        hex: '#c8960a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Merah Cabe
+        hex: '#c0141e'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Abu-Abu
+        hex: '#6a6a6a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Coklat
+        hex: '#7a4a2a'
+features:
+  - Bahan ABS & Polycarbonate (PC)
+  - Penguat siku besi di setiap sudut
+  - '5 pilihan warna: Hitam, Biru, Merah, Orange, Hijau'
+  - Roda putar 360° silent wheels
+  - Kunci kombinasi 3 angka
+  - Harga pabrik — jahitan rapi
+  - Custom logo & nama (free)
+  - Free ongkir area Jakarta
+weight: 2.8 kg (20")
+material: ABS + Polycarbonate (PC)
+inStock: true

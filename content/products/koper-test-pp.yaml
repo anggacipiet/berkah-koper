@@ -1,0 +1,29 @@
+name: koper test pp
+order: 1
+category: koper
+badge: terlaris
+shortDesc: koper test
+description: lorem ipsum
+price: 0
+priceLabel: '30000'
+images:
+  - /images/koper-test-pp/images/0.jpg
+sizes:
+  - '24'
+variants:
+  - label: ddd
+    priceAdj: 0
+colorGroups:
+  - label: warna
+    type: body
+    colors:
+      - name: sss
+        hex: '#4a5e3a'
+        imageIndex: 0
+features:
+  - setiap
+weight: '22'
+material: karpe
+isBundle: false
+bundleItems: []
+inStock: true

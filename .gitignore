@@ -3,6 +3,4 @@ dist/
 .astro/
 .env
 .DS_Store
-design-v2/dist/
-design-v2/.astro/
-design-v2/node_modules/
+.review-*.png

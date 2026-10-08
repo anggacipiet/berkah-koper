@@ -1,0 +1,20 @@
+order: 20
+name: Kunci TSA Kombinasi
+category: koper
+shortDesc: Gembok TSA 3-digit untuk keamanan koper di bandara internasional.
+description: Kunci kombinasi 3 digit berstandar TSA. Bodi zinc alloy tahan karat.
+price: 35000
+images:
+  - /images/kunci-tsa-koper/images/0.jpg
+variants:
+  - label: Hitam
+    priceAdj: 0
+  - label: Merah
+    priceAdj: 0
+features:
+  - Standar TSA internasional
+  - Kombinasi 3 digit kustom
+  - Bodi zinc alloy tahan karat
+weight: 0.06 kg
+material: Zinc Alloy
+inStock: true

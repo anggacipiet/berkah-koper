@@ -1,0 +1,50 @@
+order: 7
+name: Koper ABS Tactical
+category: koper
+shortDesc: Koper ABS/PC desain tactical modern — 7 warna, uk 20" & 24".
+description: >-
+  Desain tactical modern dengan lekukan body yang kokoh dan sporty. Bahan ABS & PC. Tersedia 7 warna
+  termasuk biru, pink, orange, hijau, hitam, merah, navy, dan kuning.
+price: 480000
+priceLabel: Mulai Rp 480.000
+images:
+  - /images/koper-abs-tactical/images/0.jpg
+  - /images/koper-abs-tactical/images/1.jpg
+  - /images/koper-abs-tactical/images/2.jpg
+sizes:
+  - 20"
+  - 24"
+variants:
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 100000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Pink
+        hex: '#e8917a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Hijau
+        hex: '#7aed0a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Biru Navy
+        hex: '#1e2d5a'
+      - name: Kuning
+        hex: '#d4a017'
+features:
+  - Desain tactical sporty modern
+  - 7 pilihan warna tersedia
+  - Bahan ABS & Polycarbonate (PC)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Custom logo & nama (free)
+  - Free ongkir area Jakarta
+weight: 2.9 kg (20")
+material: ABS + Polycarbonate (PC)
+inStock: true

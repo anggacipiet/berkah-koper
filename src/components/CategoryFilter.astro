@@ -1,4 +1,6 @@
 ---
+import { CATALOG_CATEGORIES } from '../types/product';
+
 interface Props {
   basePath?: string;
 }
@@ -6,11 +8,8 @@ interface Props {
 const { basePath = '/katalog' } = Astro.props;
 
 const allCategories = [
-  { value: 'semua',     label: 'Semua Produk' },
-  { value: 'koper',     label: 'Koper' },
-  { value: 'tas-kabin', label: 'Tas Kabin' },
-  { value: 'tas-paspor-selempang', label: 'Tas Paspor/Selempang' },
-  { value: 'tas-sandal', label: 'Tas Sandal' },
+  { value: 'semua', label: 'Semua Produk' },
+  ...CATALOG_CATEGORIES,
 ];
 ---
 

@@ -1,0 +1,15 @@
+order: 17
+name: Pouch Obat & Medis
+category: tas-paspor-selempang
+shortDesc: Pouch khusus obat-obatan dan perlengkapan medis pribadi jamaah.
+description: Untuk menyimpan obat rutin, P3K, termometer, dan suplemen selama Haji/Umrah.
+price: 65000
+images:
+  - /images/pouch-obat-medis-haji/images/0.jpg
+features:
+  - Pocket transparan untuk label
+  - Divider terorganisir
+  - Ukuran pas di dalam koper
+weight: 0.12 kg
+material: EVA + Mesh
+inStock: true

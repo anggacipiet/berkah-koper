@@ -1,0 +1,22 @@
+order: 12
+name: Tas Paspor Travel Organizer
+category: tas-paspor-selempang
+badge: TERLARIS
+shortDesc: Dompet paspor multifungsi RFID blocking untuk dokumen perjalanan yang aman.
+description: >-
+  Organizer dokumen serba guna dengan lapisan RFID blocking. Slot paspor, boarding pass, kartu ATM,
+  uang tunai, dan ponsel.
+price: 129000
+images:
+  - /images/tas-paspor-travel-organizer/images/0.jpg
+  - /images/tas-paspor-travel-organizer/images/1.jpg
+features:
+  - RFID Blocking protection
+  - Slot paspor + boarding pass
+  - 6 slot kartu + kantong uang
+  - Pocket ponsel ukuran besar
+  - Material kulit PU premium
+  - Tersedia tali leher & selempang
+weight: 0.15 kg
+material: PU Leather + RFID Blocking
+inStock: true

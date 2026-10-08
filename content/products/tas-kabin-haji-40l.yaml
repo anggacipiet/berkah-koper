@@ -1,0 +1,21 @@
+order: 10
+name: Tas Kabin Haji 40L
+category: tas-kabin
+badge: TERLARIS
+shortDesc: Tas kabin multifungsi 40L, cocok untuk barang bawaan selama perjalanan ibadah.
+description: >-
+  Dirancang untuk kenyamanan selama penerbangan dan perjalanan darat. Kompartemen laptop 15",
+  kantong botol minum di samping, dan bahan water-resistant.
+price: 359000
+images:
+  - /images/tas-kabin-haji-40l/images/0.jpg
+  - /images/tas-kabin-haji-40l/images/1.jpg
+features:
+  - Kapasitas 40L kabin-friendly
+  - Kompartemen laptop 15"
+  - Bahan water-resistant 600D
+  - Shoulder strap ergonomis berpadding
+  - Port USB charging bawaan
+weight: 0.85 kg
+material: Polyester 600D Water Resistant
+inStock: true

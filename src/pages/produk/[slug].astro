@@ -5,7 +5,7 @@ import ColorPicker from '../../components/ColorPicker.astro';
 import {
   getAllProducts,
   getProductBySlug,
-  buildWaMessage,
+  buildWaUrl,
   getProductsByCategory,
 } from '../../data/products';
 import { CATEGORY_LABELS } from '../../types/product';
@@ -24,8 +24,7 @@ const {
   sizes, inStock, isBundle, bundleItems,
 } = product;
 
-const WA_NUMBER = '6285282400061';
-const waBase    = `https://wa.me/${WA_NUMBER}?text=${buildWaMessage(product)}`;
+const waBase    = buildWaUrl(product);
 const catLabel  = CATEGORY_LABELS[category] ?? category;
 
 const related = getProductsByCategory(category)

@@ -1,0 +1,20 @@
+order: 15
+name: Tas Sandal Masjid Premium
+category: tas-sandal
+shortDesc: Kantong sandal higienis & praktis untuk dibawa masuk Masjidil Haram.
+description: Material tebal anti-tembus bau, dilengkapi karabiner untuk digantung di tas.
+price: 45000
+images:
+  - /images/tas-sandal-masjid-premium/images/0.jpg
+variants:
+  - label: S (sd 40)
+    priceAdj: 0
+  - label: L (41–45)
+    priceAdj: 5000
+features:
+  - Material anti-tembus bau
+  - Karabiner clip bawaan
+  - Mudah dibersihkan
+weight: 0.08 kg
+material: Oxford Cloth
+inStock: true

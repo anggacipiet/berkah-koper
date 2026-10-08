@@ -1,0 +1,94 @@
+order: 3
+name: Koper Stripe PP Haji & Umrah
+category: koper
+shortDesc: Koper PP model garis horizontal — 13 pilihan warna cerah, tersedia 20", 24" & 28".
+description: >-
+  Koper Polypropylene model stripe (garis horizontal) dengan 13 pilihan warna. Aksen rose gold di
+  sudut dan handle. Aksesori bisa dikustomisasi dengan One Color System 12 warna.
+price: 850000
+priceLabel: Mulai Rp 850.000
+images:
+  - /images/koper-stripe-pp-haji-umrah/images/0.jpg
+  - /images/koper-stripe-pp-haji-umrah/images/1.jpg
+  - /images/koper-stripe-pp-haji-umrah/images/2.jpg
+  - /images/koper-stripe-pp-haji-umrah/images/3.jpg
+  - /images/koper-stripe-pp-haji-umrah/images/4.jpg
+sizes:
+  - 20"
+  - 24"
+  - 28"
+variants:
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 150000
+  - label: 28"
+    priceAdj: 300000
+colorGroups:
+  - label: Warna Koper
+    type: body
+    colors:
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Merah Maroon
+        hex: '#6e1a2a'
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Abu-Abu
+        hex: '#4a4a4a'
+      - name: Hijau Tosca
+        hex: '#1a8c6e'
+      - name: Putih
+        hex: '#f0ead6'
+      - name: Sky Blue
+        hex: '#87ceeb'
+      - name: Biru Navy
+        hex: '#1e2d5a'
+      - name: Kuning Kunyit
+        hex: '#d4a017'
+  - label: Warna Aksesori (One Color System)
+    type: accent
+    colors:
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru BCA
+        hex: '#0a5fb4'
+      - name: Hijau Stabilo
+        hex: '#7aed0a'
+      - name: Gold
+        hex: '#d4a017'
+      - name: Kuning Kunyit
+        hex: '#c8960a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Merah Cabe
+        hex: '#c0141e'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Abu-Abu
+        hex: '#6a6a6a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Coklat
+        hex: '#7a4a2a'
+features:
+  - Bahan PP anti pecah & lentur
+  - Desain stripe horizontal modern
+  - Aksen rose gold di sudut & handle
+  - 13 pilihan warna body
+  - 12 pilihan warna aksesori One Color
+  - Custom logo & nama jamaah (free)
+  - Free ongkir area Jakarta
+weight: 3.4 kg (24")
+material: Polypropylene (PP) Premium
+inStock: true

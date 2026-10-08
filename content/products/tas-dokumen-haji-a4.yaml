@@ -1,0 +1,16 @@
+order: 13
+name: Tas Dokumen Haji A4
+category: tas-paspor-selempang
+shortDesc: Tas dokumen khusus haji, muat berkas A4 dan perlengkapan penting.
+description: 'Khusus menyimpan berkas penting perjalanan haji: buku manasik, surat mahram, bukti pembayaran.'
+price: 89000
+images:
+  - /images/tas-dokumen-haji-a4/images/0.jpg
+features:
+  - Kapasitas dokumen A4
+  - Slot paspor & kartu
+  - Handle + tali selempang
+  - Ritsleting anti air
+weight: 0.2 kg
+material: Polyester Coated
+inStock: true

@@ -1,0 +1,72 @@
+order: 9
+name: Koper PC Premium Mewah
+category: koper
+shortDesc: Koper Polycarbonate premium — kesan mewah, kuat, uk 20" & 24".
+description: >-
+  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan glossy. Cocok untuk jamaah
+  yang menginginkan tampilan premium. Custom logo travel/kloter tersedia. Bahan PC memberikan
+  kekuatan ekstra dibanding ABS.
+price: 650000
+priceLabel: Mulai Rp 650.000
+images:
+  - /images/koper-pc-premium-mewah/images/0.jpg
+  - /images/koper-pc-premium-mewah/images/1.jpg
+  - /images/koper-pc-premium-mewah/images/2.jpg
+sizes:
+  - 20"
+  - 24"
+variants:
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 150000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Kuning
+        hex: '#d4a017'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Navy
+        hex: '#1e2d5a'
+  - label: Warna Aksesori (One Color)
+    type: accent
+    colors:
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru BCA
+        hex: '#0a5fb4'
+      - name: Hijau Stabilo
+        hex: '#7aed0a'
+      - name: Gold
+        hex: '#d4a017'
+      - name: Kuning Kunyit
+        hex: '#c8960a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Merah Cabe
+        hex: '#c0141e'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Abu-Abu
+        hex: '#6a6a6a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Coklat
+        hex: '#7a4a2a'
+features:
+  - Bahan Polycarbonate (PC) murni
+  - Tampilan glossy premium mewah
+  - Custom logo travel/kloter (free)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Tersedia aksen siku besi
+  - Free ongkir area Jakarta
+weight: 3.0 kg (20")
+material: Polycarbonate (PC)
+inStock: true

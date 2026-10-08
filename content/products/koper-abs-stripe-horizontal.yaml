@@ -1,0 +1,53 @@
+order: 6
+name: Koper ABS Stripe Horizontal
+category: koper
+shortDesc: Koper ABS/PC stripe horizontal klasik — 7 warna, uk 18", 20" & 24".
+description: >-
+  Desain stripe horizontal klasik yang elegan. Bahan ABS & PC berkualitas tinggi. Tersedia 7 pilihan
+  warna termasuk pink, orange, hijau stabilo, hitam, merah, navy, dan kuning.
+price: 450000
+priceLabel: Mulai Rp 450.000
+images:
+  - /images/koper-abs-stripe-horizontal/images/0.jpg
+  - /images/koper-abs-stripe-horizontal/images/1.jpg
+  - /images/koper-abs-stripe-horizontal/images/2.jpg
+sizes:
+  - 18"
+  - 20"
+  - 24"
+variants:
+  - label: 18"
+    priceAdj: -50000
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 100000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Pink
+        hex: '#e8917a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Hijau
+        hex: '#7aed0a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Biru Navy
+        hex: '#1e2d5a'
+      - name: Kuning
+        hex: '#d4a017'
+features:
+  - Desain stripe horizontal klasik
+  - 7 pilihan warna cerah
+  - Bahan ABS & Polycarbonate (PC)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Custom logo & nama (free)
+  - Free ongkir area Jakarta
+weight: 2.8 kg (20")
+material: ABS + Polycarbonate (PC)
+inStock: true

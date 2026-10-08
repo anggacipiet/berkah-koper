@@ -2,154 +2,272 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import BundleCard from '../components/BundleCard.astro';
-import CategoryFilter from '../components/CategoryFilter.astro';
 import { getFeaturedProducts, getBundleProducts } from '../data/products';
-import { CATEGORY_LABELS } from '../types/product';
+import { getHero } from '../data/hero';
+import { getTentang } from '../data/tentang';
+import { getMitra } from '../data/mitra';
+import { buildWaLink } from '../lib/media';
+import { CATALOG_CATEGORIES } from '../types/product';
 
-const featured = getFeaturedProducts(8);
+const featured = getFeaturedProducts(4);
 const bundles  = getBundleProducts();
+const hero = getHero();
+const tentang = getTentang();
+const mitra = getMitra();
+const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
+const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
+const heroSlides = hero.slides;
 
-const categories = [
-  { icon: '🧳', label: 'Koper',              slug: 'koper' },
-  { icon: '🎒', label: 'Tas Kabin',          slug: 'tas-kabin' },
-  { icon: '👜', label: 'Tas Paspor/Selempang', slug: 'tas-paspor' },
-  { icon: '👟', label: 'Tas Sandal',         slug: 'tas-sandal' },
-];
+const categoryIcons: Record<string, string> = {
+  koper: '🧳',
+  'tas-kabin': '🎒',
+  'tas-paspor-selempang': '👜',
+  'tas-sandal': '👟',
+};
 
-const whyUs = [
-  { icon: '🏆', title: 'Kualitas Premium', desc: 'Tersedia bahan pilihan ABS, Polycarbonate, dan Polypropylene yang kuat dan tahan lama.' },
-  { icon: '🕋', title: 'Desain Fungsional', desc: 'Ruang penyimpanan optimal untuk pakaian ihram dan perlengkapan pribadi jamaah.' },
-  { icon: '🛞', title: 'Ringan & Nyaman',  desc: 'Dilengkapi 360° silent wheels untuk mobilitas tinggi di bandara dan area ibadah.' },
-  { icon: '🔒', title: 'Perlindungan Maksimal', desc: 'Dilengkapi kunci kombinasi 3-digit untuk keamanan barang berharga Anda.' },
-  { icon: '🎨', title: 'Custom Warna & Logo', desc: 'Pilih warna body dan aksesori bebas. Custom logo & nama jamaah gratis untuk pemesanan grup.' },
-  { icon: '🚚', title: 'Free Ongkir Jakarta', desc: 'Pengiriman gratis area Jakarta Barat (Kalideres) dan sekitarnya. Kirim ke seluruh Indonesia.' },
-];
+const categories = CATALOG_CATEGORIES.map((c) => ({
+  ...c,
+  icon: categoryIcons[c.value] ?? '•',
+  slug: c.value,
+}));
 ---
 
 <Layout>
   <!-- ── HERO ─────────────────────────────────────────────────── -->
   <section class="hero-pattern overflow-hidden" aria-labelledby="hero-heading">
-    <div class="container-page grid min-h-[600px] items-center gap-12 py-12 lg:grid-cols-[1.1fr_.9fr]">
+    <!-- Mobile: carousel hero (desktop tetap collage) -->
+    <div class="animate-fade-up relative lg:hidden" id="hero-carousel" aria-roledescription="carousel" aria-label="Foto produk unggulan">
+      <div class="relative aspect-[16/10] w-full overflow-hidden">
+        <div class="hero-track flex h-full transition-transform duration-500 ease-out" style="transform: translateX(0%);">
+          {heroSlides.map((slide, i) => (
+            <div class="h-full w-full shrink-0" role="group" aria-roledescription="slide" aria-label={`${i + 1} dari ${heroSlides.length}`}>
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                class="h-full w-full object-cover object-center"
+                width="800"
+                height="500"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+              />
+            </div>
+          ))}
+        </div>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/25 to-transparent"></div>
+      </div>
+
+      <div class="absolute bottom-3 left-0 right-0 z-10 flex items-center justify-center gap-2">
+        {heroSlides.map((_, i) => (
+          <button
+            type="button"
+            class="hero-dot size-2 rounded-full transition-all"
+            data-index={i}
+            aria-label={`Slide ${i + 1}`}
+            aria-current={i === 0 ? 'true' : 'false'}
+          ></button>
+        ))}
+      </div>
+    </div>
+
+    <div class="container-page grid items-center gap-10 py-10 lg:min-h-[600px] lg:grid-cols-[1.1fr_.9fr] lg:gap-12 lg:py-12">
 
       <div>
-        <!-- Eyebrow -->
         <div class="animate-fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9a448]/40 bg-[#c9a448]/10 px-4 py-1.5 text-xs font-bold text-[#c9a448]">
-          ✦ Supplier Koper & Tas Haji & Umrah
+          {hero.eyebrow}
         </div>
 
-        <h1 id="hero-heading" class="animate-fade-up animate-fade-up-d1 max-w-2xl text-5xl font-black leading-[1.05] tracking-tight text-white md:text-6xl">
-          Persiapkan perjalanan Umroh Anda
-          <span class="text-[#c9a448]"> dengan perlengkapan terbaik.</span>
+        <h1 id="hero-heading" class="animate-fade-up animate-fade-up-d1 max-w-2xl text-4xl leading-[1.12] text-white sm:text-5xl md:text-6xl">
+          {hero.headline}<br />
+          <span class="text-[#c9a448]">{hero.headlineAccent.trim()}</span>
         </h1>
 
-        <div class="animate-fade-up animate-fade-up-d2 mt-6 max-w-lg space-y-3 text-sm leading-6 text-white/70">
-          <p>Hadirkan kenyamanan dan ketenangan dalam setiap langkah ibadah Anda dengan koleksi koper dan tas travel berkualitas kami.</p>
-          <p>Perjalanan suci Umroh membutuhkan persiapan yang matang, termasuk pemilihan koper dan tas yang handal.</p>
-          <p>Koleksi kami dirancang khusus untuk memenuhi kebutuhan jamaah, memastikan barang bawaan Anda aman, terorganisir, dan mudah dibawa selama di Tanah Suci.</p>
+        <div class="animate-fade-up animate-fade-up-d2 font-body mt-5 max-w-lg space-y-2.5 text-sm leading-7 text-white/70">
+          {hero.paragraphs.map((p) => (
+            <p>{p}</p>
+          ))}
         </div>
 
         <div class="animate-fade-up animate-fade-up-d3 mt-8 flex flex-wrap gap-3">
-          <a href="/katalog" class="btn-primary">
-            Lihat Semua Produk →
+          <a href={hero.primaryCtaHref} class="btn-primary">
+            {hero.primaryCtaLabel}
           </a>
           <a
-            href="https://wa.me/6285282400061?text=Assalamu%27alaikum%20Berkah%20Koper%2C%20saya%20ingin%20tanya%20produk%20untuk%20Haji%2FUmrah."
-            class="btn-wa"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={hero.secondaryCtaHref}
+            class="btn-outline"
+            target={hero.secondaryCtaHref.startsWith('http') ? '_blank' : undefined}
+            rel={hero.secondaryCtaHref.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            Konsultasi Gratis
+            {hero.secondaryCtaLabel}
           </a>
         </div>
 
-        <!-- ── Trust signal ───────────────────────────────── -->
         <div class="animate-fade-up animate-fade-up-d4 mt-8 flex flex-wrap gap-x-6 gap-y-2">
-          <div class="flex items-center gap-1.5 text-xs text-white/60"><span class="text-[#c9a448]">✓</span> Harga Pabrik</div>
-          <div class="flex items-center gap-1.5 text-xs text-white/60"><span class="text-[#c9a448]">✓</span> Pengiriman Tepat Waktu</div>
-          <div class="flex items-center gap-1.5 text-xs text-white/60"><span class="text-[#c9a448]">✓</span> Banyak Model & Warna</div>
+          {hero.trustItems.map((item) => (
+            <div class="flex items-center gap-1.5 text-xs text-white/60">
+              <span class="text-[#c9a448]">✓</span> {item}
+            </div>
+          ))}
         </div>
       </div>
 
-      <!-- Hero visual -->
-      <div class="animate-fade-up animate-fade-up-d2 relative hidden lg:block">
-        <div class="absolute -inset-8 rounded-[3rem] bg-[#c9a448]/10 blur-3xl"></div>
-        <div class="relative grid grid-cols-2 gap-4">
-
-          <!-- Foto utama kiri — katalog 5 koper -->
-          <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
-            <img
-              src="/images/hero-katalog-produk.jpg"
-              alt="Koleksi Koper Premium Berkah Koper — berbagai warna pilihan"
-              class="h-full w-full object-cover object-center"
-              width="600" height="800"
-              loading="eager"
-            />
-          </div>
-
-          <!-- Thumbnail kanan — 2 foto promo -->
-          <div class="mt-8 flex flex-col gap-4">
-            <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
+      <!-- Desktop: collage editorial 1 besar + 2 bertingkat (profesional, tanpa garis/ring) -->
+      {heroSlides.length > 0 && (
+        <div class="hero-collage animate-fade-up animate-fade-up-d2 relative hidden lg:block">
+          <div class="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-[#c9a448]/12 blur-3xl" aria-hidden="true"></div>
+          <div class="relative grid grid-cols-2 items-start gap-3">
+            <figure class="hero-collage__shot hero-collage__shot--main m-0 overflow-hidden rounded-2xl bg-[#111]">
               <img
-                src="/images/hero-promo-umroh-hijau.jpg"
-                alt="Promo Travel Umroh — Paket Hemat koper hijau set lengkap"
-                class="h-full w-full object-cover object-top"
-                width="400" height="533"
+                src={heroSlides[0].src}
+                alt={heroSlides[0].alt}
+                class="aspect-[3/4] h-full w-full object-cover object-center"
+                width="520"
+                height="693"
                 loading="eager"
               />
-            </div>
-            <div class="img-zoom aspect-[3/4] overflow-hidden rounded-3xl shadow-xl">
-              <img
-                src="/images/hero-promo-umroh-cream.jpg"
-                alt="Promo Travel Umroh — Paket Hemat koper cream merah set lengkap"
-                class="h-full w-full object-cover object-top"
-                width="400" height="533"
-                loading="eager"
-              />
+            </figure>
+            <div class="flex flex-col gap-3 pt-10">
+              {heroSlides.slice(1, 3).map((slide) => (
+                <figure class="hero-collage__shot m-0 overflow-hidden rounded-2xl bg-[#111]">
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    class="aspect-[3/4] h-full w-full object-cover object-center"
+                    width="360"
+                    height="480"
+                    loading="eager"
+                  />
+                </figure>
+              ))}
             </div>
           </div>
-
         </div>
-      </div>
+      )}
     </div>
   </section>
 
+  <style>
+    .hero-dot {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .hero-dot[aria-current='true'] {
+      width: 1.25rem;
+      background: #c9a448;
+    }
+    .hero-collage__shot {
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+    .hero-collage__shot img {
+      transition: transform 0.5s ease;
+    }
+    .hero-collage__shot:hover img {
+      transform: scale(1.03);
+    }
+  </style>
+
+  <script>
+    function initHeroCarousel() {
+      const root = document.getElementById('hero-carousel');
+      if (!root || window.matchMedia('(min-width: 1024px)').matches) return;
+
+      const track = root.querySelector<HTMLElement>('.hero-track');
+      const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.hero-dot'));
+      if (!track || dots.length === 0) return;
+
+      const total = dots.length;
+      let index = 0;
+      let timer: ReturnType<typeof setInterval> | undefined;
+      let startX = 0;
+      let deltaX = 0;
+      let dragging = false;
+
+      const goTo = (next: number) => {
+        index = ((next % total) + total) % total;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => {
+          dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+      };
+
+      const startAuto = () => {
+        stopAuto();
+        timer = setInterval(() => goTo(index + 1), 4000);
+      };
+
+      const stopAuto = () => {
+        if (timer) clearInterval(timer);
+        timer = undefined;
+      };
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          goTo(Number(dot.dataset.index ?? 0));
+          startAuto();
+        });
+      });
+
+      root.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        startX = e.clientX;
+        deltaX = 0;
+        stopAuto();
+        root.setPointerCapture(e.pointerId);
+      });
+
+      root.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        deltaX = e.clientX - startX;
+      });
+
+      root.addEventListener('pointerup', () => {
+        if (!dragging) return;
+        dragging = false;
+        if (Math.abs(deltaX) > 40) goTo(index + (deltaX < 0 ? 1 : -1));
+        startAuto();
+      });
+
+      root.addEventListener('pointercancel', () => {
+        dragging = false;
+        startAuto();
+      });
+
+      goTo(0);
+      startAuto();
+    }
+
+    initHeroCarousel();
+    document.addEventListener('astro:page-load', initHeroCarousel);
+  </script>
+
   <!-- ── KATEGORI ───────────────────────────────────────────── -->
-  <section class="bg-[#111111] py-16" aria-labelledby="kategori-heading">
+  <section class="bg-[#111111] py-14" aria-labelledby="kategori-heading">
     <div class="container-page">
       <div class="gold-line mx-auto"></div>
-      <h2 id="kategori-heading" class="mt-4 text-center text-xl font-bold tracking-wide text-white/60 uppercase text-sm">Belanja Berdasarkan Kategori</h2>
+      <h2 id="kategori-heading" class="mt-4 text-center text-2xl text-white/80 md:text-3xl">Belanja Berdasarkan Kategori</h2>
       <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {categories.map(({ icon, label, slug }) => (
           <a
             href={`/katalog?kategori=${slug}`}
             class="group flex flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#161616] px-2 py-4 text-center transition-all duration-200 hover:border-[#c9a448]/40 hover:bg-[#c9a448]/6"
           >
-            <!-- Icon container gold monochrome -->
             <div class="flex size-10 items-center justify-center rounded-xl border border-[#c9a448]/20 bg-[#c9a448]/8 text-lg transition-all group-hover:border-[#c9a448]/50 group-hover:bg-[#c9a448]/15">
               {icon}
             </div>
-            <span class="text-[10px] font-semibold leading-tight text-white/50 group-hover:text-white/80 transition-colors">{label}</span>
+            <span class="font-body text-[10px] font-semibold leading-tight text-white/50 transition-colors group-hover:text-white/80">{label}</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── BANNER KATALOG ──────────────────────────────────────── -->
+  <!-- ── BANNER KOPER ───────────────────────────────────────── -->
   <section class="bg-[#0d0d0d] py-16" aria-labelledby="banner-heading">
     <div class="container-page">
       <div class="gold-line"></div>
-      <h2 id="banner-heading" class="mt-4 text-3xl font-black text-white">Koper PP Premium</h2>
-      <p class="mt-2 text-white/50">Anti pecah, lentur & kuat — tersedia 20", 24" & 28" dengan pilihan warna bebas.</p>
+      <h2 id="banner-heading" class="mt-4 text-3xl text-white md:text-4xl">Koper PP Premium</h2>
+      <p class="mt-2 max-w-xl text-white/50">Anti pecah, lentur & kuat — tersedia 20", 24" & 28" dengan pilihan warna bebas.</p>
 
-      <!-- Baris 1: Banner besar + banner kecil -->
       <div class="mt-8 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-
-        <!-- Banner koper hitam (foto produk set) -->
-        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]">
           <img
             src="/images/Katalog 2026/Katalog 2026_page-0001.jpg"
             alt="Koleksi koper Berkah Koper — warna & model lengkap Haji & Umrah"
@@ -159,13 +277,12 @@ const whyUs = [
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
           <div class="absolute bottom-5 left-5 right-5">
             <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper PP Premium</div>
-            <div class="mt-1 text-xl font-black text-white">Anti Pecah, Lentur & Kuat</div>
+            <div class="mt-1 font-display text-xl text-white md:text-2xl">Anti Pecah, Lentur & Kuat</div>
             <div class="mt-1 text-sm text-white/70">Lihat detail →</div>
           </div>
         </a>
 
-        <!-- Banner anti pecah -->
-        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
+        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]">
           <img
             src="/images/Katalog 2026/Katalog 2026_page-0003.jpg"
             alt="Koper PP Polypropylene anti pecah — lentur dan kuat"
@@ -175,78 +292,27 @@ const whyUs = [
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
           <div class="absolute bottom-5 left-5 right-5">
             <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Bahan PP Polypropylene</div>
-            <div class="mt-1 text-xl font-black text-white">Anti Pecah!</div>
+            <div class="mt-1 font-display text-xl text-white md:text-2xl">Anti Pecah!</div>
             <div class="mt-1 text-sm text-white/80">Tersedia uk. 20", 24" & 28"</div>
           </div>
         </a>
       </div>
 
-      <!-- Baris 2: Pilihan warna -->
-      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-
-        <!-- Koper ABS stripe siku besi -->
-        <a href="/produk/koper-abs-stripe-siku-besi" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
-          <img
-            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0004.jpg"
-            alt="Koper ABS stripe siku besi — 5 warna ukuran 18 20 24 inci"
-            class="h-56 w-full object-cover object-top"
-            loading="lazy" decoding="async" width="600" height="320"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4">
-            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper ABS Stripe</div>
-            <div class="mt-0.5 text-base font-black text-white">Siku Besi — 5 Warna</div>
-          </div>
-        </a>
-
-        <!-- Koper ABS diamond one color -->
-        <a href="/produk/koper-abs-diamond-one-color" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-slate-100">
-          <img
-            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0005.jpg"
-            alt="Koper ABS diamond motif one color — 7 warna cerah ukuran 18 20 24 inci"
-            class="h-56 w-full object-cover object-top"
-            loading="lazy" decoding="async" width="600" height="320"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4">
-            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper ABS Diamond</div>
-            <div class="mt-0.5 text-base font-black text-white">One Color — 7 Warna</div>
-          </div>
-        </a>
-
-        <!-- Koper set 3 ukuran -->
-        <a href="/produk/koper-abs-set-3-ukuran" class="card-lift img-zoom group relative col-span-full overflow-hidden rounded-3xl bg-slate-100 sm:col-span-2 lg:col-span-1">
-          <img
-            src="/images/Katalog Berkah Koper 2026/Katalog Berkah Koper 2026_page-0012.jpg"
-            alt="Koper ABS set 3 ukuran 20 24 28 inci dalam satu warna pilihan"
-            class="h-56 w-full object-cover object-top"
-            loading="lazy" decoding="async" width="600" height="320"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4">
-            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Set 3 Ukuran</div>
-            <div class="mt-0.5 text-base font-black text-white">20" + 24" + 28"</div>
-          </div>
-        </a>
-      </div>
-
-      <!-- CTA ke halaman produk -->
       <div class="mt-5 flex flex-wrap gap-3">
         <a href="/produk/koper-pp-premium-haji-umrah" class="btn-primary">Koper PP Premium →</a>
-        <a href="/produk/koper-abs-stripe-siku-besi" class="btn-outline">Koper ABS/PC →</a>
         <a href="/katalog?kategori=koper" class="btn-outline">Semua Koper →</a>
       </div>
     </div>
   </section>
 
   <!-- ── PRODUK UNGGULAN ───────────────────────────────────── -->
-  <section class="bg-[#0d0d0d] py-20" aria-labelledby="featured-heading">
+  <section class="bg-[#0d0d0d] py-16" aria-labelledby="featured-heading">
     <div class="container-page">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <div class="gold-line"></div>
-          <h2 id="featured-heading" class="mt-4 text-3xl font-black text-white">Produk Unggulan</h2>
-          <p class="mt-2 text-white/50">Pilihan terbaik yang paling banyak diminati jamaah.</p>
+          <h2 id="featured-heading" class="mt-4 text-3xl text-white md:text-4xl">Produk Unggulan</h2>
+          <p class="mt-2 text-white/50">Pilihan yang paling banyak diminati jamaah.</p>
         </div>
         <a href="/katalog" class="btn-outline">Lihat Semua →</a>
       </div>
@@ -260,11 +326,11 @@ const whyUs = [
   </section>
 
   <!-- ── BUNDLING ───────────────────────────────────────────── -->
-  <section id="bundling" class="bg-[#111111] py-20" aria-labelledby="bundling-heading">
+  <section id="bundling" class="bg-[#111111] py-16" aria-labelledby="bundling-heading">
     <div class="container-page">
       <div class="gold-line"></div>
-      <h2 id="bundling-heading" class="mt-4 text-3xl font-black text-white">Paket Bundling</h2>
-      <p class="mt-2 text-white/50">Hemat lebih besar dengan membeli paket lengkap sekaligus.</p>
+      <h2 id="bundling-heading" class="mt-4 text-3xl text-white md:text-4xl">Paket Bundling</h2>
+      <p class="mt-2 text-white/50">Hemat lebih besar dengan paket lengkap sekaligus.</p>
 
       <div class="mt-8 flex flex-col gap-6">
         {bundles.map((product) => (
@@ -275,24 +341,24 @@ const whyUs = [
   </section>
 
   <!-- ── KENAPA Berkah Koper ──────────────────────────────────── -->
-  <section id="tentang" class="bg-[#0d0d0d] py-20" aria-labelledby="whyus-heading">
+  <section id="tentang" class="bg-[#0d0d0d] py-16" aria-labelledby="whyus-heading">
     <div class="container-page">
-      <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+      <div class="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-12">
         <div>
           <div class="gold-line"></div>
-          <h2 id="whyus-heading" class="mt-4 text-3xl font-black text-white">Mengapa Memilih Berkah Koper?</h2>
+          <h2 id="whyus-heading" class="mt-4 text-3xl text-white md:text-4xl">{tentang.heading}</h2>
           <p class="mt-4 leading-7 text-white/50">
-            Hadirkan ketenangan pikiran di setiap langkah ibadah Anda. Fokus pada kekhusyukan, biarkan kami menjaga keamanan barang bawaan Anda.
+            {tentang.description}
           </p>
         </div>
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {whyUs.map(({ icon, title, desc }) => (
+        <!-- mt sejajar judul kiri (bukan gold-line) agar card tidak nempel sticky header -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:mt-7">
+          {tentang.items.map(({ icon, title, desc }) => (
             <div class="group rounded-xl border border-white/8 bg-[#161616] p-5 transition-all hover:border-[#c9a448]/25 hover:bg-[#c9a448]/4">
-              <!-- Icon container gold -->
               <div class="mb-4 flex size-9 items-center justify-center rounded-lg border border-[#c9a448]/20 bg-[#c9a448]/8 text-base">
                 {icon}
               </div>
-              <h3 class="text-sm font-bold text-white/90">{title}</h3>
+              <h3 class="font-body text-sm font-bold text-white/90">{title}</h3>
               <p class="mt-1.5 text-xs leading-5 text-white/45">{desc}</p>
             </div>
           ))}
@@ -301,20 +367,81 @@ const whyUs = [
     </div>
   </section>
 
+  <!-- ── MITRA TOUR / CLIENT ─────────────────────────────────── -->
+  {mitra.partners.length > 0 && (
+    <section
+      id="mitra"
+      class="mitra-section overflow-hidden py-16"
+      aria-labelledby="mitra-heading"
+    >
+      <div class="container-page">
+        <div class="gold-line"></div>
+        <p class="mt-4 text-xs font-bold uppercase tracking-[0.22em] text-[#c9a448]">
+          {mitra.eyebrow}
+        </p>
+        <h2 id="mitra-heading" class="mt-3 text-3xl text-white md:text-4xl">
+          {mitra.heading}
+        </h2>
+        <p class="mt-2 max-w-xl text-white/50">
+          {mitra.description}
+        </p>
+        <p class="mt-3 text-sm font-semibold text-white/35">
+          {mitra.partners.length}+ biro & travel partner
+        </p>
+
+        <div class="mitra-marquee mt-8" aria-label="Logo mitra travel">
+          <div class="mitra-track" style={`--mitra-duration: ${Math.max(40, mitraRowA.length * 3)}s`}>
+            {[...mitraRowA, ...mitraRowA].map((partner) => (
+              <div class="mitra-logo" title={partner.name}>
+                <img
+                  src={partner.src}
+                  alt={partner.name}
+                  loading="lazy"
+                  decoding="async"
+                  width="220"
+                  height="110"
+                />
+              </div>
+            ))}
+          </div>
+          {mitraRowB.length > 0 && (
+            <div
+              class="mitra-track mitra-track--reverse mt-4"
+              style={`--mitra-duration: ${Math.max(45, mitraRowB.length * 3.2)}s`}
+            >
+              {[...mitraRowB, ...mitraRowB].map((partner) => (
+                <div class="mitra-logo" title={partner.name}>
+                  <img
+                    src={partner.src}
+                    alt={partner.name}
+                    loading="lazy"
+                    decoding="async"
+                    width="220"
+                    height="110"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- ── CTA BANNER ────────────────────────────────────────── -->
   <section class="py-16" style="background:linear-gradient(135deg,#1a1400 0%,#0d0d0d 100%);border-top:1px solid rgba(201,164,72,.2);border-bottom:1px solid rgba(201,164,72,.2)" aria-label="Hubungi kami">
     <div class="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
       <div>
         <div class="text-sm font-bold uppercase tracking-widest text-[#c9a448]">Siap berangkat?</div>
-        <h2 class="mt-2 max-w-xl text-3xl font-black text-white">Lengkapi perlengkapan ibadah Anda sekarang.</h2>
+        <h2 class="mt-2 max-w-xl text-3xl text-white md:text-4xl">Lengkapi perlengkapan ibadah Anda sekarang.</h2>
       </div>
       <div class="flex shrink-0 flex-wrap gap-3">
-        <a href="/katalog" class="rounded-full border border-[#c9a448] bg-transparent px-6 py-3 font-bold text-[#c9a448] transition hover:bg-[#c9a448] hover:text-black">
+        <a href="/katalog" class="btn-outline-gold">
           Lihat Katalog
         </a>
         <a
-          href="https://wa.me/6285282400061?text=Assalamu%27alaikum%20Berkah Koper%2C%20saya%20ingin%20tanya%20produk."
-          class="rounded-full bg-[#c9a448] px-6 py-3 font-bold text-black transition hover:bg-[#e8c96a]"
+          href={buildWaLink("Assalamu'alaikum Berkah Koper, saya ingin tanya produk.")}
+          class="btn-primary"
           target="_blank"
           rel="noopener noreferrer"
         >

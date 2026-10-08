@@ -1,6 +1,7 @@
 ---
 import type { Product } from '../types/product';
-import { buildWaMessage } from '../data/products';
+import { CATEGORY_LABELS } from '../types/product';
+import { buildWaUrl } from '../data/products';
 
 interface Props {
   product: Product;
@@ -8,10 +9,8 @@ interface Props {
 
 const { product } = Astro.props;
 const { slug, name, category, shortDesc, images, badge, inStock } = product;
-
-const WA_NUMBER = '6285282400061';
-const waMsg     = buildWaMessage(product);
-const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+const categoryLabel = CATEGORY_LABELS[category] ?? category;
+const waUrl = buildWaUrl(product);
 ---
 
 <article class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-[#111111]">
@@ -53,7 +52,7 @@ const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
   <div class="flex flex-1 flex-col p-4">
     <!-- Kategori label -->
     <div class="text-[10px] font-bold uppercase tracking-[.12em] text-[#c9a448]/70">
-      {category.replace(/-/g, ' ')}
+      {categoryLabel}
     </div>
 
     <!-- Nama produk -->
@@ -62,7 +61,7 @@ const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
     </h3>
 
     <!-- Deskripsi singkat -->
-    <p class="mt-1.5 line-clamp-2 text-xs leading-5 text-white/40">{shortDesc}</p>
+    <p class="mt-1.5 line-clamp-2 text-xs leading-5 tracking-[0.02em] text-white/40">{shortDesc}</p>
 
     <!-- CTA -->
     <div class="mt-auto pt-3">

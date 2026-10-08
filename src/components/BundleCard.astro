@@ -1,6 +1,6 @@
 ---
 import type { Product } from '../types/product';
-import { buildWaMessage } from '../data/products';
+import { buildWaUrl } from '../data/products';
 
 interface Props {
   product: Product;
@@ -8,10 +8,7 @@ interface Props {
 
 const { product } = Astro.props;
 const { slug, name, shortDesc, images, badge, bundleItems = [], features = [] } = product;
-
-const WA_NUMBER = '6285282400061';
-const waMsg     = buildWaMessage(product);
-const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+const waUrl = buildWaUrl(product);
 ---
 
 <article class="card-lift group overflow-hidden rounded-3xl border border-[#c9a448]/25 bg-[#111111] shadow-md">
@@ -47,7 +44,7 @@ const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
         <h3 class="mt-2 text-2xl font-black leading-snug text-white">
           <a href={`/produk/${slug}`} class="hover:text-[#c9a448] transition-colors">{name}</a>
         </h3>
-        <p class="mt-2 text-sm leading-6 text-white/50">{shortDesc}</p>
+        <p class="mt-2 text-sm leading-7 text-white/50">{shortDesc}</p>
       </div>
 
       {bundleItems.length > 0 && (
@@ -55,7 +52,7 @@ const waUrl     = `https://wa.me/${WA_NUMBER}?text=${waMsg}`;
           <div class="mb-2 text-xs font-bold uppercase tracking-wider text-white/40">Isi Paket</div>
           <ul class="space-y-1.5">
             {bundleItems.map((item) => (
-              <li class="flex items-start gap-2 text-sm text-white/70">
+              <li class="flex items-start gap-2 text-sm leading-6 text-white/70">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mt-0.5 size-4 shrink-0 text-[#c9a448]" aria-hidden="true">
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                 </svg>

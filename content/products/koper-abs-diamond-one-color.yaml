@@ -1,0 +1,55 @@
+order: 5
+name: Koper ABS Diamond One Color
+category: koper
+badge: BARU
+shortDesc: Koper ABS/PC motif diamond dengan sistem One Color — 7 warna cerah, uk 18", 20" & 24".
+description: >-
+  Koper dengan motif emboss diamond yang eye-catching. Sistem One Color: roda, handle, dan trim
+  berwarna senada dengan body koper. Tersedia 7 warna cerah. Bahan ABS & PC, roda 360° silent.
+price: 500000
+priceLabel: Mulai Rp 500.000
+images:
+  - /images/koper-abs-diamond-one-color/images/0.jpg
+  - /images/koper-abs-diamond-one-color/images/1.jpg
+  - /images/koper-abs-diamond-one-color/images/2.jpg
+sizes:
+  - 18"
+  - 20"
+  - 24"
+variants:
+  - label: 18"
+    priceAdj: -50000
+  - label: 20"
+    priceAdj: 0
+  - label: 24"
+    priceAdj: 100000
+colorGroups:
+  - label: Pilihan Warna
+    type: body
+    colors:
+      - name: Pink
+        hex: '#e8917a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Hijau
+        hex: '#7aed0a'
+      - name: Hitam
+        hex: '#1a1a1a'
+      - name: Merah
+        hex: '#c0141e'
+      - name: Biru Navy
+        hex: '#1e2d5a'
+      - name: Kuning
+        hex: '#d4a017'
+features:
+  - Motif emboss diamond premium
+  - One Color System — roda & trim senada
+  - 7 pilihan warna cerah
+  - Bahan ABS & Polycarbonate (PC)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Custom logo & nama (free)
+  - Free ongkir area Jakarta
+weight: 2.7 kg (20")
+material: ABS + Polycarbonate (PC)
+inStock: true
