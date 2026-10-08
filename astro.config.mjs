@@ -11,16 +11,27 @@ import tailwindcss from '@tailwindcss/vite';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const isDev = process.argv.includes('dev');
-/** Prod GitHub OAuth CMS. Rollback: hapus PUBLIC_KEYSTATIC_STORAGE di Cloudflare */
+/**
+ * GitHub CMS aktif jika:
+ * - PUBLIC_KEYSTATIC_STORAGE=github, atau
+ * - build di Cloudflare Pages (CF_PAGES=1) kecuali eksplisit =local (rollback)
+ */
+const storageFlag = process.env.PUBLIC_KEYSTATIC_STORAGE || process.env.KEYSTATIC_STORAGE;
+const onCfPages = process.env.CF_PAGES === '1';
 const useGithubCms =
-  process.env.PUBLIC_KEYSTATIC_STORAGE === 'github' ||
-  process.env.KEYSTATIC_STORAGE === 'github';
+  storageFlag === 'github' || (onCfPages && storageFlag !== 'local');
+
+// Pastikan Vite inject flag ke client bundle (keystatic.config.ts baca import.meta.env)
+if (useGithubCms && process.env.PUBLIC_KEYSTATIC_STORAGE !== 'github') {
+  process.env.PUBLIC_KEYSTATIC_STORAGE = 'github';
+}
+
 const enableKeystatic = isDev || useGithubCms;
 
 export default defineConfig({
   site: 'https://berkah-koper.pages.dev',
 
-  // Tanpa github CMS → static murni (deploy lama). Dengan github → adapter SSR untuk /keystatic
+  // Tanpa github CMS → static murni. Dengan github / CF Pages → adapter SSR untuk /keystatic
   ...(useGithubCms ? { adapter: cloudflare() } : { output: 'static' }),
 
   env: {
