@@ -10,21 +10,17 @@ async function readSecret(
   context: Parameters<APIRoute>[0],
   key: string,
 ): Promise<string | undefined> {
-  const runtimeEnv = (context.locals as RuntimeLocals)?.runtime?.env;
-  const fromRuntime = runtimeEnv?.[key];
+  const fromRuntime = (context.locals as RuntimeLocals)?.runtime?.env?.[key];
   if (fromRuntime) return fromRuntime;
 
   try {
-    const { env } = await import('cloudflare:workers');
-    const fromCf = (env as Record<string, string | undefined>)?.[key];
-    if (fromCf) return fromCf;
-  } catch {
-    /* not on Cloudflare workers runtime */
-  }
-
-  try {
     const { getSecret } = await import('astro:env/server');
-    const fromAstro = getSecret(key as 'KEYSTATIC_GITHUB_CLIENT_ID');
+    const fromAstro = getSecret(
+      key as
+        | 'KEYSTATIC_GITHUB_CLIENT_ID'
+        | 'KEYSTATIC_GITHUB_CLIENT_SECRET'
+        | 'KEYSTATIC_SECRET',
+    );
     if (fromAstro) return fromAstro;
   } catch {
     /* astro:env unavailable */
@@ -37,11 +33,14 @@ async function readSecret(
   return undefined;
 }
 
-/** Keystatic API for Cloudflare — secrets from runtime / cloudflare:workers / astro:env. */
+/** Keystatic API for Cloudflare — secrets from runtime.env / astro:env. */
 export const ALL: APIRoute = async (context) => {
   try {
     const clientId = await readSecret(context, 'KEYSTATIC_GITHUB_CLIENT_ID');
-    const clientSecret = await readSecret(context, 'KEYSTATIC_GITHUB_CLIENT_SECRET');
+    const clientSecret = await readSecret(
+      context,
+      'KEYSTATIC_GITHUB_CLIENT_SECRET',
+    );
     const secret = await readSecret(context, 'KEYSTATIC_SECRET');
 
     if (!clientId || !clientSecret || !secret) {
@@ -51,7 +50,7 @@ export const ALL: APIRoute = async (context) => {
           KEYSTATIC_GITHUB_CLIENT_ID: Boolean(clientId),
           KEYSTATIC_GITHUB_CLIENT_SECRET: Boolean(clientSecret),
           KEYSTATIC_SECRET: Boolean(secret),
-          hint: 'Cloudflare → berkah-koper → Settings → Variables and secrets → Production. Add the 3 KEYSTATIC_* secrets (Encrypt), Save, then Retry deploy.',
+          hint: 'Secrets ada di Settings → Retry deployment supaya Worker baru dapat env.',
         }),
         { status: 500, headers: { 'content-type': 'application/json; charset=utf-8' } },
       );
