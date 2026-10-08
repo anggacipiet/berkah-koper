@@ -3,13 +3,15 @@ order: 1
 category: koper
 badge: terlaris
 shortDesc: koper test
-description: lorem ipsum
+description: lorem ipsum nagai
 price: 0
 priceLabel: '30000'
 images:
   - /images/koper-test-pp/images/0.jpg
+  - /images/koper-test-pp/images/1.jpeg
 sizes:
   - '24'
+  - '28'
 variants:
   - label: ddd
     priceAdj: 0
@@ -20,8 +22,11 @@ colorGroups:
       - name: sss
         hex: '#4a5e3a'
         imageIndex: 0
+      - name: hitam
+        hex: '#000000'
+        imageIndex: 2
 features:
-  - setiap
+  - setiap ok tes
 weight: '22'
 material: karpe
 isBundle: false
