@@ -6,7 +6,9 @@ import SearchBar from '../components/SearchBar.astro';
 import { getAllProducts } from '../data/products';
 import { buildWaLink } from '../lib/media';
 
-// Semua produk di-render di server, filter dilakukan client-side
+export const prerender = true;
+
+// Semua produk di-render di build; filter dilakukan client-side
 const allProducts = getAllProducts();
 const waSearch = buildWaLink(
   "Assalamu'alaikum Berkah Koper, saya mencari produk tertentu.",

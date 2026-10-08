@@ -9,6 +9,9 @@ import { getMitra } from '../data/mitra';
 import { buildWaLink } from '../lib/media';
 import { CATALOG_CATEGORIES } from '../types/product';
 
+// Bake HTML at build (CF Worker cannot read content/*.yaml via fs at runtime)
+export const prerender = true;
+
 const featured = getFeaturedProducts(4);
 const bundles  = getBundleProducts();
 const hero = getHero();

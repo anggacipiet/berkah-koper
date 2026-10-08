@@ -11,6 +11,8 @@ import {
 import { CATEGORY_LABELS } from '../../types/product';
 import type { GetStaticPaths } from 'astro';
 
+export const prerender = true;
+
 export const getStaticPaths: GetStaticPaths = () =>
   getAllProducts().map((p) => ({ params: { slug: p.slug } }));
 
