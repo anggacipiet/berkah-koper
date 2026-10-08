@@ -89,7 +89,10 @@ export default defineConfig({
   ...(useGithubCms
     ? {
         session: { driver: 'memory' },
-        adapter: cloudflare(),
+        adapter: cloudflare({
+          // Avoid pulling sharp into the Worker runtime
+          imageService: 'passthrough',
+        }),
       }
     : { output: 'static' }),
 
