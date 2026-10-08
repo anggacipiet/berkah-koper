@@ -31,8 +31,13 @@ const enableKeystatic = isDev || useGithubCms;
 export default defineConfig({
   site: 'https://berkah-koper.pages.dev',
 
-  // Tanpa github CMS → static murni. Dengan github / CF Pages → adapter SSR untuk /keystatic
-  ...(useGithubCms ? { adapter: cloudflare() } : { output: 'static' }),
+  // Hindari auto-binding SESSION KV (sering bikin 500 di Pages jika KV belum dibuat)
+  ...(useGithubCms
+    ? {
+        session: { driver: 'memory' },
+        adapter: cloudflare(),
+      }
+    : { output: 'static' }),
 
   env: {
     schema: {
