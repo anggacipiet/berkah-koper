@@ -30,16 +30,20 @@ const colorGroup = fields.object({
   }),
 });
 
-const imageField = (label: string) =>
-  fields.image({
-    label,
-    description: 'Upload gambar (disimpan di public/images, path /images/...)',
-    directory: 'public/images',
-    publicPath: '/images/',
-  });
+/**
+ * Config ini di-hydrate di browser — jangan pakai `process` (undefined di client).
+ * Pakai PUBLIC_* agar Vite inject ke client bundle.
+ * Dev default: local. GitHub OAuth: PUBLIC_KEYSTATIC_STORAGE=github (+ secrets).
+ */
+const useGithub = import.meta.env.PUBLIC_KEYSTATIC_STORAGE === 'github';
 
 export default config({
-  storage: { kind: 'local' },
+  storage: useGithub
+    ? {
+        kind: 'github',
+        repo: 'anggacipiet/berkah-koper',
+      }
+    : { kind: 'local' },
   ui: {
     brand: { name: 'Berkah Koper' },
   },
