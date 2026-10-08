@@ -1,6 +1,4 @@
-# Cloudflare Pages / Workers — needed for Keystatic API (Node crypto, etc.)
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]
-
 name = "berkah-koper"
+compatibility_date = "2026-10-05"
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
