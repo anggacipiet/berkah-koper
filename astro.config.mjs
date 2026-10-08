@@ -80,8 +80,9 @@ export default defineConfig({
       ],
       exclude: ['@keystatic/astro'],
     },
+    // Bundle Keystatic into the Worker — external breaks CF ("No such module")
     ssr: {
-      external: ['@keystatic/core'],
+      noExternal: ['@keystatic/core', '@keystatic/astro'],
     },
   },
 });
