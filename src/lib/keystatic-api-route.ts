@@ -6,34 +6,52 @@ type RuntimeLocals = {
   runtime?: { env?: Record<string, string | undefined> };
 };
 
-function envFrom(context: Parameters<APIRoute>[0]) {
-  const runtime = (context.locals as RuntimeLocals)?.runtime?.env ?? {};
-  const processEnv = typeof process !== 'undefined' ? process.env : {};
-  return { runtime, processEnv };
+async function readSecret(
+  context: Parameters<APIRoute>[0],
+  key: string,
+): Promise<string | undefined> {
+  const runtimeEnv = (context.locals as RuntimeLocals)?.runtime?.env;
+  const fromRuntime = runtimeEnv?.[key];
+  if (fromRuntime) return fromRuntime;
+
+  try {
+    const { env } = await import('cloudflare:workers');
+    const fromCf = (env as Record<string, string | undefined>)?.[key];
+    if (fromCf) return fromCf;
+  } catch {
+    /* not on Cloudflare workers runtime */
+  }
+
+  try {
+    const { getSecret } = await import('astro:env/server');
+    const fromAstro = getSecret(key as 'KEYSTATIC_GITHUB_CLIENT_ID');
+    if (fromAstro) return fromAstro;
+  } catch {
+    /* astro:env unavailable */
+  }
+
+  if (typeof process !== 'undefined' && process.env?.[key]) {
+    return process.env[key];
+  }
+
+  return undefined;
 }
 
-function read(runtime: Record<string, string | undefined>, processEnv: NodeJS.ProcessEnv, key: string) {
-  return runtime[key] || processEnv[key] || undefined;
-}
-
-/** Dynamic imports so a bad Keystatic/env load still returns JSON (not empty CF 500). */
+/** Keystatic API for Cloudflare — secrets from runtime / cloudflare:workers / astro:env. */
 export const ALL: APIRoute = async (context) => {
   try {
-    const { runtime, processEnv } = envFrom(context);
-    const clientId = read(runtime, processEnv, 'KEYSTATIC_GITHUB_CLIENT_ID');
-    const clientSecret = read(runtime, processEnv, 'KEYSTATIC_GITHUB_CLIENT_SECRET');
-    const secret = read(runtime, processEnv, 'KEYSTATIC_SECRET');
+    const clientId = await readSecret(context, 'KEYSTATIC_GITHUB_CLIENT_ID');
+    const clientSecret = await readSecret(context, 'KEYSTATIC_GITHUB_CLIENT_SECRET');
+    const secret = await readSecret(context, 'KEYSTATIC_SECRET');
 
     if (!clientId || !clientSecret || !secret) {
-      const runtimeKeys = Object.keys(runtime).filter((k) => k.includes('KEYSTATIC') || k.includes('PUBLIC_'));
       return new Response(
         JSON.stringify({
           error: 'Missing Keystatic env on Cloudflare',
           KEYSTATIC_GITHUB_CLIENT_ID: Boolean(clientId),
           KEYSTATIC_GITHUB_CLIENT_SECRET: Boolean(clientSecret),
           KEYSTATIC_SECRET: Boolean(secret),
-          runtimeKeys,
-          hint: 'Pages → Settings → Variables and secrets → Production (Encrypt secrets), then Retry deploy',
+          hint: 'Cloudflare → berkah-koper → Settings → Variables and secrets → Production. Add the 3 KEYSTATIC_* secrets (Encrypt), Save, then Retry deploy.',
         }),
         { status: 500, headers: { 'content-type': 'application/json; charset=utf-8' } },
       );
