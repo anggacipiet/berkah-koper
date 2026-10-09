@@ -37,7 +37,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
 
 <Layout>
   <!-- ── HERO ─────────────────────────────────────────────────── -->
-  <section class="hero-pattern overflow-hidden" aria-labelledby="hero-heading">
+  <section class="hero-pattern" aria-labelledby="hero-heading">
     <!-- Mobile: carousel hero (desktop tetap collage) -->
     <div class="animate-fade-up relative lg:hidden" id="hero-carousel" aria-roledescription="carousel" aria-label="Foto produk unggulan">
       <div class="relative aspect-[16/10] w-full overflow-hidden">
@@ -72,25 +72,26 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
       </div>
     </div>
 
-    <div class="container-page grid items-center gap-10 py-10 lg:min-h-[600px] lg:grid-cols-[1.1fr_.9fr] lg:gap-12 lg:py-12">
+    <!-- Hero desktop: teks + collage muat 1 viewport (tanpa margin acak) -->
+    <div class="container-page grid items-center gap-8 py-8 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1.1fr_.9fr] lg:gap-10 lg:py-6">
 
       <div>
-        <div class="animate-fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-[#c9a448]/40 bg-[#c9a448]/10 px-4 py-1.5 text-xs font-bold text-[#c9a448]">
+        <div class="animate-fade-up mb-4 inline-flex items-center gap-2 rounded-full border border-[#c9a448]/40 bg-[#c9a448]/10 px-4 py-1.5 text-xs font-bold text-[#c9a448]">
           {hero.eyebrow}
         </div>
 
-        <h1 id="hero-heading" class="animate-fade-up animate-fade-up-d1 max-w-2xl text-4xl leading-[1.12] text-white sm:text-5xl md:text-6xl">
+        <h1 id="hero-heading" class="animate-fade-up animate-fade-up-d1 max-w-2xl text-4xl leading-[1.12] text-white sm:text-5xl lg:text-[2.75rem] xl:text-6xl">
           {hero.headline}<br />
           <span class="text-[#c9a448]">{hero.headlineAccent.trim()}</span>
         </h1>
 
-        <div class="animate-fade-up animate-fade-up-d2 font-body mt-5 max-w-lg space-y-2.5 text-sm leading-7 text-white/70">
+        <div class="animate-fade-up animate-fade-up-d2 font-body mt-4 max-w-lg space-y-2 text-sm leading-6 text-white/70">
           {hero.paragraphs.map((p) => (
             <p>{p}</p>
           ))}
         </div>
 
-        <div class="animate-fade-up animate-fade-up-d3 mt-8 flex flex-wrap gap-3">
+        <div class="animate-fade-up animate-fade-up-d3 mt-6 flex flex-wrap gap-3">
           <a href={hero.primaryCtaHref} class="btn-primary">
             {hero.primaryCtaLabel}
           </a>
@@ -104,7 +105,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
           </a>
         </div>
 
-        <div class="animate-fade-up animate-fade-up-d4 mt-8 flex flex-wrap gap-x-6 gap-y-2">
+        <div class="animate-fade-up animate-fade-up-d4 mt-5 flex flex-wrap gap-x-6 gap-y-2">
           {hero.trustItems.map((item) => (
             <div class="flex items-center gap-1.5 text-xs text-white/60">
               <span class="text-[#c9a448]">✓</span> {item}
@@ -113,28 +114,16 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
         </div>
       </div>
 
-      <!-- Desktop: collage editorial 1 besar + 2 bertingkat (profesional, tanpa garis/ring) -->
       {heroSlides.length > 0 && (
         <div class="hero-collage animate-fade-up animate-fade-up-d2 relative hidden lg:block">
           <div class="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-[#c9a448]/12 blur-3xl" aria-hidden="true"></div>
-          <div class="relative grid grid-cols-2 items-start gap-3">
-            <figure class="hero-collage__shot hero-collage__shot--main m-0 overflow-hidden rounded-2xl bg-[#111]">
-              <img
-                src={heroSlides[0].src}
-                alt={heroSlides[0].alt}
-                class="aspect-[3/4] h-full w-full object-cover object-center"
-                width="520"
-                height="693"
-                loading="eager"
-              />
-            </figure>
-            <div class="flex flex-col gap-3 pt-10">
+          <div class="hero-collage__grid relative">
+            <div class="hero-collage__stack">
               {heroSlides.slice(1, 3).map((slide) => (
-                <figure class="hero-collage__shot m-0 overflow-hidden rounded-2xl bg-[#111]">
+                <figure class="hero-collage__shot hero-collage__side m-0 overflow-hidden rounded-2xl bg-[#111]">
                   <img
                     src={slide.src}
                     alt={slide.alt}
-                    class="aspect-[3/4] h-full w-full object-cover object-center"
                     width="360"
                     height="480"
                     loading="eager"
@@ -142,6 +131,16 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
                 </figure>
               ))}
             </div>
+            <!-- Hero 1 di depan, overlap stack kanan — object-position agar teks bawah tidak kepotong -->
+            <figure class="hero-collage__shot hero-collage__main m-0 overflow-hidden rounded-2xl bg-[#111]">
+              <img
+                src={heroSlides[0].src}
+                alt={heroSlides[0].alt}
+                width="520"
+                height="693"
+                loading="eager"
+              />
+            </figure>
           </div>
         </div>
       )}
@@ -156,14 +155,62 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
       width: 1.25rem;
       background: #c9a448;
     }
-    .hero-collage__shot {
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    .hero-collage__grid {
+      --collage-h: min(34rem, calc(100svh - 7.25rem));
+      position: relative;
+      height: var(--collage-h);
+      overflow: visible;
     }
-    .hero-collage__shot img {
+    /* Stack 2–3: box lebih tinggi ke bawah agar "Komplit 4 in 1" tidak kepotong */
+    .hero-collage__stack {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: -0.75rem;
+      width: 68%;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 0.65rem;
+      z-index: 1;
+    }
+    .hero-collage__side {
+      position: relative;
+      min-height: 0;
+      height: 100%;
+      background: #111;
+    }
+    /* Hero 1: sedikit lebih lebar ke kiri */
+    .hero-collage__main {
+      position: absolute;
+      left: -0.75rem;
+      top: 10%;
+      bottom: 14%;
+      width: calc(54% + 1.25rem);
+      z-index: 2;
+      background: #111;
+      box-shadow:
+        0 22px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(201, 164, 72, 0.12);
+    }
+    .hero-collage__shot {
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+    .hero-collage__shot > img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       transition: transform 0.5s ease;
     }
-    .hero-collage__shot:hover img {
-      transform: scale(1.03);
+    .hero-collage__main > img {
+      object-position: 70% center;
+    }
+    .hero-collage__side > img {
+      object-position: 78% 88%;
+    }
+    .hero-collage__main:hover > img,
+    .hero-collage__side:hover > img {
+      transform: scale(1.02);
     }
   </style>
 
