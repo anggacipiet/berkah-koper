@@ -27,9 +27,9 @@ const FALLBACK: TentangContent = {
       desc: 'ABS, Polycarbonate, dan Polypropylene anti pecah — kuat untuk perjalanan jauh.',
     },
     {
-      icon: '🎨',
-      title: 'Custom Warna & Logo',
-      desc: 'Warna body & aksesori bebas. Logo & nama jamaah gratis untuk order grup.',
+      icon: '🧳',
+      title: 'Desain Fungsional',
+      desc: 'Ruang penyimpanan optimal untuk pakaian ihram dan perlengkapan pribadi.',
     },
     {
       icon: '🔒',
@@ -37,9 +37,9 @@ const FALLBACK: TentangContent = {
       desc: 'Kunci kombinasi 3-digit dan konstruksi kokoh untuk barang berharga.',
     },
     {
-      icon: '🚚',
-      title: 'Free Ongkir Jakarta',
-      desc: 'Gratis area Kalideres & sekitarnya. Kirim ke seluruh Indonesia.',
+      icon: '🛞',
+      title: 'Ringan Dan Nyaman',
+      desc: 'Dilengkapi 360 silent wheels untuk mobilitas tinggi.',
     },
   ],
 };
