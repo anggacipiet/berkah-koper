@@ -1,12 +1,15 @@
-order: 19
 name: Koper Custom Embos Moulding
+order: 6
 category: koper
 badge: CUSTOM
-shortDesc: Terima pesanan koper custom embos moulding — logo & desain sesuai permintaan, minimum order.
+shortDesc: >-
+  Terima pesanan koper custom embos moulding — logo & desain sesuai permintaan,
+  minimum order.
 description: >-
-  Layanan koper custom embos moulding Berkah Koper. Logo, nama travel, dan desain dicetak langsung
-  pada body koper menggunakan teknik embos moulding yang presisi dan tahan lama. Cocok untuk travel
-  haji & umroh, korporat, dan instansi. Tersedia pilihan warna bebas.
+  Layanan koper custom embos moulding Berkah Koper. Logo, nama travel, dan
+  desain dicetak langsung pada body koper menggunakan teknik embos moulding yang
+  presisi dan tahan lama. Cocok untuk travel haji & umroh, korporat, dan
+  instansi. Tersedia pilihan warna bebas.
 price: 0
 priceLabel: Hubungi untuk info harga
 images:
@@ -19,10 +22,9 @@ images:
   - /images/koper-custom-embos-moulding/images/6.jpg
   - /images/koper-custom-embos-moulding/images/7.jpg
   - /images/koper-custom-embos-moulding/images/8.jpg
-isBundle: true
-bundleItems:
-  - Koper Cabin (20")
-  - Koper Bagasi (24" atau 28")
+sizes: []
+variants: []
+colorGroups: []
 features:
   - Custom logo & nama travel langsung di body koper
   - Teknik embos moulding — presisi & tahan lama
@@ -33,4 +35,8 @@ features:
   - Kunci kombinasi 3 angka
   - Minimal order — hubungi untuk info
 material: ABS / Polycarbonate (PC)
+isBundle: true
+bundleItems:
+  - Koper Cabin (20")
+  - Koper Bagasi (24" atau 28")
 inStock: true
