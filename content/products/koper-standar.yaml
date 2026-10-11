@@ -47,6 +47,9 @@ colorGroups:
         hex: '#1e2d5a'
       - name: Kuning
         hex: '#d4a017'
+      - name: merah tes
+        hex: '#FF0000'
+        imageIndex: 7
 features:
   - Motif emboss diamond premium
   - One Color System — roda & trim senada
