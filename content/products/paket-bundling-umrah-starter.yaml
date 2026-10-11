@@ -1,13 +1,14 @@
-order: 18
 name: Paket Bundling Umrah Starter
+order: 5
 category: koper
 badge: HEMAT 20%
 shortDesc: >-
-  Paket lengkap koper + tas untuk jamaah umrah — koper cabin, koper bagasi, tas selempang, tas
-  serut.
+  Paket lengkap koper + tas untuk jamaah umrah — koper cabin, koper bagasi, tas
+  selempang, tas serut.
 description: >-
-  Paket bundling umrah starter Berkah Koper — set lengkap siap berangkat. Tersedia dalam berbagai
-  pilihan warna dan bisa dikustomisasi dengan logo travel Anda. Cocok untuk pemesanan grup jamaah.
+  Paket bundling umrah starter Berkah Koper — set lengkap siap berangkat.
+  Tersedia dalam berbagai pilihan warna dan bisa dikustomisasi dengan logo
+  travel Anda. Cocok untuk pemesanan grup jamaah.
 price: 999000
 priceLabel: Hubungi untuk info harga
 images:
@@ -18,12 +19,9 @@ images:
   - /images/paket-bundling-umrah-starter/images/4.jpg
   - /images/paket-bundling-umrah-starter/images/5.jpg
   - /images/paket-bundling-umrah-starter/images/6.jpg
-isBundle: true
-bundleItems:
-  - Koper Cabin (20")
-  - Koper Bagasi (24" atau 28")
-  - Tas Selempang
-  - Tas Serut
+sizes: []
+variants: []
+colorGroups: []
 features:
   - Set lengkap siap berangkat umrah
   - Custom logo & nama travel (free)
@@ -33,4 +31,10 @@ features:
   - Cocok untuk pemesanan grup jamaah
   - Tersedia berbagai model koper
 material: ABS / PC / PP
+isBundle: true
+bundleItems:
+  - Koper Cabin (20")
+  - Koper Bagasi (24" atau 28")
+  - Tas Selempang
+  - Tas Serut
 inStock: true
