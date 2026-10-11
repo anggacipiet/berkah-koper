@@ -1,17 +1,23 @@
-order: 5
-name: Koper ABS Diamond One Color
+name: Koper STANDAR
+order: 1
 category: koper
 badge: BARU
-shortDesc: Koper ABS/PC motif diamond dengan sistem One Color — 7 warna cerah, uk 18", 20" & 24".
-description: >-
-  Koper dengan motif emboss diamond yang eye-catching. Sistem One Color: roda, handle, dan trim
-  berwarna senada dengan body koper. Tersedia 7 warna cerah. Bahan ABS & PC, roda 360° silent.
-price: 500000
-priceLabel: Mulai Rp 500.000
+shortDesc: Koper berbahan Fiber ABS,  terdapat uk 18", 20", 22" 24", 26", 28"
+description: |
+  Koper dengan berbahan standar ABS
+  tersedia uk : 18", 20", 22", 24", 26", 28"
+  Tersedia berbagai pilihan warna 
+  Free Logo 
+  Free Packing 
+price: 0
 images:
-  - /images/koper-abs-diamond-one-color/images/0.jpg
-  - /images/koper-abs-diamond-one-color/images/1.jpg
-  - /images/koper-abs-diamond-one-color/images/2.jpg
+  - /images/koper-standar/images/0.jpg
+  - /images/koper-standar/images/1.jpg
+  - /images/koper-standar/images/2.jpg
+  - /images/koper-standar/images/3.jpg
+  - /images/koper-standar/images/4.jpg
+  - /images/koper-standar/images/5.jpg
+  - /images/koper-standar/images/6.jpg
 sizes:
   - 18"
   - 20"
@@ -52,4 +58,6 @@ features:
   - Free ongkir area Jakarta
 weight: 2.7 kg (20")
 material: ABS + Polycarbonate (PC)
+isBundle: false
+bundleItems: []
 inStock: true
