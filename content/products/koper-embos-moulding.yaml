@@ -1,20 +1,22 @@
-order: 2
-name: Koper PP Series 9901
+name: Koper Embos Moulding
+order: 4
 category: koper
 badge: BARU
-shortDesc: Koper PP Series 9901 — 12 warna kombinasi khaki, anti pecah & fleksibel terbukti.
+shortDesc: >-
+  koper embos moulding — 12 warna kombinasi khaki, anti pecah & fleksibel
+  terbukti.
 description: >-
-  Koper PP Series 9901 dengan kombinasi warna khaki yang elegan. Telah lulus tes kekuatan: drop
-  test, tes beban, dan flex test. Tersedia 12 pilihan warna. Roda putar 360° silent, kunci kombinasi
-  3 digit.
+  Koper Embos Moulding dengan kombinasi warna khaki yang elegan. Telah lulus tes
+  kekuatan: drop test, tes beban, dan flex test. Tersedia 12 pilihan warna. Roda
+  putar 360° silent, kunci kombinasi 3 digit.
 price: 800000
 priceLabel: Mulai Rp 800.000
 images:
-  - /images/koper-pp-series-9901/images/0.jpg
-  - /images/koper-pp-series-9901/images/1.jpg
-  - /images/koper-pp-series-9901/images/2.jpg
-  - /images/koper-pp-series-9901/images/3.jpg
-  - /images/koper-pp-series-9901/images/4.jpg
+  - /images/koper-embos-moulding/images/0.jpg
+  - /images/koper-embos-moulding/images/1.jpg
+  - /images/koper-embos-moulding/images/2.jpg
+  - /images/koper-embos-moulding/images/3.jpg
+  - /images/koper-embos-moulding/images/4.jpg
 sizes:
   - 20"
   - 24"
@@ -65,4 +67,6 @@ features:
   - Free ongkir area Jakarta
 weight: 3.0 kg (24")
 material: Polypropylene (PP)
+isBundle: false
+bundleItems: []
 inStock: true
