@@ -1,17 +1,17 @@
-order: 9
-name: Koper PC Premium Mewah
+name: Koper Premium Polypropylane
+order: 1
 category: koper
-shortDesc: Koper Polycarbonate premium — kesan mewah, kuat, uk 20" & 24".
+shortDesc: Koper Premium Polypropylane — kesan mewah, kuat, uk 20" & 24".
 description: >-
-  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan glossy. Cocok untuk jamaah
-  yang menginginkan tampilan premium. Custom logo travel/kloter tersedia. Bahan PC memberikan
-  kekuatan ekstra dibanding ABS.
+  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan
+  glossy. Cocok untuk jamaah yang menginginkan tampilan premium. Custom logo
+  travel/kloter tersedia. Bahan PC memberikan kekuatan ekstra dibanding ABS.
 price: 650000
 priceLabel: Mulai Rp 650.000
 images:
-  - /images/koper-pc-premium-mewah/images/0.jpg
-  - /images/koper-pc-premium-mewah/images/1.jpg
-  - /images/koper-pc-premium-mewah/images/2.jpg
+  - /images/koper-premium-polypropylane/images/0.jpg
+  - /images/koper-premium-polypropylane/images/1.jpg
+  - /images/koper-premium-polypropylane/images/2.jpg
 sizes:
   - 20"
   - 24"
@@ -69,4 +69,6 @@ features:
   - Free ongkir area Jakarta
 weight: 3.0 kg (20")
 material: Polycarbonate (PC)
+isBundle: false
+bundleItems: []
 inStock: true
