@@ -1,23 +1,26 @@
+name: Koper Polycarbonate Premium
 order: 1
-name: Koper PP Premium Haji & Umrah
 category: koper
 badge: TERLARIS
-shortDesc: Koper Polypropylene anti pecah, lentur & kuat — 10 warna, tersedia 20", 24" & 28".
+shortDesc: >-
+  Koper Polycarbonate Premium elegan dan mewah — 10 warna, tersedia 20", 24" &
+  28".
 description: >-
-  Koper berbahan Polypropylene (PP) premium — anti pecah, lentur, dan sangat ringan. Tekstur motif
-  anyaman elegan. Tersedia dalam 10 pilihan warna body dan 12 pilihan warna aksesori One Color
-  System (roda, handle, corner guard). Cocok untuk perjalanan Haji & Umrah dengan kloter besar
-  karena bisa dikustomisasi warna per jamaah.
+  Koper berbahan Polypropylene (PP) premium — anti pecah, lentur, dan sangat
+  ringan. Tekstur motif anyaman elegan. Tersedia dalam 10 pilihan warna body dan
+  12 pilihan warna aksesori One Color System (roda, handle, corner guard). Cocok
+  untuk perjalanan Haji & Umrah dengan kloter besar karena bisa dikustomisasi
+  warna per jamaah.
 price: 750000
 priceLabel: Mulai Rp 750.000
 images:
-  - /images/koper-pp-premium-haji-umrah/images/0.jpg
-  - /images/koper-pp-premium-haji-umrah/images/1.jpg
-  - /images/koper-pp-premium-haji-umrah/images/2.jpg
-  - /images/koper-pp-premium-haji-umrah/images/3.jpg
-  - /images/koper-pp-premium-haji-umrah/images/4.jpg
-  - /images/koper-pp-premium-haji-umrah/images/5.jpg
-  - /images/koper-pp-premium-haji-umrah/images/6.jpg
+  - /images/koper-polycarbonate-premium/images/0.jpg
+  - /images/koper-polycarbonate-premium/images/1.jpg
+  - /images/koper-polycarbonate-premium/images/2.jpg
+  - /images/koper-polycarbonate-premium/images/3.jpg
+  - /images/koper-polycarbonate-premium/images/4.jpg
+  - /images/koper-polycarbonate-premium/images/5.jpg
+  - /images/koper-polycarbonate-premium/images/6.jpg
 sizes:
   - 20"
   - 24"
@@ -93,4 +96,6 @@ features:
   - Free ongkir area Jakarta
 weight: 3.2 kg (24")
 material: Polypropylene (PP) Premium
+isBundle: false
+bundleItems: []
 inStock: true
