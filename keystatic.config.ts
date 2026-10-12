@@ -191,6 +191,81 @@ export default config({
         }),
       },
     }),
+    promo: singleton({
+      label: 'CTA Promo (Koper PP)',
+      path: 'content/settings/promo',
+      format: { data: 'yaml' },
+      schema: {
+        heading: fields.text({
+          label: 'Judul section',
+          defaultValue: 'Koper PP Premium',
+          validation: { isRequired: true },
+        }),
+        description: fields.text({
+          label: 'Deskripsi section',
+          multiline: true,
+          defaultValue:
+            'Anti pecah, lentur & kuat — tersedia 20", 24" & 28" dengan pilihan warna bebas.',
+          validation: { isRequired: true },
+        }),
+        primaryCtaLabel: fields.text({
+          label: 'Tombol utama — teks',
+          defaultValue: 'Koper PP Premium →',
+        }),
+        primaryCtaHref: fields.text({
+          label: 'Tombol utama — link',
+          defaultValue: '/produk/koper-premium-polypropylane',
+        }),
+        secondaryCtaLabel: fields.text({
+          label: 'Tombol kedua — teks',
+          defaultValue: 'Semua Produk →',
+        }),
+        secondaryCtaHref: fields.text({
+          label: 'Tombol kedua — link',
+          defaultValue: '/katalog',
+        }),
+        cards: fields.array(
+          fields.object({
+            image: fields.image({
+              label: 'Gambar kartu',
+              description: 'Disimpan di public/images/promo/',
+              directory: 'public/images/promo',
+              publicPath: '/images/promo/',
+            }),
+            alt: fields.text({
+              label: 'Alt gambar',
+              validation: { isRequired: true },
+            }),
+            eyebrow: fields.text({
+              label: 'Label atas (emas)',
+              description: 'Teks kecil di atas judul dalam gambar',
+              validation: { isRequired: true },
+            }),
+            title: fields.text({
+              label: 'Judul dalam gambar',
+              validation: { isRequired: true },
+            }),
+            subtitle: fields.text({
+              label: 'Subteks dalam gambar',
+              validation: { isRequired: true },
+            }),
+            href: fields.text({
+              label: 'Link kartu',
+              defaultValue: '/produk/koper-premium-polypropylane',
+            }),
+          }),
+          {
+            label: 'Kartu promo (2 gambar)',
+            description: 'Urutan: kiri dulu, kanan kedua. Idealnya tepat 2 kartu.',
+            itemLabel: (props) =>
+              props.fields.eyebrow.value ||
+              props.fields.title.value ||
+              'Kartu',
+            validation: { length: { min: 1, max: 2 } },
+          },
+        ),
+      },
+    }),
     katalogDownload: singleton({
       label: 'CTA Siap Berangkat',
       path: 'content/settings/katalog-download',

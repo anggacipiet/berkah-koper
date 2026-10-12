@@ -7,6 +7,7 @@ import { getHero } from '../data/hero';
 import { getTentang } from '../data/tentang';
 import { getMitra } from '../data/mitra';
 import { getKatalogDownload } from '../data/katalog';
+import { getPromo } from '../data/promo';
 import { buildWaLink } from '../lib/media';
 import { CATALOG_CATEGORIES } from '../types/product';
 
@@ -19,6 +20,8 @@ const hero = getHero();
 const tentang = getTentang();
 const mitra = getMitra();
 const katalogDl = getKatalogDownload();
+const promo = getPromo();
+const promoCards = promo.cards;
 const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
 const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
 const heroSlides = hero.slides;
@@ -311,48 +314,56 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
     </div>
   </section>
 
-  <!-- ── BANNER KOPER ───────────────────────────────────────── -->
+  <!-- ── BANNER / CTA PROMO ─────────────────────────────────── -->
   <section class="bg-[#0d0d0d] py-16" aria-labelledby="banner-heading">
     <div class="container-page">
       <div class="gold-line"></div>
-      <h2 id="banner-heading" class="mt-4 text-3xl text-white md:text-4xl">Koper PP Premium</h2>
-      <p class="mt-2 max-w-xl text-white/50">Anti pecah, lentur & kuat — tersedia 20", 24" & 28" dengan pilihan warna bebas.</p>
+      <h2 id="banner-heading" class="mt-4 text-3xl text-white md:text-4xl">{promo.heading}</h2>
+      <p class="mt-2 max-w-xl text-white/50">{promo.description}</p>
 
       <div class="mt-8 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
-        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]">
-          <img
-            src="/images/Katalog 2026/Katalog 2026_page-0001.jpg"
-            alt="Koleksi koper Berkah Koper — warna & model lengkap Haji & Umrah"
-            class="h-full min-h-64 w-full object-cover lg:min-h-80"
-            loading="lazy" decoding="async" width="800" height="500"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-5 left-5 right-5">
-            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Koper PP Premium</div>
-            <div class="mt-1 font-display text-xl text-white md:text-2xl">Anti Pecah, Lentur & Kuat</div>
-            <div class="mt-1 text-sm text-white/70">Lihat detail →</div>
-          </div>
-        </a>
-
-        <a href="/produk/koper-pp-premium-haji-umrah" class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]">
-          <img
-            src="/images/Katalog 2026/Katalog 2026_page-0003.jpg"
-            alt="Koper PP Polypropylene anti pecah — lentur dan kuat"
-            class="h-full min-h-64 w-full object-cover object-top lg:min-h-80"
-            loading="lazy" decoding="async" width="600" height="500"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-          <div class="absolute bottom-5 left-5 right-5">
-            <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Bahan PP Polypropylene</div>
-            <div class="mt-1 font-display text-xl text-white md:text-2xl">Anti Pecah!</div>
-            <div class="mt-1 text-sm text-white/80">Tersedia uk. 20", 24" & 28"</div>
-          </div>
-        </a>
+        {promoCards.map((card, i) => (
+          <a
+            href={card.href}
+            class:list={[
+              'card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]',
+              i === 0 ? '' : '',
+            ]}
+          >
+            <img
+              src={card.image}
+              alt={card.alt}
+              class:list={[
+                'h-full min-h-64 w-full object-cover lg:min-h-80',
+                i === 1 ? 'object-top' : '',
+              ]}
+              loading="lazy"
+              decoding="async"
+              width={i === 0 ? 800 : 600}
+              height={i === 0 ? 500 : 500}
+            />
+            <div
+              class:list={[
+                'absolute inset-0',
+                i === 0
+                  ? 'bg-gradient-to-t from-black/60 via-black/10 to-transparent'
+                  : 'bg-gradient-to-t from-black/70 via-transparent to-transparent',
+              ]}
+            ></div>
+            <div class="absolute bottom-5 left-5 right-5">
+              <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">{card.eyebrow}</div>
+              <div class="mt-1 font-display text-xl text-white md:text-2xl">{card.title}</div>
+              <div class:list={['mt-1 text-sm', i === 0 ? 'text-white/70' : 'text-white/80']}>
+                {card.subtitle}
+              </div>
+            </div>
+          </a>
+        ))}
       </div>
 
       <div class="mt-5 flex flex-wrap gap-3">
-        <a href="/produk/koper-pp-premium-haji-umrah" class="btn-primary">Koper PP Premium →</a>
-        <a href="/katalog" class="btn-outline">Semua Produk →</a>
+        <a href={promo.primaryCtaHref} class="btn-primary">{promo.primaryCtaLabel}</a>
+        <a href={promo.secondaryCtaHref} class="btn-outline">{promo.secondaryCtaLabel}</a>
       </div>
     </div>
   </section>
