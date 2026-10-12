@@ -85,8 +85,9 @@ export const prerender = false;
     <div class="card">
       <h1>Upload Katalog PDF</h1>
       <p>
-        Pakai halaman ini (bukan form Keystatic file) supaya tidak timeout 504 di Cloudflare.
-        Wajib sudah <a href="/keystatic">login Keystatic</a>. Maksimal 8&nbsp;MB.
+        Pakai halaman ini supaya tidak timeout 504. Wajib <a href="/keystatic">login Keystatic</a>.
+        <strong>Maksimal ~20&nbsp;MB</strong> (Cloudflare Pages menolak file &gt; 25&nbsp;MB — PDF 31&nbsp;MB sebelumnya memblokir deploy).
+        Kalau lebih besar: kompres, atau host di Drive/R2 lalu tempel URL di CTA Keystatic.
       </p>
       <form id="form">
         <label for="file">File PDF</label>

@@ -87,9 +87,17 @@ export const POST: APIRoute = async ({ request }) => {
     if (!file.name.toLowerCase().endsWith('.pdf')) {
       return json({ error: 'Hanya file PDF yang diterima' }, 400);
     }
-    // Batas aman untuk Cloudflare Workers
-    if (file.size > 8 * 1024 * 1024) {
-      return json({ error: 'PDF maksimal 8 MB' }, 400);
+    // Cloudflare Pages menolak asset > 25 MiB (file.pdf 31.9 MiB sempat gagal deploy)
+    const maxBytes = 20 * 1024 * 1024;
+    if (file.size > maxBytes) {
+      return json(
+        {
+          error:
+            'PDF terlalu besar untuk Cloudflare Pages (maks ~20 MB, batas platform 25 MB). Kompres PDF, atau host di Google Drive / R2 lalu tempel URL https:// di Keystatic → CTA Siap Berangkat → Link katalog PDF.',
+          sizeMB: Number((file.size / (1024 * 1024)).toFixed(1)),
+        },
+        400,
+      );
     }
 
     const pdfBytes = new Uint8Array(await file.arrayBuffer());

@@ -492,7 +492,9 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
           <a
             href={katalogDl.fileUrl}
             class="btn-outline-gold"
-            download={katalogDl.fileName}
+            download={katalogDl.fileUrl.startsWith('http') ? undefined : katalogDl.fileName}
+            target={katalogDl.fileUrl.startsWith('http') ? '_blank' : undefined}
+            rel={katalogDl.fileUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
             {katalogDl.buttonLabel}
           </a>

@@ -215,9 +215,9 @@ export default config({
           validation: { isRequired: true },
         }),
         file: fields.text({
-          label: 'Path file PDF (otomatis terisi setelah upload)',
+          label: 'Link / path katalog PDF',
           description:
-            'Jangan upload PDF lewat form ini (bikin timeout di Cloudflare). Upload di /keystatic/katalog-upload lalu path muncul di sini, contoh: /files/katalog/katalog.pdf',
+            'PDF di repo maks ~20 MB (batas Cloudflare Pages 25 MB). File 31 MB sebelumnya sudah diganti alur: (1) PDF kecil → /keystatic/katalog-upload (2) PDF besar → tempel URL https://… (Drive/R2). Jangan upload PDF besar lewat Keystatic.',
           defaultValue: '',
         }),
       },

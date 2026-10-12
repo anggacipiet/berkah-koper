@@ -26,7 +26,10 @@ const FALLBACK: KatalogDownload = {
 
 function resolveFileUrl(raw: string | null | undefined): string {
   if (!raw?.trim()) return '';
-  return resolvePublicImage(raw.trim(), '/files/katalog/');
+  const value = raw.trim();
+  // URL eksternal (Drive, R2, dll) — untuk PDF > 20MB yang tidak bisa di Pages
+  if (value.startsWith('https://') || value.startsWith('http://')) return value;
+  return resolvePublicImage(value, '/files/katalog/');
 }
 
 function fileNameFromUrl(url: string): string {
