@@ -1,0 +1,50 @@
+---
+/**
+ * Keystatic UI + fetch patch: api.github.com → /api/github-proxy/*
+ * agar upload/save di Cloudflare Pages tidak kena CORS.
+ */
+import { Keystatic } from '../../lib/keystatic-ui-page';
+
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keystatic — Berkah Koper</title>
+    <script is:inline>
+      (function () {
+        var ORIGIN = 'https://api.github.com';
+        var PROXY = '/api/github-proxy';
+        var orig = window.fetch.bind(window);
+        window.fetch = function (input, init) {
+          try {
+            var url =
+              typeof input === 'string'
+                ? input
+                : input instanceof URL
+                  ? input.href
+                  : input instanceof Request
+                    ? input.url
+                    : String(input);
+            if (url.indexOf(ORIGIN) === 0) {
+              var rewritten = PROXY + url.slice(ORIGIN.length);
+              if (input instanceof Request) {
+                return orig(new Request(rewritten, input), init);
+              }
+              return orig(rewritten, init);
+            }
+          } catch (e) {
+            /* fall through */
+          }
+          return orig(input, init);
+        };
+      })();
+    </script>
+  </head>
+  <body style="margin:0">
+    <Keystatic client:only="react" />
+  </body>
+</html>

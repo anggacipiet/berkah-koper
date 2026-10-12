@@ -36,11 +36,7 @@ export default function keystaticUi() {
           `import "@keystatic/astro/ui";\nimport "@keystatic/astro/api";\nimport "@keystatic/core/ui";\n`,
         );
 
-        injectRoute({
-          entrypoint: '@keystatic/astro/internal/keystatic-astro-page.astro',
-          pattern: '/keystatic/[...params]',
-          prerender: false,
-        });
+        // UI: src/pages/keystatic/[...params].astro (fetch proxy anti-CORS)
         injectRoute({
           entrypoint: './src/lib/keystatic-api-route.ts',
           pattern: '/api/keystatic/[...params]',
