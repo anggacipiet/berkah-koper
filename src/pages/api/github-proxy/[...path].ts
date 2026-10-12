@@ -29,14 +29,16 @@ export const ALL: APIRoute = async ({ request, params }) => {
   }
   headers.set('User-Agent', 'BerkahKoper-Keystatic-Proxy');
 
-  const init: RequestInit = {
+  const init: RequestInit & { duplex?: 'half' } = {
     method: request.method,
     headers,
     redirect: 'manual',
   };
 
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    init.body = await request.arrayBuffer();
+  // Stream body (jangan buffer penuh — PDF besar bikin 504 di Cloudflare)
+  if (request.method !== 'GET' && request.method !== 'HEAD' && request.body) {
+    init.body = request.body;
+    init.duplex = 'half';
   }
 
   let upstream: Response;

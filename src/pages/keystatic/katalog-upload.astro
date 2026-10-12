@@ -1,0 +1,147 @@
+---
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Upload Katalog PDF — Berkah Koper</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #0d0d0d;
+        color: #f5f5f5;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+      }
+      .card {
+        width: min(32rem, 100%);
+        border: 1px solid rgba(201, 164, 72, 0.3);
+        border-radius: 1rem;
+        background: #161616;
+        padding: 1.5rem;
+      }
+      h1 {
+        margin: 0 0 0.35rem;
+        font-size: 1.25rem;
+      }
+      p {
+        margin: 0 0 1rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+      label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+        color: #c9a448;
+      }
+      input[type='file'] {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+      button {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        background: #c9a448;
+        color: #111;
+        font-weight: 700;
+        padding: 0.7rem 1.1rem;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .msg {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+      }
+      .msg.ok {
+        color: #8dce8d;
+      }
+      .msg.err {
+        color: #ff8e8e;
+      }
+      a {
+        color: #c9a448;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Upload Katalog PDF</h1>
+      <p>
+        Pakai halaman ini (bukan form Keystatic file) supaya tidak timeout 504 di Cloudflare.
+        Wajib sudah <a href="/keystatic">login Keystatic</a>. Maksimal 8&nbsp;MB.
+      </p>
+      <form id="form">
+        <label for="file">File PDF</label>
+        <input id="file" name="file" type="file" accept="application/pdf,.pdf" required />
+        <button type="submit" id="btn">Upload &amp; commit ke GitHub</button>
+      </form>
+      <div class="msg" id="msg"></div>
+      <p style="margin-top:1.25rem;margin-bottom:0">
+        <a href="/keystatic/branch/main/singleton/katalogDownload">← Kembali ke CTA Siap Berangkat</a>
+      </p>
+    </div>
+    <script is:inline>
+      (function () {
+        function getToken() {
+          var match = document.cookie.match(/(?:^|; )keystatic-gh-access-token=([^;]*)/);
+          return match ? decodeURIComponent(match[1]) : '';
+        }
+        var form = document.getElementById('form');
+        var btn = document.getElementById('btn');
+        var msg = document.getElementById('msg');
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          msg.className = 'msg';
+          msg.textContent = 'Mengupload…';
+          btn.disabled = true;
+          try {
+            var token = getToken();
+            if (!token) {
+              await fetch('/api/keystatic/github/refresh-token', { method: 'POST' });
+              token = getToken();
+            }
+            if (!token) {
+              throw new Error('Belum login Keystatic. Buka /keystatic dulu, login, lalu kembali ke sini.');
+            }
+            var fd = new FormData(form);
+            fd.set('branch', 'main');
+            var res = await fetch('/api/katalog-upload', {
+              method: 'POST',
+              headers: { Authorization: 'Bearer ' + token },
+              body: fd,
+            });
+            var data = await res.json();
+            if (!res.ok || !data.ok) {
+              throw new Error(data.error || data.detail || 'Upload gagal');
+            }
+            msg.className = 'msg ok';
+            msg.textContent = data.message + '\nURL: ' + data.fileUrl;
+          } catch (err) {
+            msg.className = 'msg err';
+            msg.textContent = err && err.message ? err.message : String(err);
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

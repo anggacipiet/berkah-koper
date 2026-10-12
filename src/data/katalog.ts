@@ -66,7 +66,8 @@ export function getKatalogDownload(): KatalogDownload {
       if (data.eyebrow?.trim()) eyebrow = data.eyebrow.trim();
       if (data.heading?.trim()) heading = data.heading.trim();
       if (data.buttonLabel?.trim()) buttonLabel = data.buttonLabel.trim();
-      fileUrl = resolveFileUrl(data.file);
+      // Kosong / null = belum ada file
+      if (data.file?.trim()) fileUrl = resolveFileUrl(data.file);
     } catch {
       /* pakai fallback */
     }

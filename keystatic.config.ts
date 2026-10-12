@@ -214,12 +214,11 @@ export default config({
           defaultValue: 'Download Katalog',
           validation: { isRequired: true },
         }),
-        file: fields.file({
-          label: 'File katalog (PDF)',
+        file: fields.text({
+          label: 'Path file PDF (otomatis terisi setelah upload)',
           description:
-            'Upload PDF terbaru. Tombol CTA akan mengunduh file ini. Ganti file = ganti yang diunduh pengunjung.',
-          directory: 'public/files/katalog',
-          publicPath: '/files/katalog/',
+            'Jangan upload PDF lewat form ini (bikin timeout di Cloudflare). Upload di /keystatic/katalog-upload lalu path muncul di sini, contoh: /files/katalog/katalog.pdf',
+          defaultValue: '',
         }),
       },
     }),
