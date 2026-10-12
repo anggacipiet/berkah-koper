@@ -191,6 +191,38 @@ export default config({
         }),
       },
     }),
+    katalogDownload: singleton({
+      label: 'CTA Siap Berangkat',
+      path: 'content/settings/katalog-download',
+      format: { data: 'yaml' },
+      schema: {
+        eyebrow: fields.text({
+          label: 'Badge / eyebrow',
+          description: 'Teks kecil di atas judul, contoh: Siap berangkat?',
+          defaultValue: 'Siap berangkat?',
+          validation: { isRequired: true },
+        }),
+        heading: fields.text({
+          label: 'Judul CTA',
+          description: 'Contoh: Lengkapi perlengkapan ibadah Anda sekarang.',
+          defaultValue: 'Lengkapi perlengkapan ibadah Anda sekarang.',
+          validation: { isRequired: true },
+        }),
+        buttonLabel: fields.text({
+          label: 'Teks tombol download katalog',
+          description: 'Contoh: Download Katalog',
+          defaultValue: 'Download Katalog',
+          validation: { isRequired: true },
+        }),
+        file: fields.file({
+          label: 'File katalog (PDF)',
+          description:
+            'Upload PDF terbaru. Tombol CTA akan mengunduh file ini. Ganti file = ganti yang diunduh pengunjung.',
+          directory: 'public/files/katalog',
+          publicPath: '/files/katalog/',
+        }),
+      },
+    }),
   },
   collections: {
     mitraLogos: collection({
@@ -242,12 +274,12 @@ export default config({
         category: fields.select({
           label: 'Kategori',
           options: [
-            { label: 'Koper', value: 'koper' },
-            { label: 'Tas Kabin', value: 'tas-kabin' },
-            { label: 'Tas Paspor/Selempang', value: 'tas-paspor-selempang' },
-            { label: 'Tas Sandal', value: 'tas-sandal' },
+            { label: 'Koper Premium Polypropylane', value: 'koper-premium-polypropylane' },
+            { label: 'Koper Standar', value: 'koper-standar' },
+            { label: 'Koper Polycarbonate Premium', value: 'koper-polycarbonate-premium' },
+            { label: 'Koper Embos Moulding', value: 'koper-embos-moulding' },
           ],
-          defaultValue: 'koper',
+          defaultValue: 'koper-standar',
         }),
         badge: fields.text({ label: 'Badge (opsional)' }),
         shortDesc: fields.text({

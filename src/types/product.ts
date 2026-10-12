@@ -1,8 +1,8 @@
 export type ProductCategory =
-  | 'koper'
-  | 'tas-kabin'
-  | 'tas-paspor-selempang'
-  | 'tas-sandal';
+  | 'koper-premium-polypropylane'
+  | 'koper-standar'
+  | 'koper-polycarbonate-premium'
+  | 'koper-embos-moulding';
 
 export interface ProductVariant {
   label: string;       // e.g. "20\"", "24\"", "28\""
@@ -47,16 +47,16 @@ export interface Product {
 }
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {
-  'koper':                 'Koper',
-  'tas-kabin':             'Tas Kabin',
-  'tas-paspor-selempang':  'Tas Paspor/Selempang',
-  'tas-sandal':            'Tas Sandal',
+  'koper-premium-polypropylane': 'Koper Premium Polypropylane',
+  'koper-standar': 'Koper Standar',
+  'koper-polycarbonate-premium': 'Koper Polycarbonate Premium',
+  'koper-embos-moulding': 'Koper Embos Moulding',
 };
 
 /** Kategori filter katalog (tanpa "semua") */
 export const CATALOG_CATEGORIES: { value: ProductCategory; label: string }[] = [
-  { value: 'koper',                label: 'Koper' },
-  { value: 'tas-kabin',            label: 'Tas Kabin' },
-  { value: 'tas-paspor-selempang', label: 'Tas Paspor/Selempang' },
-  { value: 'tas-sandal',           label: 'Tas Sandal' },
+  { value: 'koper-premium-polypropylane', label: 'Koper Premium Polypropylane' },
+  { value: 'koper-standar', label: 'Koper Standar' },
+  { value: 'koper-polycarbonate-premium', label: 'Koper Polycarbonate Premium' },
+  { value: 'koper-embos-moulding', label: 'Koper Embos Moulding' },
 ];

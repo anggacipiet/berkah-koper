@@ -6,6 +6,7 @@ import { getFeaturedProducts, getBundleProducts } from '../data/products';
 import { getHero } from '../data/hero';
 import { getTentang } from '../data/tentang';
 import { getMitra } from '../data/mitra';
+import { getKatalogDownload } from '../data/katalog';
 import { buildWaLink } from '../lib/media';
 import { CATALOG_CATEGORIES } from '../types/product';
 
@@ -17,15 +18,16 @@ const bundles  = getBundleProducts();
 const hero = getHero();
 const tentang = getTentang();
 const mitra = getMitra();
+const katalogDl = getKatalogDownload();
 const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
 const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
 const heroSlides = hero.slides;
 
 const categoryIcons: Record<string, string> = {
-  koper: '🧳',
-  'tas-kabin': '🎒',
-  'tas-paspor-selempang': '👜',
-  'tas-sandal': '👟',
+  'koper-premium-polypropylane': '🧳',
+  'koper-standar': '🧳',
+  'koper-polycarbonate-premium': '✨',
+  'koper-embos-moulding': '🎨',
 };
 
 const categories = CATALOG_CATEGORIES.map((c) => ({
@@ -350,7 +352,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
 
       <div class="mt-5 flex flex-wrap gap-3">
         <a href="/produk/koper-pp-premium-haji-umrah" class="btn-primary">Koper PP Premium →</a>
-        <a href="/katalog?kategori=koper" class="btn-outline">Semua Koper →</a>
+        <a href="/katalog" class="btn-outline">Semua Produk →</a>
       </div>
     </div>
   </section>
@@ -482,13 +484,23 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
   <section class="py-16" style="background:linear-gradient(135deg,#1a1400 0%,#0d0d0d 100%);border-top:1px solid rgba(201,164,72,.2);border-bottom:1px solid rgba(201,164,72,.2)" aria-label="Hubungi kami">
     <div class="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
       <div>
-        <div class="text-sm font-bold uppercase tracking-widest text-[#c9a448]">Siap berangkat?</div>
-        <h2 class="mt-2 max-w-xl text-3xl text-white md:text-4xl">Lengkapi perlengkapan ibadah Anda sekarang.</h2>
+        <div class="text-sm font-bold uppercase tracking-widest text-[#c9a448]">{katalogDl.eyebrow}</div>
+        <h2 class="mt-2 max-w-xl text-3xl text-white md:text-4xl">{katalogDl.heading}</h2>
       </div>
       <div class="flex shrink-0 flex-wrap gap-3">
-        <a href="/katalog" class="btn-outline-gold">
-          Lihat Katalog
-        </a>
+        {katalogDl.fileUrl ? (
+          <a
+            href={katalogDl.fileUrl}
+            class="btn-outline-gold"
+            download={katalogDl.fileName}
+          >
+            {katalogDl.buttonLabel}
+          </a>
+        ) : (
+          <a href="/katalog" class="btn-outline-gold">
+            Lihat Katalog
+          </a>
+        )}
         <a
           href={buildWaLink("Assalamu'alaikum Berkah Koper, saya ingin tanya produk.")}
           class="btn-primary"
