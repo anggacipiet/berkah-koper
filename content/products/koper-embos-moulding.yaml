@@ -1,22 +1,22 @@
 name: Koper Embos Moulding
-category: koper-embos-moulding
 order: 4
+category: koper-embos-moulding
 badge: BARU
 shortDesc: >-
   koper embos moulding — 12 warna kombinasi khaki, anti pecah & fleksibel
   terbukti.
 description: >-
-  Koper Embos Moulding dengan kombinasi warna khaki yang elegan. Telah lulus tes
-  kekuatan: drop test, tes beban, dan flex test. Tersedia 12 pilihan warna. Roda
-  putar 360° silent, kunci kombinasi 3 digit.
-price: 800000
-priceLabel: Mulai Rp 800.000
+  Layanan koper custom embos moulding Berkah Koper. Logo, nama travel, dan
+  desain dicetak langsung pada body koper menggunakan teknik embos moulding yang
+  presisi dan tahan lama. Cocok untuk travel haji & umroh, korporat, dan
+  instansi. Tersedia pilihan warna bebas.
+price: 0
+priceLabel: '0'
 images:
-  - /images/koper-embos-moulding/images/0.jpg
-  - /images/koper-embos-moulding/images/1.jpg
-  - /images/koper-embos-moulding/images/2.jpg
-  - /images/koper-embos-moulding/images/3.jpg
-  - /images/koper-embos-moulding/images/4.jpg
+  - /images/koper-embos-moulding/images/0.jpeg
+  - /images/koper-embos-moulding/images/1.jpeg
+  - /images/koper-embos-moulding/images/2.jpeg
+  - /images/koper-embos-moulding/images/3.jpeg
 sizes:
   - 20"
   - 24"
@@ -57,14 +57,15 @@ colorGroups:
       - name: G.Blue
         hex: '#87ceeb'
 features:
-  - Series 9901 — kombinasi khaki premium
-  - 12 pilihan warna tersedia
+  - Custom logo & nama travel langsung di body koper
+  - Teknik embos moulding — presisi & tahan lama
   - PP anti pecah & flexible — terbukti tes kekuatan
-  - Drop test ✓ Tes beban ✓ Flex test ✓
+  - Pilihan warna bebas sesuai identitas travel
+  - 'Tersedia set: Koper Cabin + Koper Bagasi'
+  - Bahan ABS/PC berkualitas tinggi
   - Roda putar 360° silent wheels
-  - Kunci kombinasi 3 digit
-  - Custom logo & nama jamaah (free)
-  - Free ongkir area Jakarta
+  - Kunci kombinasi 3 angka
+  - Minimal order — hubungi untuk info
 weight: 3.0 kg (24")
 material: Polypropylene (PP)
 isBundle: false
