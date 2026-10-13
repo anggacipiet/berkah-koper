@@ -34,7 +34,7 @@ const FALLBACK: PromoContent = {
   secondaryCtaHref: '/katalog',
   cards: [
     {
-      image: '/images/Katalog 2026/Katalog 2026_page-0001.jpg',
+      image: '/images/koper-premium-polypropylane/images/0.jpg',
       alt: 'Koleksi koper Berkah Koper — warna & model lengkap Haji & Umrah',
       eyebrow: 'Koper PP Premium',
       title: 'Anti Pecah, Lentur & Kuat',
@@ -42,7 +42,7 @@ const FALLBACK: PromoContent = {
       href: '/produk/koper-premium-polypropylane',
     },
     {
-      image: '/images/Katalog 2026/Katalog 2026_page-0003.jpg',
+      image: '/images/koper-premium-polypropylane/images/1.jpg',
       alt: 'Koper PP Polypropylene anti pecah — lentur dan kuat',
       eyebrow: 'Bahan PP Polypropylene',
       title: 'Anti Pecah!',

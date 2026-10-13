@@ -26,16 +26,41 @@ const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
 const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
 const heroSlides = hero.slides;
 
-const categoryIcons: Record<string, string> = {
-  'koper-premium-polypropylane': '🧳',
-  'koper-standar': '🧳',
-  'koper-polycarbonate-premium': '✨',
-  'koper-embos-moulding': '🎨',
+/** Line-icon SVG paths per kategori (lebih rapi dari emoji) */
+const categoryIcons: Record<string, string[]> = {
+  'koper-premium-polypropylane': [
+    'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    'M6 7h12a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z',
+    'M12 6v2',
+    'M9.5 14.5l1.8 1.8 3.2-3.5',
+  ],
+  'koper-standar': [
+    'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    'M6 7h12a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z',
+    'M12 6v2',
+    'M9 13h6',
+    'M9 16h4',
+  ],
+  'koper-polycarbonate-premium': [
+    'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    'M6 7h12a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z',
+    'M12 6v2',
+    'M16.5 11.2l.9-2 .9 2 2 .4-1.6 1.3.5 2.1-1.8-1.1-1.8 1.1.5-2.1-1.6-1.3z',
+  ],
+  'koper-embos-moulding': [
+    'M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    'M6 7h12a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z',
+    'M12 6v2',
+    'M9 12h2v2H9z',
+    'M13 12h2v2h-2z',
+    'M9 16h2v2H9z',
+    'M13 16h2v2h-2z',
+  ],
 };
 
 const categories = CATALOG_CATEGORIES.map((c) => ({
   ...c,
-  icon: categoryIcons[c.value] ?? '•',
+  iconPaths: categoryIcons[c.value] ?? ['M12 6v12'],
   slug: c.value,
 }));
 ---
@@ -299,13 +324,25 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
       <div class="gold-line mx-auto"></div>
       <h2 id="kategori-heading" class="mt-4 text-center text-2xl text-white/80 md:text-3xl">Belanja Berdasarkan Kategori</h2>
       <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {categories.map(({ icon, label, slug }) => (
+        {categories.map(({ iconPaths, label, slug }) => (
           <a
             href={`/katalog?kategori=${slug}`}
             class="group flex flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#161616] px-2 py-4 text-center transition-all duration-200 hover:border-[#c9a448]/40 hover:bg-[#c9a448]/6"
           >
-            <div class="flex size-10 items-center justify-center rounded-xl border border-[#c9a448]/20 bg-[#c9a448]/8 text-lg transition-all group-hover:border-[#c9a448]/50 group-hover:bg-[#c9a448]/15">
-              {icon}
+            <div class="flex size-11 items-center justify-center rounded-xl border border-[#c9a448]/25 bg-[#c9a448]/10 text-[#c9a448] transition-all group-hover:border-[#c9a448]/55 group-hover:bg-[#c9a448]/18">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.55"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-5"
+                aria-hidden="true"
+              >
+                {iconPaths.map((d) => <path d={d} />)}
+              </svg>
             </div>
             <span class="font-body text-[10px] font-semibold leading-tight text-white/50 transition-colors group-hover:text-white/80">{label}</span>
           </a>

@@ -226,9 +226,10 @@ export default config({
           fields.object({
             image: fields.image({
               label: 'Gambar kartu',
-              description: 'Disimpan di public/images/promo/',
-              directory: 'public/images/promo',
-              publicPath: '/images/promo/',
+              description:
+                'Boleh path apa pun di public/images/ (hindari spasi di nama folder bila bisa).',
+              directory: 'public/images',
+              publicPath: '/images/',
             }),
             alt: fields.text({
               label: 'Alt gambar',
