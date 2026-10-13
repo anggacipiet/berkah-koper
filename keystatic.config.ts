@@ -254,13 +254,13 @@ export default config({
             }),
           }),
           {
-            label: 'Kartu promo (2 gambar)',
-            description: 'Urutan: kiri dulu, kanan kedua. Idealnya tepat 2 kartu.',
+            label: 'Kartu promo',
+            description: 'Urutan tampil kiri → kanan. Minimal 1, maksimal 4 kartu.',
             itemLabel: (props) =>
               props.fields.eyebrow.value ||
               props.fields.title.value ||
               'Kartu',
-            validation: { length: { min: 1, max: 2 } },
+            validation: { length: { min: 1, max: 4 } },
           },
         ),
       },

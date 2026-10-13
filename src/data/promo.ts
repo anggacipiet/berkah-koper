@@ -19,7 +19,7 @@ export interface PromoContent {
   primaryCtaHref: string;
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
-  cards: [PromoCard, PromoCard];
+  cards: PromoCard[];
 }
 
 const PROMO_PATH = path.join(process.cwd(), 'content/settings/promo.yaml');
@@ -76,6 +76,12 @@ export function getPromo(): PromoContent {
     >;
     const rawCards = Array.isArray(data.cards) ? data.cards : [];
 
+    const cards = rawCards
+      .slice(0, 4)
+      .map((raw, i) =>
+        normalizeCard(raw, FALLBACK.cards[i] ?? FALLBACK.cards[0]),
+      );
+
     return {
       heading: data.heading?.trim() || FALLBACK.heading,
       description: data.description?.trim() || FALLBACK.description,
@@ -85,10 +91,7 @@ export function getPromo(): PromoContent {
         data.secondaryCtaLabel?.trim() || FALLBACK.secondaryCtaLabel,
       secondaryCtaHref:
         data.secondaryCtaHref?.trim() || FALLBACK.secondaryCtaHref,
-      cards: [
-        normalizeCard(rawCards[0], FALLBACK.cards[0]),
-        normalizeCard(rawCards[1], FALLBACK.cards[1]),
-      ],
+      cards: cards.length ? cards : FALLBACK.cards,
     };
   } catch {
     return FALLBACK;
