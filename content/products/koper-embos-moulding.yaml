@@ -3,13 +3,22 @@ order: 4
 category: koper-embos-moulding
 badge: BARU
 shortDesc: >-
-  koper embos moulding — 12 warna kombinasi khaki, anti pecah & fleksibel
-  terbukti.
+  Layanan koper custom embos moulding Berkah Koper. Logo, nama travel, dan
+  desain dicetak langsung pada body koper menggunakan teknik embos moulding yang
+  presisi dan tahan lama. Cocok untuk travel haji & umroh, korporat, dan
+  instansi. Tersedia pilihan warna bebas.
 description: >-
   Layanan koper custom embos moulding Berkah Koper. Logo, nama travel, dan
   desain dicetak langsung pada body koper menggunakan teknik embos moulding yang
   presisi dan tahan lama. Cocok untuk travel haji & umroh, korporat, dan
   instansi. Tersedia pilihan warna bebas.
+
+
+  Isi Paket
+
+  Koper Cabin (20")
+
+  Koper Bagasi (24" atau 28")
 price: 0
 priceLabel: '0'
 images:
@@ -69,7 +78,5 @@ features:
 weight: 3.0 kg (24")
 material: Polypropylene (PP)
 isBundle: false
-bundleItems:
-  - Koper Cabin (20")
-  - Koper Bagasi (24" atau 28")
+bundleItems: []
 inStock: true
