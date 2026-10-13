@@ -28,6 +28,8 @@ export const ALL: APIRoute = async ({ request, params }) => {
     headers.set('Accept', 'application/vnd.github+json');
   }
   headers.set('User-Agent', 'BerkahKoper-Keystatic-Proxy');
+  // Node fetch sudah decode gzip; minta plain agar header/body tidak mismatch
+  headers.set('Accept-Encoding', 'identity');
 
   const init: RequestInit & { duplex?: 'half' } = {
     method: request.method,
@@ -55,7 +57,15 @@ export const ALL: APIRoute = async ({ request, params }) => {
   const outHeaders = new Headers();
   for (const [key, value] of upstream.headers.entries()) {
     const lower = key.toLowerCase();
-    if (lower === 'transfer-encoding' || lower === 'connection') continue;
+    // Hapus encoding/length: body Node sudah di-decode → browser ERR_CONTENT_DECODING_FAILED
+    if (
+      lower === 'transfer-encoding' ||
+      lower === 'connection' ||
+      lower === 'content-encoding' ||
+      lower === 'content-length'
+    ) {
+      continue;
+    }
     outHeaders.set(key, value);
   }
 
