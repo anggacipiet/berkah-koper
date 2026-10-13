@@ -1,10 +1,10 @@
 heading: Hubungi Kami
 description: >-
   Tim admin Berkah Koper siap membantu pemesanan, custom logo, dan konsultasi
-  perlengkapan Haji & Umrah. Pilih grup lalu chat admin yang tersedia xxx.
+  perlengkapan Haji & Umrah. Pilih grup lalu chat admin yang tersedia.
 groups:
   - title: Amanah Koper
-    description: Chat langsung dengan admin untuk info stok, harga, dan custom xx.
+    description: Pabrik Perlengkapan Haji & Umroh
     coverImage: /images/hubungi/groups/0/coverImage.jpeg
     admins:
       - name: Dwi
