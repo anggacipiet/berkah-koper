@@ -69,5 +69,7 @@ features:
 weight: 3.0 kg (24")
 material: Polypropylene (PP)
 isBundle: false
-bundleItems: []
+bundleItems:
+  - Koper Cabin (20")
+  - Koper Bagasi (24" atau 28")
 inStock: true
