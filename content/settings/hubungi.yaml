@@ -1,0 +1,25 @@
+heading: Hubungi Kami
+description: >-
+  Tim admin Berkah Koper siap membantu pemesanan, custom logo, dan konsultasi
+  perlengkapan Haji & Umrah. Pilih grup lalu chat admin yang tersedia.
+groups:
+  - title: Berkah Koper Group
+    description: Chat langsung dengan admin untuk info stok, harga, dan custom.
+    coverImage: /images/logo.webp
+    admins:
+      - name: Admin Utama
+        role: Customer Service
+        phone: '6285282400061'
+        image: /images/logo.webp
+        waMessage: >-
+          Assalamu'alaikum Berkah Koper, saya ingin tanya produk.
+  - title: Tim Sales
+    description: Khusus pemesanan travel / order quantity.
+    coverImage: /images/logo.webp
+    admins:
+      - name: Admin Sales 1
+        role: Sales
+        phone: '6285282400061'
+        image: /images/logo.webp
+        waMessage: >-
+          Assalamu'alaikum, saya ingin konsultasi order travel ke Berkah Koper.

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { load as loadYaml } from 'js-yaml';
-import { buildWaLink, resolvePublicImage } from '../lib/media';
+import { buildWaLink, formatWaDisplay, resolvePublicImage } from '../lib/media';
 
 export interface HeroSlide {
   src: string;
@@ -111,4 +111,19 @@ export function getHero(): HeroContent {
   } catch {
     return FALLBACK;
   }
+}
+
+/** Nomor + pesan WA situs (sumber: Keystatic → Hero Beranda) */
+export function getSiteWa(): { number: string; message: string; display: string } {
+  const { waNumber, waMessage } = getHero();
+  return {
+    number: waNumber,
+    message: waMessage,
+    display: formatWaDisplay(waNumber),
+  };
+}
+
+export function siteWaLink(message?: string): string {
+  const { number, message: defaultMsg } = getSiteWa();
+  return buildWaLink(message ?? defaultMsg, number);
 }

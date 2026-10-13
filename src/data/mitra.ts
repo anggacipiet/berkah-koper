@@ -9,7 +9,6 @@ export interface MitraPartner {
 }
 
 export interface MitraContent {
-  eyebrow: string;
   heading: string;
   description: string;
   partners: MitraPartner[];
@@ -21,7 +20,6 @@ const CLIENT_DIR = path.join(process.cwd(), 'public/images/client');
 const CLIENT_PUBLIC = '/images/client/';
 
 const FALLBACK: MitraContent = {
-  eyebrow: 'Mitra Travel',
   heading: 'Dipercaya biro umroh & haji',
   description:
     'Logo partner tour yang sudah bekerja sama dengan Berkah Koper untuk perlengkapan jamaah Haji & Umrah.',
@@ -119,7 +117,6 @@ export function getMitra(): MitraContent {
     const data = loadYaml(raw) as Partial<MitraContent>;
 
     return {
-      eyebrow: data.eyebrow?.trim() || FALLBACK.eyebrow,
       heading: data.heading?.trim() || FALLBACK.heading,
       description: data.description?.trim() || FALLBACK.description,
       partners,

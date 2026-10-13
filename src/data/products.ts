@@ -2,10 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { load as loadYaml } from 'js-yaml';
 import type { ColorGroup, Product } from '../types/product';
+import { getSiteWa } from './hero';
 import { buildWaLink, resolvePublicImage } from '../lib/media';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content/products');
-const WA_NUMBER = '6285282400061';
 
 /** Pastikan hex valid untuk CSS / ColorPicker (#rrggbb) */
 function normalizeHex(hex: string | undefined | null): string {
@@ -106,7 +106,8 @@ export function buildWaMessage(product: Product): string {
   return encodeURIComponent(getWaMessageText(product));
 }
 
-/** URL WhatsApp lengkap */
-export function buildWaUrl(product: Product, phone = WA_NUMBER): string {
-  return buildWaLink(getWaMessageText(product), phone);
+/** URL WhatsApp lengkap — nomor dari Hero Beranda (Keystatic) */
+export function buildWaUrl(product: Product, phone?: string): string {
+  const { number } = getSiteWa();
+  return buildWaLink(getWaMessageText(product), phone || number);
 }

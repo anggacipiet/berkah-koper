@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { buildWaLink } from '../lib/media';
+import { getSiteWa, siteWaLink } from '../data/hero';
 
 interface Props {
   title?: string;
@@ -22,6 +22,11 @@ const ogImage = image.startsWith('http')
   ? image
   : new URL(image, SITE).href;
 
+const siteWa = getSiteWa();
+const WA_URL = siteWaLink(
+  "Assalamu'alaikum Berkah Koper, saya ingin tanya produk.",
+);
+
 const orgJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': ['Organization', 'LocalBusiness'],
@@ -30,7 +35,7 @@ const orgJsonLd = JSON.stringify({
   logo: new URL('/images/logo.webp', SITE).href,
   image: ogImage,
   description,
-  telephone: '+6285282400061',
+  telephone: `+${siteWa.number.replace(/\D/g, '')}`,
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Kalideres',
@@ -51,16 +56,13 @@ const orgJsonLd = JSON.stringify({
   },
 });
 
-const WA_URL = buildWaLink(
-  "Assalamu'alaikum Berkah Koper, saya ingin tanya produk.",
-);
-
 const navLinks = [
   { href: '/',          label: 'Beranda' },
   { href: '/katalog',   label: 'Katalog' },
   { href: '/#bundling', label: 'Bundling' },
   { href: '/#mitra',    label: 'Mitra' },
   { href: '/#tentang',  label: 'Tentang' },
+  { href: '/hubungi',   label: 'Hubungi' },
 ];
 ---
 
@@ -121,14 +123,13 @@ const navLinks = [
           </div>
         </a>
 
-        <!-- Nav desktop -->
+        <!-- Nav desktop — tanpa underline; aktif = warna emas saja (seperti Tentang) -->
         <nav class="hidden items-center gap-6 text-sm font-semibold md:flex" aria-label="Navigasi utama">
           {navLinks.map(({ href, label }) => (
             <a
               href={href}
               data-nav-href={href}
-              class="nav-link relative pb-0.5 text-white/70 transition-colors hover:text-[#c9a448]"
-              style="border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;"
+              class="nav-link text-white/70 transition-colors hover:text-[#c9a448]"
             >
               {label}
             </a>
@@ -222,6 +223,7 @@ const navLinks = [
             <li><a href="/#bundling" class="hover:text-[#c9a448] transition-colors">Paket Bundling</a></li>
             <li><a href="/#mitra"    class="hover:text-[#c9a448] transition-colors">Mitra Travel</a></li>
             <li><a href="/#tentang"  class="hover:text-[#c9a448] transition-colors">Tentang Kami</a></li>
+            <li><a href="/hubungi"   class="hover:text-[#c9a448] transition-colors">Hubungi Kami</a></li>
           </ul>
         </div>
 
@@ -231,7 +233,8 @@ const navLinks = [
           <ul class="mt-4 space-y-3 text-sm text-white/60">
             <li>
               <div class="text-[11px] font-semibold uppercase tracking-wide text-white/35">WhatsApp</div>
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer" class="mt-0.5 inline-block transition-colors hover:text-[#c9a448]">0852-8240-0061</a>
+              <a href="/hubungi" class="mt-0.5 inline-block transition-colors hover:text-[#c9a448]">Lihat semua admin →</a>
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer" class="mt-1 block transition-colors hover:text-[#c9a448]">{siteWa.display}</a>
             </li>
             <li>
               <div class="text-[11px] font-semibold uppercase tracking-wide text-white/35">Alamat</div>
@@ -267,30 +270,21 @@ const navLinks = [
       <span class="hidden sm:inline">Chat Sekarang</span>
     </a>
 
-    <!-- ── Active nav script ────────────────────────────────────── -->
+    <!-- ── Active nav script (warna saja, tanpa garis emas) ─────── -->
     <script>
       const path = window.location.pathname;
       document.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach((link) => {
         const href = link.dataset.navHref ?? '';
+        // Hash menu (Tentang, dll) & Hubungi: tidak pakai underline — cukup warna
         const isActive =
-          href === '/'        ? path === '/'
+          href === '/' ? path === '/'
           : href.startsWith('/#') ? false
+          : href === '/hubungi' ? false
           : path.startsWith(href);
         if (isActive) {
-          link.style.color       = '#c9a448';
-          link.style.borderColor = '#c9a448';
+          link.style.color = '#c9a448';
           link.setAttribute('aria-current', 'page');
         }
-        link.addEventListener('mouseenter', () => {
-          if (!link.getAttribute('aria-current')) {
-            link.style.borderColor = 'rgba(201,164,72,.5)';
-          }
-        });
-        link.addEventListener('mouseleave', () => {
-          if (!link.getAttribute('aria-current')) {
-            link.style.borderColor = 'transparent';
-          }
-        });
       });
     </script>
 

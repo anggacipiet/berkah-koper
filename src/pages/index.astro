@@ -3,12 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import BundleCard from '../components/BundleCard.astro';
 import { getFeaturedProducts, getBundleProducts } from '../data/products';
-import { getHero } from '../data/hero';
+import { getHero, siteWaLink } from '../data/hero';
 import { getTentang } from '../data/tentang';
 import { getMitra } from '../data/mitra';
 import { getKatalogDownload } from '../data/katalog';
 import { getPromo } from '../data/promo';
-import { buildWaLink } from '../lib/media';
 import { CATALOG_CATEGORIES } from '../types/product';
 
 // Bake HTML at build (CF Worker cannot read content/*.yaml via fs at runtime)
@@ -22,6 +21,7 @@ const mitra = getMitra();
 const katalogDl = getKatalogDownload();
 const promo = getPromo();
 const promoCards = promo.cards;
+const ctaWaUrl = siteWaLink(hero.waMessage);
 const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
 const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
 const heroSlides = hero.slides;
@@ -439,10 +439,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
     >
       <div class="container-page">
         <div class="gold-line"></div>
-        <p class="mt-4 text-xs font-bold uppercase tracking-[0.22em] text-[#c9a448]">
-          {mitra.eyebrow}
-        </p>
-        <h2 id="mitra-heading" class="mt-3 text-3xl text-white md:text-4xl">
+        <h2 id="mitra-heading" class="mt-4 text-3xl text-white md:text-4xl">
           {mitra.heading}
         </h2>
         <p class="mt-2 max-w-xl text-white/50">
@@ -515,7 +512,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
           </a>
         )}
         <a
-          href={buildWaLink("Assalamu'alaikum Berkah Koper, saya ingin tanya produk.")}
+          href={ctaWaUrl}
           class="btn-primary"
           target="_blank"
           rel="noopener noreferrer"
