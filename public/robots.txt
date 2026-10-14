@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /keystatic
+Disallow: /api/
 
 Sitemap: https://berkah-koper.com/sitemap-index.xml
