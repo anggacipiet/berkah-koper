@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://berkah-koper.pages.dev/sitemap-index.xml
+Sitemap: https://berkah-koper.com/sitemap-index.xml

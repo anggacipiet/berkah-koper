@@ -16,7 +16,7 @@ const {
   type = 'website',
 } = Astro.props;
 
-const SITE = Astro.site ?? new URL('https://berkah-koper.pages.dev');
+const SITE = Astro.site ?? new URL('https://berkah-koper.com');
 const canonicalURL = new URL(Astro.url.pathname, SITE);
 const ogImage = image.startsWith('http')
   ? image

@@ -18,7 +18,7 @@ npm run preview
 
 ## SEO teknis
 
-- Domain sementara di `astro.config.mjs` + `public/robots.txt`: `https://berkah-koper.pages.dev`
+- Domain produksi: `https://berkah-koper.com` (Pages tetap di `berkah-koper.pages.dev`)
 - Sitemap otomatis: `@astrojs/sitemap` → `dist/sitemap-index.xml`
 - OG image absolut + schema Organization/LocalBusiness
 - Product schema tanpa harga (stok + URL saja)

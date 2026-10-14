@@ -4,7 +4,7 @@ export const prerender = false;
 
 /**
  * Proxy api.github.com → same-origin agar Keystatic (GitHub mode)
- * tidak kena CORS dari berkah-koper.pages.dev.
+ * tidak kena CORS dari berkah-koper.com / pages.dev.
  */
 export const ALL: APIRoute = async ({ request, params }) => {
   const parts = params.path;

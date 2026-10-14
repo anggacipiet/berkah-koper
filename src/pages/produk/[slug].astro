@@ -36,7 +36,7 @@ const related = getProductsByCategory(category)
 const pageTitle = `${name} — Berkah Koper`;
 const pageDesc  = product.shortDesc;
 const pageImage = images[0];
-const siteOrigin = Astro.site ?? new URL('https://berkah-koper.pages.dev');
+const siteOrigin = Astro.site ?? new URL('https://berkah-koper.com');
 const absoluteImages = images.map((src) =>
   src.startsWith('http') ? src : new URL(src, siteOrigin).href,
 );

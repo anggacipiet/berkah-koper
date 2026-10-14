@@ -23,7 +23,7 @@ if (useGithubCms) {
 const enableKeystatic = isDev || useGithubCms;
 
 export default defineConfig({
-  site: 'https://berkah-koper.pages.dev',
+  site: 'https://berkah-koper.com',
 
   ...(useGithubCms
     ? {
