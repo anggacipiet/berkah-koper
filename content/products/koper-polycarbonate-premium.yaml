@@ -1,16 +1,14 @@
 name: Koper Polycarbonate Premium
-category: koper-polycarbonate-premium
 order: 3
+category: koper-polycarbonate-premium
 badge: TERLARIS
 shortDesc: >-
-  Koper Polycarbonate Premium elegan dan mewah — 10 warna, tersedia 20", 24" &
-  28".
+  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan
+  glossy.
 description: >-
-  Koper berbahan Polypropylene (PP) premium — anti pecah, lentur, dan sangat
-  ringan. Tekstur motif anyaman elegan. Tersedia dalam 10 pilihan warna body dan
-  12 pilihan warna aksesori One Color System (roda, handle, corner guard). Cocok
-  untuk perjalanan Haji & Umrah dengan kloter besar karena bisa dikustomisasi
-  warna per jamaah.
+  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan
+  glossy. Cocok untuk jamaah yang menginginkan tampilan premium. Custom logo
+  travel/kloter tersedia. Bahan PC memberikan kekuatan ekstra dibanding ABS.
 price: 750000
 priceLabel: Mulai Rp 750.000
 images:
@@ -24,14 +22,11 @@ images:
 sizes:
   - 20"
   - 24"
-  - 28"
 variants:
   - label: 20"
     priceAdj: 0
   - label: 24"
     priceAdj: 150000
-  - label: 28"
-    priceAdj: 300000
 colorGroups:
   - label: Warna Body
     type: body
@@ -84,18 +79,15 @@ colorGroups:
       - name: Coklat
         hex: '#7a4a2a'
 features:
-  - Bahan PP (Polypropylene) anti pecah & lentur
-  - Motif anyaman premium — tidak mudah tergores
-  - 10 pilihan warna body koper
-  - 12 pilihan warna aksesori One Color System
-  - Custom logo & nama jamaah (free)
-  - Roda double spinner silent 360°
-  - Kunci TSA terintegrasi
-  - Handle teleskopik aluminium multi-level
-  - Interior divider + strap pengikat
+  - Bahan Polycarbonate (PC) murni
+  - Tampilan glossy premium mewah
+  - Custom logo travel/kloter (free)
+  - Roda putar 360° silent
+  - Kunci kombinasi 3 angka
+  - Tersedia aksen siku besi
   - Free ongkir area Jakarta
-weight: 3.2 kg (24")
-material: Polypropylene (PP) Premium
+weight: 3.0 kg (20")
+material: Polycarbonate (PC)
 isBundle: false
 bundleItems: []
 inStock: true
