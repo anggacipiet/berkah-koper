@@ -1,12 +1,12 @@
 name: Koper Premium Polypropylane
-category: koper-premium-polypropylane
 order: 1
+category: koper-premium-polypropylane
 badge: Terlaris
-shortDesc: Koper Premium Polypropylane — kesan mewah, kuat, uk 20" & 24".
-description: >-
-  Koper berbahan Polycarbonate (PC) murni yang memberikan kesan mewah dan
-  glossy. Cocok untuk jamaah yang menginginkan tampilan premium. Custom logo
-  travel/kloter tersedia. Bahan PC memberikan kekuatan ekstra dibanding ABS.
+shortDesc: >-
+  Koper Polypropylene (PP) adalah koper hardcase yang terbuat dari plastik
+  termoplastik berkualitas tinggi sehingga bersifat tangguh, lentur, anti pecah,
+  dan tahan banting.
+description: "Koper Polypropylene (PP) adalah koper hardcase yang terbuat dari plastik termoplastik berkualitas tinggi sehingga bersifat tangguh, lentur, anti pecah, dan tahan banting.\n\n* Ukuran 20 Inch (Kabin Pesawat):\n\t• Dimensi rata-rata: ± 34–37 cm x 20–23 cm x 47–50 cm (Belum termasuk roda)\n\t• Berat kosong: ± 2.9 kg\n* Ukuran 24 Inch (Bagasi):\n\t• Dimensi rata-rata: ± 41–44 cm x 23–27 cm x 57–60 cm (Belum termasuk roda)\n\t• Berat kosong: ± 3.5 – 4 kg\n* Ukuran 28 Inch (Bagasi Besar / Expandable):\n\t• Dimensi rata-rata: ± 48–49 cm x 29–32 cm x 69–70 cm\n\t• Berat kosong: ± 4.8 – 4.85 kg"
 price: 650000
 priceLabel: Mulai Rp 650.000
 images:
@@ -16,11 +16,14 @@ images:
 sizes:
   - 20"
   - 24"
+  - 28"
 variants:
   - label: 20"
     priceAdj: 0
   - label: 24"
     priceAdj: 150000
+  - label: 28"
+    priceAdj: 0
 colorGroups:
   - label: Pilihan Warna
     type: body
@@ -61,15 +64,20 @@ colorGroups:
       - name: Coklat
         hex: '#7a4a2a'
 features:
-  - Bahan Polycarbonate (PC) murni
-  - Tampilan glossy premium mewah
-  - Custom logo travel/kloter (free)
-  - Roda putar 360° silent
-  - Kunci kombinasi 3 angka
-  - Tersedia aksen siku besi
-  - Free ongkir area Jakarta
+  - >-
+    Bahan: 100% Polypropylene (PP) yang ringan (ultra lightweight) dan tidak
+    mudah retak saat terbentur.
+  - >-
+    Roda: Roda ganda berputar 360 derajat (konfigurasi 4x2) dan dilapisi karet
+    agar lebih senyap saat ditarik.
+  - >-
+    Keamanan: Dilengkapi kunci kombinasi 3 angka acak (TSA lock atau kunci
+    tanam).
+  - >-
+    Interior: Dilengkapi tali pengaman (strap), kantong jaring/mesh, serta slot
+    tambahan untuk perlengkapan kecil seperti skincare.
 weight: 3.0 kg (20")
-material: Polycarbonate (PC)
+material: ' Polypropylane (PP)'
 isBundle: false
 bundleItems: []
 inStock: true
