@@ -1,6 +1,6 @@
 name: Koper Standar
-category: koper-standar
 order: 2
+category: koper-standar
 badge: BARU
 shortDesc: Koper berbahan Fiber ABS,  terdapat uk 18", 20", 22" 24", 26", 28"
 description: |
@@ -9,7 +9,8 @@ description: |
   Tersedia berbagai pilihan warna 
   Free Logo 
   Free Packing 
-price: 0
+price: 500000
+priceLabel: Mulai Rp 500.000
 images:
   - /images/koper-standar/images/0.jpg
   - /images/koper-standar/images/1.jpg
