@@ -9,6 +9,7 @@ import {
   getProductsByCategory,
 } from '../../data/products';
 import { CATEGORY_LABELS } from '../../types/product';
+import { parseProductDescription } from '../../lib/format-description';
 import type { GetStaticPaths } from 'astro';
 
 export const prerender = true;
@@ -107,6 +108,8 @@ const jsonLd = JSON.stringify({
   brand: { '@type': 'Brand', name: 'Berkah Koper' },
   offers,
 });
+
+const descBlocks = parseProductDescription(description);
 ---
 
 <Layout title={pageTitle} description={pageDesc} image={pageImage} type="product">
@@ -194,8 +197,24 @@ const jsonLd = JSON.stringify({
               )}
             </div>
 
-            <!-- pre-wrap + tab-size: Tab indent dari Keystatic ikut tampil (pre-line menghapus Tab) -->
-            <div class="whitespace-pre-wrap leading-7 text-white/70 [tab-size:4]">{description}</div>
+            <!-- Hanging indent: baris turun rata dengan huruf setelah bullet (bukan di bawah •) -->
+            <div class="space-y-2 text-white/70">
+              {descBlocks.map((block) =>
+                block.type === 'p' ? (
+                  <p class="leading-7">{block.text}</p>
+                ) : (
+                  <div
+                    class="flex gap-2 leading-7"
+                    style={`margin-left: ${block.depth * 1.1}rem`}
+                  >
+                    <span class="w-4 shrink-0 select-none text-center text-[#c9a448]/80" aria-hidden="true">
+                      {block.marker === 'star' ? '∗' : '•'}
+                    </span>
+                    <span class="min-w-0 flex-1">{block.text}</span>
+                  </div>
+                ),
+              )}
+            </div>
 
             <!-- Pilih ukuran -->
             {sizes && sizes.length > 0 && (
