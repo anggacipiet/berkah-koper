@@ -68,13 +68,20 @@ type RawSlide = {
   alt?: string | null;
 };
 
+function optimizeSlides(slides: HeroSlide[]): HeroSlide[] {
+  return slides.map((s) => ({
+    ...s,
+    src: resolvePublicImage(s.src),
+  }));
+}
+
 function normalizeSlides(raw: RawSlide[] | undefined): HeroSlide[] {
-  if (!raw?.length) return FALLBACK.slides;
+  if (!raw?.length) return optimizeSlides(FALLBACK.slides);
   const slides = raw
     .map((s, i) => {
       const fallback = FALLBACK.slides[i];
-      const file = s.image ?? s.src;
-      const src = file ? resolvePublicImage(file) : fallback?.src;
+      const file = s.image ?? s.src ?? fallback?.src;
+      const src = file ? resolvePublicImage(file) : '';
       if (!src) return null;
       return {
         src,
@@ -82,11 +89,13 @@ function normalizeSlides(raw: RawSlide[] | undefined): HeroSlide[] {
       };
     })
     .filter((s): s is HeroSlide => Boolean(s));
-  return slides.length ? slides : FALLBACK.slides;
+  return slides.length ? slides : optimizeSlides(FALLBACK.slides);
 }
 
 export function getHero(): HeroContent {
-  if (!fs.existsSync(HERO_PATH)) return FALLBACK;
+  if (!fs.existsSync(HERO_PATH)) {
+    return { ...FALLBACK, slides: optimizeSlides(FALLBACK.slides) };
+  }
 
   try {
     const raw = fs.readFileSync(HERO_PATH, 'utf8');
@@ -109,7 +118,7 @@ export function getHero(): HeroContent {
       slides: normalizeSlides(data.slides),
     };
   } catch {
-    return FALLBACK;
+    return { ...FALLBACK, slides: optimizeSlides(FALLBACK.slides) };
   }
 }
 

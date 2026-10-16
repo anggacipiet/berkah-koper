@@ -1,14 +1,34 @@
-/** Resolve nilai gambar Keystatic / path lama menjadi URL publik */
+import fs from 'node:fs';
+import path from 'node:path';
+
+/**
+ * Jika ada .webp hasil build optimize (di samping jpg/png), pakai itu.
+ * User CMS cukup upload JPG/PNG — tanpa langkah manual.
+ */
+export function preferOptimizedImage(publicUrl: string): string {
+  if (!publicUrl || !/\.(jpe?g|png)$/i.test(publicUrl)) return publicUrl;
+  if (publicUrl.startsWith('http://') || publicUrl.startsWith('https://')) {
+    return publicUrl;
+  }
+  const webpUrl = publicUrl.replace(/\.(jpe?g|png)$/i, '.webp');
+  const disk = path.join(process.cwd(), 'public', webpUrl.replace(/^\//, ''));
+  return fs.existsSync(disk) ? webpUrl : publicUrl;
+}
+
+/** Resolve nilai gambar Keystatic / path lama menjadi URL publik (+ WebP otomatis) */
 export function resolvePublicImage(
   value: string | null | undefined,
   publicPath = '/images/',
 ): string {
   if (!value) return '';
+  let resolved: string;
   if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/')) {
-    return value;
+    resolved = value;
+  } else {
+    const base = publicPath.endsWith('/') ? publicPath : `${publicPath}/`;
+    resolved = `${base}${value.replace(/^\//, '')}`;
   }
-  const base = publicPath.endsWith('/') ? publicPath : `${publicPath}/`;
-  return `${base}${value.replace(/^\//, '')}`;
+  return preferOptimizedImage(resolved);
 }
 
 export function buildWaLink(

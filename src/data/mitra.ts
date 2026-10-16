@@ -48,10 +48,10 @@ function loadFromCollection(): MitraPartner[] {
         ) as RawEntry;
         if (!data.image) return null;
         // Keystatic + publicPath → "/images/client/{slug}/image.png"
-        // Legacy flat → "mitra-001.png"
+        // Legacy flat → "mitra-001.png" — selalu lewat resolvePublicImage (WebP)
         const raw = String(data.image).replace(/\\/g, '/');
         const src = raw.startsWith('/')
-          ? raw
+          ? resolvePublicImage(raw)
           : raw.includes('/')
             ? resolvePublicImage(raw)
             : resolvePublicImage(raw, CLIENT_PUBLIC);
@@ -83,7 +83,7 @@ function scanClientFolder(): MitraPartner[] {
         .find((f) => /^image\./i.test(f) && IMAGE_RE.test(f));
       if (img) {
         partners.push({
-          src: `${CLIENT_PUBLIC}${entry.name}/${img}`,
+          src: resolvePublicImage(`${CLIENT_PUBLIC}${entry.name}/${img}`),
           name: entry.name,
         });
       }
@@ -95,7 +95,7 @@ function scanClientFolder(): MitraPartner[] {
       IMAGE_RE.test(entry.name)
     ) {
       partners.push({
-        src: `${CLIENT_PUBLIC}${entry.name}`,
+        src: resolvePublicImage(`${CLIENT_PUBLIC}${entry.name}`),
         name: entry.name.replace(/\.[^.]+$/, ''),
       });
     }

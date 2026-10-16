@@ -227,9 +227,9 @@ export default config({
             image: fields.image({
               label: 'Gambar kartu',
               description:
-                'Boleh path apa pun di public/images/ (hindari spasi di nama folder bila bisa).',
-              directory: 'public/images',
-              publicPath: '/images/',
+                'Upload saja (JPG/PNG/WebP). Sistem otomatis kompres saat website di-deploy — tidak perlu langkah tambahan.',
+              directory: 'public/images/cards',
+              publicPath: '/images/cards/',
             }),
             alt: fields.text({
               label: 'Alt gambar',

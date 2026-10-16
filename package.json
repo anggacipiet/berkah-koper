@@ -2,9 +2,11 @@
   "name": "koperumroh",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "dev": "node scripts/optimize-images.mjs && astro dev",
+    "build": "node scripts/optimize-images.mjs && astro build",
+    "preview": "astro preview",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "optimize:images:force": "node scripts/optimize-images.mjs --force"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
@@ -20,6 +22,7 @@
     "js-yaml": "^5.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
