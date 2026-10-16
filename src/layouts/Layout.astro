@@ -76,7 +76,10 @@ const navLinks = [
     <meta name="description" content={description} />
     <meta name="theme-color" content="#c9a448" />
 
-    <!-- Favicon -->
+    <!-- Favicon — PNG ≥48px (syarat Google Search); WebP sering diabaikan crawler -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/favicon-192.png" />
     <link rel="icon" type="image/webp" href="/images/logo.webp" />
 
     <!-- Open Graph -->

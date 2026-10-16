@@ -98,11 +98,11 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/25 to-transparent"></div>
       </div>
 
-      <div class="absolute bottom-3 left-0 right-0 z-10 flex items-center justify-center gap-2">
+      <div class="absolute bottom-1 left-0 right-0 z-10 flex items-center justify-center">
         {heroSlides.map((_, i) => (
           <button
             type="button"
-            class="hero-dot size-2 rounded-full transition-all"
+            class="hero-dot grid size-12 place-items-center rounded-full transition-all"
             data-index={i}
             aria-label={`Slide ${i + 1}`}
             aria-current={i === 0 ? 'true' : 'false'}
@@ -191,10 +191,19 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
   </section>
 
   <style>
+    /* Hit area 48×48 (size-12); titik visual kecil di ::after */
     .hero-dot {
-      background: rgba(255, 255, 255, 0.35);
+      background: transparent;
     }
-    .hero-dot[aria-current='true'] {
+    .hero-dot::after {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.35);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+    .hero-dot[aria-current='true']::after {
       width: 1.25rem;
       background: #c9a448;
     }
