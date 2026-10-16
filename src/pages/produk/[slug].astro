@@ -194,8 +194,8 @@ const jsonLd = JSON.stringify({
               )}
             </div>
 
-            <!-- Deskripsi: tulis di Keystatic dengan baris baru + * / • (whitespace-pre-line) -->
-            <div class="whitespace-pre-line leading-7 text-white/70">{description}</div>
+            <!-- pre-wrap + tab-size: Tab indent dari Keystatic ikut tampil (pre-line menghapus Tab) -->
+            <div class="whitespace-pre-wrap leading-7 text-white/70 [tab-size:4]">{description}</div>
 
             <!-- Pilih ukuran -->
             {sizes && sizes.length > 0 && (
