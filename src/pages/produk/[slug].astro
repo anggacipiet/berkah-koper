@@ -55,6 +55,49 @@ const imageAltMap: string[] = [
   `${name} — interior & kompartemen`,
 ];
 
+/** Harga untuk schema Google — wajib > 0 agar Merchant listings tidak error */
+const variantPrices = (variants ?? []).map(
+  (v) => product.price + (v.priceAdj ?? 0),
+);
+const offerPrices = [product.price, ...variantPrices].filter((p) => p > 0);
+const lowPrice = offerPrices.length ? Math.min(...offerPrices) : 0;
+const highPrice = offerPrices.length ? Math.max(...offerPrices) : 0;
+
+const offerUrl = new URL(`/produk/${product.slug}`, siteOrigin).href;
+const availability = inStock
+  ? 'https://schema.org/InStock'
+  : 'https://schema.org/OutOfStock';
+const seller = { '@type': 'Organization', name: 'Berkah Koper' };
+
+const offers =
+  lowPrice > 0 && highPrice > lowPrice
+    ? {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'IDR',
+        lowPrice: String(lowPrice),
+        highPrice: String(highPrice),
+        offerCount: Math.max(1, variants?.length ?? 1),
+        availability,
+        url: offerUrl,
+        seller,
+      }
+    : lowPrice > 0
+      ? {
+          '@type': 'Offer',
+          priceCurrency: 'IDR',
+          price: String(lowPrice),
+          availability,
+          url: offerUrl,
+          seller,
+        }
+      : {
+          // Tanpa harga valid — Google akan flag; isi harga > 0 di CMS
+          '@type': 'Offer',
+          availability,
+          url: offerUrl,
+          seller,
+        };
+
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Product',
@@ -62,14 +105,7 @@ const jsonLd = JSON.stringify({
   description,
   image: absoluteImages,
   brand: { '@type': 'Brand', name: 'Berkah Koper' },
-  offers: {
-    '@type': 'Offer',
-    availability: inStock
-      ? 'https://schema.org/InStock'
-      : 'https://schema.org/OutOfStock',
-    url: new URL(`/produk/${product.slug}`, siteOrigin).href,
-    seller: { '@type': 'Organization', name: 'Berkah Koper' },
-  },
+  offers,
 });
 ---
 
@@ -158,8 +194,8 @@ const jsonLd = JSON.stringify({
               )}
             </div>
 
-            <!-- Deskripsi -->
-            <p class="leading-7 text-white/70">{description}</p>
+            <!-- Deskripsi: tulis di Keystatic dengan baris baru + * / • (whitespace-pre-line) -->
+            <div class="whitespace-pre-line leading-7 text-white/70">{description}</div>
 
             <!-- Pilih ukuran -->
             {sizes && sizes.length > 0 && (
