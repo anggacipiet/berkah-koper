@@ -197,7 +197,7 @@ const descBlocks = parseProductDescription(description);
               )}
             </div>
 
-            <!-- Hanging indent: baris turun rata dengan huruf setelah bullet (bukan di bawah •) -->
+            <!-- Hanging indent: * rata kiri dengan paragraf; teks turun rata huruf pertama -->
             <div class="space-y-2 text-white/70">
               {descBlocks.map((block) =>
                 block.type === 'p' ? (
@@ -205,10 +205,20 @@ const descBlocks = parseProductDescription(description);
                 ) : (
                   <div
                     class="flex gap-2 leading-7"
-                    style={`margin-left: ${block.depth * 1.1}rem`}
+                    style={
+                      block.marker === 'star'
+                        ? undefined
+                        : `margin-left: ${Math.max(block.depth, 1) * 1.1}rem`
+                    }
                   >
-                    <span class="w-4 shrink-0 select-none text-center text-[#c9a448]/80" aria-hidden="true">
-                      {block.marker === 'star' ? '∗' : '•'}
+                    <span
+                      class:list={[
+                        'shrink-0 select-none text-[#c9a448]/80',
+                        block.marker === 'star' ? 'w-[0.75rem] text-left' : 'w-4 text-left',
+                      ]}
+                      aria-hidden="true"
+                    >
+                      {block.marker === 'star' ? '*' : '•'}
                     </span>
                     <span class="min-w-0 flex-1">{block.text}</span>
                   </div>
