@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const MOBILE_W = 800;
+
+function publicDiskPath(publicUrl: string): string {
+  return path.join(process.cwd(), 'public', publicUrl.replace(/^\//, ''));
+}
+
 /**
  * Jika ada .webp hasil build optimize (di samping jpg/png), pakai itu.
  * User CMS cukup upload JPG/PNG — tanpa langkah manual.
@@ -11,8 +17,7 @@ export function preferOptimizedImage(publicUrl: string): string {
     return publicUrl;
   }
   const webpUrl = publicUrl.replace(/\.(jpe?g|png)$/i, '.webp');
-  const disk = path.join(process.cwd(), 'public', webpUrl.replace(/^\//, ''));
-  return fs.existsSync(disk) ? webpUrl : publicUrl;
+  return fs.existsSync(publicDiskPath(webpUrl)) ? webpUrl : publicUrl;
 }
 
 /** Resolve nilai gambar Keystatic / path lama menjadi URL publik (+ WebP otomatis) */
@@ -29,6 +34,37 @@ export function resolvePublicImage(
     resolved = `${base}${value.replace(/^\//, '')}`;
   }
   return preferOptimizedImage(resolved);
+}
+
+export type ResponsiveImage = {
+  src: string;
+  srcset?: string;
+  sizes?: string;
+};
+
+/**
+ * srcset mobile (.w800.webp) + penuh. src = versi kecil agar default hemat.
+ */
+export function responsiveImage(
+  publicUrl: string,
+  sizes = '(max-width: 768px) 100vw, 50vw',
+): ResponsiveImage {
+  if (!publicUrl) return { src: '' };
+  if (publicUrl.startsWith('http://') || publicUrl.startsWith('https://')) {
+    return { src: publicUrl };
+  }
+
+  const webp = preferOptimizedImage(publicUrl);
+  if (!/\.webp$/i.test(webp)) return { src: webp };
+
+  const sm = webp.replace(/\.webp$/i, `.w${MOBILE_W}.webp`);
+  if (!fs.existsSync(publicDiskPath(sm))) return { src: webp };
+
+  return {
+    src: sm,
+    srcset: `${sm} ${MOBILE_W}w, ${webp} 1400w`,
+    sizes,
+  };
 }
 
 export function buildWaLink(

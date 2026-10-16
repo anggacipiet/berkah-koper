@@ -10,6 +10,7 @@ import {
 } from '../../data/products';
 import { CATEGORY_LABELS } from '../../types/product';
 import { parseProductDescription } from '../../lib/format-description';
+import { responsiveImage } from '../../lib/media';
 import type { GetStaticPaths } from 'astro';
 
 export const prerender = true;
@@ -26,6 +27,11 @@ const {
   badge, variants, colorGroups, features, weight, material,
   sizes, inStock, isBundle, bundleItems,
 } = product;
+
+const gallery = images.map((src) => ({
+  full: src,
+  ...responsiveImage(src, '(max-width: 1024px) 100vw, 560px'),
+}));
 
 const waBase    = buildWaUrl(product);
 const catLabel  = CATEGORY_LABELS[category] ?? category;
@@ -143,10 +149,13 @@ const descBlocks = parseProductDescription(description);
 
             <!-- Gambar utama — klik untuk zoom -->
             <div class="img-zoom aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-[#222222]" id="main-img-wrap">
-              {images[0] ? (
+              {gallery[0] ? (
                 <img
                   id="main-img"
-                  src={images[0]}
+                  src={gallery[0].src}
+                  srcset={gallery[0].srcset}
+                  sizes={gallery[0].sizes}
+                  data-full={gallery[0].full}
                   alt={imageAltMap[0]}
                   class="h-full w-full object-cover"
                   width="600"
@@ -158,18 +167,20 @@ const descBlocks = parseProductDescription(description);
             </div>
 
             <!-- Thumbnails -->
-            {images.length > 1 && (
+            {gallery.length > 1 && (
               <div class="mt-3 flex gap-2 overflow-x-auto pb-1" role="list" aria-label={`Galeri foto ${name}`}>
-                {images.map((src, i) => {
+                {gallery.map((g, i) => {
                   const alt = imageAltMap[i] ?? `${name} — foto ${i + 1}`;
                   return (
                     <button
                       role="listitem"
                       class="thumb-btn shrink-0 overflow-hidden rounded-xl border-2 border-white/10 transition-all hover:border-[#c9a448] focus:border-[#c9a448] focus:outline-none"
-                      data-src={src}
+                      data-src={g.src}
+                      data-srcset={g.srcset ?? ''}
+                      data-full={g.full}
                       aria-label={`Lihat: ${alt}`}
                     >
-                      <img src={src} alt={alt} class="size-16 object-cover" loading="lazy" decoding="async" width="64" height="64" />
+                      <img src={g.src} alt={alt} class="size-16 object-cover" loading="lazy" decoding="async" width="64" height="64" />
                     </button>
                   );
                 })}
@@ -410,6 +421,8 @@ const descBlocks = parseProductDescription(description);
       const src = btn.dataset.src;
       if (mainImg && src) {
         mainImg.src = src;
+        mainImg.srcset = btn.dataset.srcset ?? '';
+        mainImg.dataset.full = btn.dataset.full ?? src;
         thumbBtns.forEach((b) => b.classList.remove('border-[#c9a448]'));
         btn.classList.add('border-[#c9a448]');
       }
@@ -435,15 +448,17 @@ const descBlocks = parseProductDescription(description);
     document.body.style.overflow = '';
   }
 
-  // Klik gambar utama → buka lightbox
+  // Klik gambar utama → buka lightbox (versi penuh)
   mainWrap?.addEventListener('click', () => {
-    if (mainImg?.src) openLightbox(mainImg.src, mainImg.alt);
+    if (!mainImg) return;
+    const full = mainImg.dataset.full || mainImg.currentSrc || mainImg.src;
+    if (full) openLightbox(full, mainImg.alt);
   });
 
   // Klik thumbnail → update gambar utama DAN buka lightbox
   thumbBtns.forEach((btn) => {
     btn.addEventListener('dblclick', () => {
-      const src = btn.dataset.src ?? '';
+      const src = btn.dataset.full || btn.dataset.src || '';
       const alt = btn.querySelector('img')?.alt ?? '';
       if (src) openLightbox(src, alt);
     });

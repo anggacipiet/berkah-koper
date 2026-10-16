@@ -1,6 +1,7 @@
 ---
 import type { Product } from '../types/product';
 import { buildWaUrl } from '../data/products';
+import { responsiveImage } from '../lib/media';
 
 interface Props {
   product: Product;
@@ -9,6 +10,7 @@ interface Props {
 const { product } = Astro.props;
 const { slug, name, shortDesc, images, badge, bundleItems = [], features = [] } = product;
 const waUrl = buildWaUrl(product);
+const thumb = images[0] ? responsiveImage(images[0], '(max-width: 1024px) 100vw, 560px') : null;
 ---
 
 <article class="card-lift group overflow-hidden rounded-3xl border border-[#c9a448]/25 bg-[#111111] shadow-md">
@@ -16,9 +18,11 @@ const waUrl = buildWaUrl(product);
 
     <!-- Gambar — tanpa gradient shadow di tepi -->
     <div class="img-zoom relative aspect-video overflow-hidden bg-[#1a1a1a] lg:aspect-auto">
-      {images[0] ? (
+      {thumb ? (
         <img
-          src={images[0]}
+          src={thumb.src}
+          srcset={thumb.srcset}
+          sizes={thumb.sizes}
           alt={name}
           class="h-full w-full object-cover"
           loading="lazy"

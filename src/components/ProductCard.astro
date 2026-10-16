@@ -2,6 +2,7 @@
 import type { Product } from '../types/product';
 import { CATEGORY_LABELS } from '../types/product';
 import { buildWaUrl } from '../data/products';
+import { responsiveImage } from '../lib/media';
 
 interface Props {
   product: Product;
@@ -11,15 +12,18 @@ const { product } = Astro.props;
 const { slug, name, category, shortDesc, images, badge, inStock } = product;
 const categoryLabel = CATEGORY_LABELS[category] ?? category;
 const waUrl = buildWaUrl(product);
+const thumb = images[0] ? responsiveImage(images[0], '(max-width: 640px) 50vw, 400px') : null;
 ---
 
 <article class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-[#111111]">
 
   <!-- Gambar -->
   <a href={`/produk/${slug}`} class="img-zoom relative block aspect-[4/3] overflow-hidden bg-[#1a1a1a]" aria-label={`Lihat ${name}`}>
-    {images[0] ? (
+    {thumb ? (
       <img
-        src={images[0]}
+        src={thumb.src}
+        srcset={thumb.srcset}
+        sizes={thumb.sizes}
         alt={name}
         class="h-full w-full object-cover"
         loading="lazy"

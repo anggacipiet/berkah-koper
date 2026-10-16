@@ -9,6 +9,7 @@ import { getMitra } from '../data/mitra';
 import { getKatalogDownload } from '../data/katalog';
 import { getPromo } from '../data/promo';
 import { CATALOG_CATEGORIES } from '../types/product';
+import { responsiveImage } from '../lib/media';
 
 // Bake HTML at build (CF Worker cannot read content/*.yaml via fs at runtime)
 export const prerender = true;
@@ -20,11 +21,17 @@ const tentang = getTentang();
 const mitra = getMitra();
 const katalogDl = getKatalogDownload();
 const promo = getPromo();
-const promoCards = promo.cards;
+const promoCards = promo.cards.map((card) => ({
+  ...card,
+  img: responsiveImage(card.image, '(max-width: 768px) 100vw, 50vw'),
+}));
 const ctaWaUrl = siteWaLink(hero.waMessage);
 const mitraRowA = mitra.partners.filter((_, i) => i % 2 === 0);
 const mitraRowB = mitra.partners.filter((_, i) => i % 2 === 1);
-const heroSlides = hero.slides;
+const heroSlides = hero.slides.map((slide) => ({
+  ...slide,
+  img: responsiveImage(slide.src, '(max-width: 1023px) 100vw, 520px'),
+}));
 
 /** Line-icon SVG paths per kategori (lebih rapi dari emoji) */
 const categoryIcons: Record<string, string[]> = {
@@ -75,7 +82,9 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
           {heroSlides.map((slide, i) => (
             <div class="h-full w-full shrink-0" role="group" aria-roledescription="slide" aria-label={`${i + 1} dari ${heroSlides.length}`}>
               <img
-                src={slide.src}
+                src={slide.img.src}
+                srcset={slide.img.srcset}
+                sizes={slide.img.sizes}
                 alt={slide.alt}
                 class="h-full w-full object-cover object-center"
                 width="800"
@@ -152,7 +161,9 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
               {heroSlides.slice(1, 3).map((slide) => (
                 <figure class="hero-collage__shot hero-collage__side m-0 overflow-hidden rounded-2xl bg-[#111]">
                   <img
-                    src={slide.src}
+                    src={slide.img.src}
+                    srcset={slide.img.srcset}
+                    sizes="360px"
                     alt={slide.alt}
                     width="360"
                     height="480"
@@ -164,7 +175,9 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
             <!-- Hero 1 di depan, overlap stack kanan — object-position agar teks bawah tidak kepotong -->
             <figure class="hero-collage__shot hero-collage__main m-0 overflow-hidden rounded-2xl bg-[#111]">
               <img
-                src={heroSlides[0].src}
+                src={heroSlides[0].img.src}
+                srcset={heroSlides[0].img.srcset}
+                sizes="520px"
                 alt={heroSlides[0].alt}
                 width="520"
                 height="693"
@@ -374,7 +387,9 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
             class="card-lift img-zoom group relative block overflow-hidden rounded-3xl bg-[#1a1a1a]"
           >
             <img
-              src={card.image}
+              src={card.img.src}
+              srcset={card.img.srcset}
+              sizes={card.img.sizes}
               alt={card.alt}
               class:list={[
                 'h-full min-h-64 w-full object-cover lg:min-h-80',
