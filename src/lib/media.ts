@@ -7,17 +7,32 @@ function publicDiskPath(publicUrl: string): string {
   return path.join(process.cwd(), 'public', publicUrl.replace(/^\//, ''));
 }
 
+/** ?v= size agar CDN/browser tidak menahan WebP lama setelah ganti JPG di Keystatic */
+function withCacheBust(publicUrl: string): string {
+  try {
+    const st = fs.statSync(publicDiskPath(publicUrl));
+    const sep = publicUrl.includes('?') ? '&' : '?';
+    return `${publicUrl}${sep}v=${st.size}`;
+  } catch {
+    return publicUrl;
+  }
+}
+
 /**
  * Jika ada .webp hasil build optimize (di samping jpg/png), pakai itu.
  * User CMS cukup upload JPG/PNG — tanpa langkah manual.
  */
 export function preferOptimizedImage(publicUrl: string): string {
-  if (!publicUrl || !/\.(jpe?g|png)$/i.test(publicUrl)) return publicUrl;
+  if (!publicUrl || !/\.(jpe?g|png|webp)$/i.test(publicUrl)) return publicUrl;
   if (publicUrl.startsWith('http://') || publicUrl.startsWith('https://')) {
     return publicUrl;
   }
-  const webpUrl = publicUrl.replace(/\.(jpe?g|png)$/i, '.webp');
-  return fs.existsSync(publicDiskPath(webpUrl)) ? webpUrl : publicUrl;
+  let url = publicUrl;
+  if (/\.(jpe?g|png)$/i.test(publicUrl)) {
+    const webpUrl = publicUrl.replace(/\.(jpe?g|png)$/i, '.webp');
+    url = fs.existsSync(publicDiskPath(webpUrl)) ? webpUrl : publicUrl;
+  }
+  return withCacheBust(url);
 }
 
 /** Resolve nilai gambar Keystatic / path lama menjadi URL publik (+ WebP otomatis) */
@@ -54,15 +69,17 @@ export function responsiveImage(
     return { src: publicUrl };
   }
 
-  const webp = preferOptimizedImage(publicUrl);
-  if (!/\.webp$/i.test(webp)) return { src: webp };
+  const full = preferOptimizedImage(publicUrl);
+  const fullPath = full.split('?')[0] ?? full;
+  if (!/\.webp$/i.test(fullPath)) return { src: full };
 
-  const sm = webp.replace(/\.webp$/i, `.w${MOBILE_W}.webp`);
-  if (!fs.existsSync(publicDiskPath(sm))) return { src: webp };
+  const smPath = fullPath.replace(/\.webp$/i, `.w${MOBILE_W}.webp`);
+  if (!fs.existsSync(publicDiskPath(smPath))) return { src: full };
 
+  const sm = withCacheBust(smPath);
   return {
     src: sm,
-    srcset: `${sm} ${MOBILE_W}w, ${webp} 1400w`,
+    srcset: `${sm} ${MOBILE_W}w, ${full} 1400w`,
     sizes,
   };
 }
