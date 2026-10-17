@@ -34,16 +34,28 @@ variants:
   - label: 28"
     priceAdj: 0
 colorGroups:
-  - label: Pilihan Warna
+  - label: Warna Body
     type: body
     colors:
+      - name: Putih
+        hex: '#f0ead6'
+      - name: Abu-Abu
+        hex: '#4a4a4a'
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru
+        hex: '#1a9bdc'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Ungu Muda
+        hex: '#c3aee0'
       - name: Hitam
         hex: '#1a1a1a'
-      - name: Kuning
-        hex: '#d4a017'
-      - name: Merah
-        hex: '#c0141e'
-      - name: Navy
+      - name: Pink
+        hex: '#e8917a'
+      - name: Hijau Alpukat
+        hex: '#7a8c4e'
+      - name: Biru Navy
         hex: '#1e2d5a'
   - label: Warna Aksesori (One Color)
     type: accent
