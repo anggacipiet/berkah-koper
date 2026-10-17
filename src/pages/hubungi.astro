@@ -1,93 +1,156 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getHubungi } from '../data/hubungi';
+import { getSiteWa } from '../data/hero';
 
 export const prerender = true;
 
-const hubungi = getHubungi();
+const siteWa = getSiteWa();
+const waDigits = siteWa.number;
+const waDisplay = siteWa.display;
 ---
 
 <Layout
   title="Hubungi Kami — Berkah Koper"
-  description={hubungi.description}
+  description="Hubungi Berkah Koper via WhatsApp. Kalideres, Jakarta Barat. Senin–Sabtu 08.00–20.00 WIB."
 >
-  <!-- pt-0: gold-line flush di bawah header (efek sama #tentang yg ketutup sticky) -->
-  <section class="bg-[#0d0d0d] pt-0 pb-12 md:pb-16" aria-labelledby="hubungi-heading">
+  <section class="bg-[#0d0d0d] pt-0 pb-14 md:pb-20" aria-labelledby="hubungi-heading">
     <div class="container-page">
       <div class="gold-line"></div>
-      <h1 id="hubungi-heading" class="mt-4 text-3xl text-white md:text-4xl">
-        {hubungi.heading}
-      </h1>
+      <h1 id="hubungi-heading" class="mt-4 text-3xl text-white md:text-4xl">Hubungi Kami</h1>
       <p class="mt-3 max-w-2xl text-sm leading-7 text-white/55 md:text-base">
-        {hubungi.description}
+        Isi formulir di bawah — pesan Anda akan terbuka di WhatsApp untuk dikirim ke tim Berkah Koper.
       </p>
 
-      <div class="mt-10 space-y-12">
-        {hubungi.groups.map((group, gi) => (
-          <section aria-labelledby={`hubungi-group-${gi}`}>
-            <div class="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-              <!-- Foto grup / branding Berkah Koper -->
-              <figure class="overflow-hidden rounded-2xl border border-white/8 bg-[#161616]">
-                <img
-                  src={group.coverImage}
-                  alt={group.title}
-                  class="aspect-[4/3] w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="480"
-                />
-              </figure>
+      <div class="mt-10 grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <!-- Form → WhatsApp -->
+        <form id="hubungi-wa-form" class="space-y-4" novalidate>
+          <div>
+            <label for="wa-phone" class="sr-only">Nomor WhatsApp</label>
+            <input
+              id="wa-phone"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              required
+              placeholder="Tulis Nomor WhatsApp 08xxxx..."
+              class="w-full rounded-xl border border-white/10 bg-[#161616] px-4 py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-[#c9a448]/50"
+            />
+          </div>
+          <div>
+            <label for="wa-name" class="sr-only">Nama</label>
+            <input
+              id="wa-name"
+              name="name"
+              type="text"
+              autocomplete="name"
+              required
+              placeholder="Tulis Nama Anda"
+              class="w-full rounded-xl border border-white/10 bg-[#161616] px-4 py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-[#c9a448]/50"
+            />
+          </div>
+          <div>
+            <label for="wa-company" class="sr-only">Perusahaan</label>
+            <input
+              id="wa-company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+              placeholder="Tulis Nama Perusahaan Anda"
+              class="w-full rounded-xl border border-white/10 bg-[#161616] px-4 py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-[#c9a448]/50"
+            />
+          </div>
+          <div>
+            <label for="wa-message" class="sr-only">Pesan</label>
+            <textarea
+              id="wa-message"
+              name="message"
+              rows="5"
+              required
+              placeholder="Tulis Pesan Anda"
+              class="w-full resize-y rounded-xl border border-white/10 bg-[#161616] px-4 py-3.5 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-[#c9a448]/50"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-primary inline-flex w-full items-center justify-center gap-2 sm:w-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4" aria-hidden="true">
+              <path d="M3.4 20.4 20.85 12.92c.76-.33.76-1.5 0-1.84L3.4 3.6a1 1 0 0 0-1.44 1.12l1.9 6.56a1 1 0 0 0 .76.7l8.1 1.02-8.1 1.02a1 1 0 0 0-.76.7l-1.9 6.56a1 1 0 0 0 1.44 1.12Z" />
+            </svg>
+            Kirim
+          </button>
+          <p id="hubungi-form-error" class="hidden text-sm text-red-400" role="alert"></p>
+        </form>
 
-              <div>
-                <h2 id={`hubungi-group-${gi}`} class="text-2xl text-white md:text-3xl">
-                  {group.title}
-                </h2>
-                {group.description && (
-                  <p class="mt-2 text-sm leading-6 text-white/50">{group.description}</p>
-                )}
+        <!-- Info kontak -->
+        <aside class="rounded-2xl border border-white/8 bg-[#161616] p-6 md:p-8" aria-label="Kontak Berkah Koper">
+          <h2 class="font-display text-2xl text-[#c9a448] md:text-3xl">Kontak Kami</h2>
 
-                {group.admins.length === 0 ? (
-                  <p class="mt-6 text-sm text-white/40">Belum ada admin di grup ini.</p>
-                ) : (
-                  <ul class="mt-6 grid gap-4 sm:grid-cols-2">
-                    {group.admins.map((admin) => (
-                      <li class="rounded-2xl border border-white/8 bg-[#161616] p-4 transition-colors hover:border-[#c9a448]/30">
-                        <div class="flex items-center gap-3">
-                          <img
-                            src={admin.image}
-                            alt={admin.name}
-                            class="size-14 shrink-0 rounded-full object-cover ring-1 ring-[#c9a448]/25"
-                            loading="lazy"
-                            decoding="async"
-                            width="56"
-                            height="56"
-                          />
-                          <div class="min-w-0">
-                            <div class="truncate font-body text-sm font-bold text-white">
-                              {admin.name}
-                            </div>
-                            <div class="text-xs text-[#c9a448]/80">{admin.role}</div>
-                            <div class="mt-0.5 text-xs text-white/45">{admin.phoneDisplay}</div>
-                          </div>
-                        </div>
-                        <a
-                          href={admin.waUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="btn-wa mt-4 inline-flex w-full justify-center"
-                        >
-                          Chat WhatsApp
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+          <div class="mt-8 space-y-7 text-sm">
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-widest text-white/40">Lokasi</div>
+              <p class="mt-2 leading-6 text-white/75">Kalideres, Jakarta Barat</p>
             </div>
-          </section>
-        ))}
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-widest text-white/40">Jam Kerja</div>
+              <p class="mt-2 leading-6 text-white/75">Senin–Sabtu, 08.00–20.00 WIB</p>
+            </div>
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-widest text-white/40">Kontak</div>
+              <a
+                href={`https://wa.me/${waDigits}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-2 inline-flex items-center gap-2 text-white/75 transition hover:text-[#c9a448]"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 text-[#25d366]" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                {waDisplay}
+              </a>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 </Layout>
+
+<script define:vars={{ waDigits }}>
+  const form = document.getElementById('hubungi-wa-form');
+  const err = document.getElementById('hubungi-form-error');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (err) {
+      err.classList.add('hidden');
+      err.textContent = '';
+    }
+
+    const fd = new FormData(form);
+    const phone = String(fd.get('phone') || '').trim();
+    const name = String(fd.get('name') || '').trim();
+    const company = String(fd.get('company') || '').trim();
+    const message = String(fd.get('message') || '').trim();
+
+    if (!phone || !name || !message) {
+      if (err) {
+        err.textContent = 'Nomor WhatsApp, nama, dan pesan wajib diisi.';
+        err.classList.remove('hidden');
+      }
+      return;
+    }
+
+    const lines = [
+      "Assalamu'alaikum Berkah Koper,",
+      '',
+      `Nama: ${name}`,
+      company ? `Perusahaan: ${company}` : null,
+      `WhatsApp: ${phone}`,
+      '',
+      'Pesan:',
+      message,
+    ].filter(Boolean);
+
+    const url = `https://wa.me/${waDigits}?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>
