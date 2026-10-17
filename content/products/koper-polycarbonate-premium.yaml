@@ -18,6 +18,7 @@ images:
   - /images/koper-polycarbonate-premium/images/3.jpg
   - /images/koper-polycarbonate-premium/images/4.jpg
   - /images/koper-polycarbonate-premium/images/5.jpg
+  - /images/koper-polycarbonate-premium/images/6.jpg
 sizes:
   - 20"
   - 24"
@@ -56,40 +57,43 @@ colorGroups:
         hex: '#1e2d5a'
       - name: Kuning Kunyit
         hex: '#c8960a'
-  - label: Warna Aksesori (One Color System)
+  - label: Warna Aksesori Siku
     type: accent
     colors:
-      - name: Hijau Army
-        hex: '#3d5233'
-      - name: Biru BCA
-        hex: '#0a5fb4'
-      - name: Hijau Stabilo
-        hex: '#7aed0a'
+      - name: Biru
+        hex: '#1e5aa8'
+        imageIndex: 6
+      - name: Silver
+        hex: '#c0c0c0'
+        imageIndex: 6
       - name: Gold
-        hex: '#d4a017'
-      - name: Kuning Kunyit
-        hex: '#c8960a'
-      - name: Orange
-        hex: '#e05c1a'
-      - name: Merah Cabe
-        hex: '#c0141e'
+        hex: '#c9a448'
+        imageIndex: 6
+      - name: Hitam
+        hex: '#1a1a1a'
+        imageIndex: 6
       - name: Rosegold
         hex: '#c4956a'
-      - name: Abu-Abu
-        hex: '#6a6a6a'
-      - name: Silver
-        hex: '#b0b0b0'
-      - name: Hijau Mint
-        hex: '#a8d5b0'
-      - name: Coklat
-        hex: '#7a4a2a'
+        imageIndex: 6
+      - name: Hijau Lemon
+        hex: '#c8d20a'
+        imageIndex: 6
+      - name: Hijau Army
+        hex: '#2d4a2d'
+        imageIndex: 6
+      - name: Orange
+        hex: '#c45a1a'
+        imageIndex: 6
+      - name: Merah
+        hex: '#b01018'
+        imageIndex: 6
 features:
   - Bahan Polycarbonate (PC) murni
   - Tampilan glossy premium mewah
   - Custom logo travel/kloter (free)
   - Roda putar 360° silent
   - Kunci kombinasi 3 angka
-  - Tersedia aksen siku besi
+  - 9 pilihan warna aksesori siku besi
   - Free ongkir area Jakarta
 weight: 3.0 kg (20")
 material: Polycarbonate (PC)

@@ -26,6 +26,7 @@ images:
   - /images/koper-standar/images/11.jpg
   - /images/koper-standar/images/12.jpg
   - /images/koper-standar/images/13.jpg
+  - /images/koper-standar/images/14.jpg
 sizes:
   - 18"
   - 20"
@@ -58,9 +59,40 @@ colorGroups:
       - name: merah tes
         hex: '#FF0000'
         imageIndex: 7
+  - label: Warna Aksesori Siku
+    type: accent
+    colors:
+      - name: Biru
+        hex: '#1e5aa8'
+        imageIndex: 14
+      - name: Silver
+        hex: '#c0c0c0'
+        imageIndex: 14
+      - name: Gold
+        hex: '#c9a448'
+        imageIndex: 14
+      - name: Hitam
+        hex: '#1a1a1a'
+        imageIndex: 14
+      - name: Rosegold
+        hex: '#c4956a'
+        imageIndex: 14
+      - name: Hijau Lemon
+        hex: '#c8d20a'
+        imageIndex: 14
+      - name: Hijau Army
+        hex: '#2d4a2d'
+        imageIndex: 14
+      - name: Orange
+        hex: '#c45a1a'
+        imageIndex: 14
+      - name: Merah
+        hex: '#b01018'
+        imageIndex: 14
 features:
   - One Color System — roda & trim senada
   - 7 pilihan warna cerah
+  - 9 pilihan warna aksesori siku besi
   - Bahan ABS & Polycarbonate (PC)
   - Roda putar 360° silent
   - Kunci kombinasi 3 angka
