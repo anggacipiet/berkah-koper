@@ -1,25 +1,31 @@
 heading: Koper PP Premium
-description: Mewah, kuat dan elegan — tersedia 20", 24" & 28" dengan pilihan warna bebas.
-primaryCtaLabel: Koper PP Premium →
+description: "Mewah, kuat dan elegan — tersedia 20\", 24\" & 28\" dengan pilihan warna bebas."
+primaryCtaLabel: "Koper PP Premium →"
 primaryCtaHref: /produk/koper-premium-polypropylane
-secondaryCtaLabel: Semua Produk →
+secondaryCtaLabel: "Semua Produk →"
 secondaryCtaHref: /katalog
 cards:
-  - image: /images/cards/0/image.webp
-    alt: Koleksi koper Berkah Koper — warna & model lengkap Haji & Umrah
+  - image: /images/cards/0/image.jpg
+    alt: "Katalog Berkah Koper 2026 — koleksi lengkap koper Haji & Umrah"
+    eyebrow: Katalog
+    title: Lihat Katalog Lengkap
+    subtitle: "Semua produk →"
+    href: /katalog
+  - image: /images/cards/1/image.jpg
+    alt: "Koper PP Polypropylene anti pecah — lentur dan kuat"
     eyebrow: Koper PP Premium
-    title: Mewah, Kuat dan Elegan
-    subtitle: Lihat detail →
-    href: /produk/koper-premium-polypropylane
-  - image: /images/cards/1/image.webp
-    alt: Koper PP Polypropylene anti pecah — lentur dan kuat
-    eyebrow: Bahan PP Polypropylene
     title: Anti Pecah!
-    subtitle: Tersedia uk. 20", 24" & 28"
-    href: /produk/koper-standar
-  - image: /images/cards/2/image.webp
-    alt: Koper PC Polypropylene — mewah dan elegan
+    subtitle: "Tersedia uk. 20\", 24\" & 28\""
+    href: /produk/koper-premium-polypropylane
+  - image: /images/cards/2/image.jpg
+    alt: "Koper Polycarbonate Premium — mewah dan elegan"
     eyebrow: Koper PC Premium
     title: Mewah Premium
-    subtitle: Tersedia uk. 20", 24" & 28"
+    subtitle: "Tersedia uk. 20\" & 24\""
     href: /produk/koper-polycarbonate-premium
+  - image: /images/cards/3/image.jpg
+    alt: "Koper Standar Berkah Koper — pilihan praktis Haji & Umrah"
+    eyebrow: Koper Standar
+    title: Pilihan Praktis
+    subtitle: "Lihat detail →"
+    href: /produk/koper-standar
