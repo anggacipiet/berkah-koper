@@ -188,15 +188,16 @@ p {
 }
 
 /* ── Floating WA button ──────────────────────────────────────── */
+/* Hijau gelap (#128C7E) + putih = kontras AA; #25D366+putih gagal PageSpeed */
 .wa-float {
   position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100;
   display: flex; align-items: center; justify-content: center;
-  background: #25d366; color: #fff;
+  background: #128c7e; color: #fff;
   font-weight: 700; font-size: .85rem;
   border-radius: 999px;
   /* Mobile: bulat sempurna */
   width: 3.25rem; height: 3.25rem; padding: 0;
-  box-shadow: 0 4px 20px rgba(37,211,102,.4);
+  box-shadow: 0 4px 20px rgba(18,140,126,.45);
   text-decoration: none;
   transition: transform .2s, box-shadow .2s;
   animation: wa-pulse 2.5s infinite;
@@ -211,11 +212,11 @@ p {
 }
 .wa-float:hover {
   transform: translateY(-2px) scale(1.06);
-  box-shadow: 0 8px 28px rgba(37,211,102,.55); animation: none;
+  box-shadow: 0 8px 28px rgba(18,140,126,.55); animation: none;
 }
 @keyframes wa-pulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,.4); }
-  50%       { box-shadow: 0 4px 30px rgba(37,211,102,.7); }
+  0%, 100% { box-shadow: 0 4px 20px rgba(18,140,126,.45); }
+  50%       { box-shadow: 0 4px 30px rgba(18,140,126,.7); }
 }
 
 /* ── Hero entrance animation ─────────────────────────────────── */

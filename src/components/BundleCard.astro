@@ -81,7 +81,7 @@ const thumb = images[0] ? responsiveImage(images[0], '(max-width: 1024px) 100vw,
 
       <!-- CTA -->
       <div class="mt-auto flex items-center gap-2 border-t border-white/10 pt-4">
-        <a href={`/produk/${slug}`} class="btn-outline-gold shrink-0 px-3 py-2 text-xs sm:px-4 sm:text-sm">Detail</a>
+        <a href={`/produk/${slug}`} class="btn-outline-gold shrink-0 px-3 py-2 text-xs sm:px-4 sm:text-sm" aria-label={`Detail ${name}`}>Detail</a>
         <a
           href={waUrl}
           target="_blank"
