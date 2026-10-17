@@ -97,18 +97,6 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
         </div>
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/25 to-transparent"></div>
       </div>
-
-      <div class="absolute bottom-1 left-0 right-0 z-10 flex items-center justify-center">
-        {heroSlides.map((_, i) => (
-          <button
-            type="button"
-            class="hero-dot grid size-12 place-items-center rounded-full transition-all"
-            data-index={i}
-            aria-label={`Slide ${i + 1}`}
-            aria-current={i === 0 ? 'true' : 'false'}
-          ></button>
-        ))}
-      </div>
     </div>
 
     <!-- Hero desktop: teks + collage muat 1 viewport (tanpa margin acak) -->
@@ -191,22 +179,6 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
   </section>
 
   <style>
-    /* Hit area 48×48 (size-12); titik visual kecil di ::after */
-    .hero-dot {
-      background: transparent;
-    }
-    .hero-dot::after {
-      content: '';
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.35);
-      transition: width 0.2s ease, background 0.2s ease;
-    }
-    .hero-dot[aria-current='true']::after {
-      width: 1.25rem;
-      background: #c9a448;
-    }
     .hero-collage__grid {
       --collage-h: min(34rem, calc(100svh - 7.25rem));
       position: relative;
@@ -272,10 +244,11 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
       if (!root || window.matchMedia('(min-width: 1024px)').matches) return;
 
       const track = root.querySelector<HTMLElement>('.hero-track');
-      const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.hero-dot'));
-      if (!track || dots.length === 0) return;
+      if (!track) return;
 
-      const total = dots.length;
+      const total = track.children.length;
+      if (total < 2) return;
+
       let index = 0;
       let timer: ReturnType<typeof setInterval> | undefined;
       let startX = 0;
@@ -285,9 +258,6 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
       const goTo = (next: number) => {
         index = ((next % total) + total) % total;
         track.style.transform = `translateX(-${index * 100}%)`;
-        dots.forEach((dot, i) => {
-          dot.setAttribute('aria-current', i === index ? 'true' : 'false');
-        });
       };
 
       const startAuto = () => {
@@ -299,13 +269,6 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
         if (timer) clearInterval(timer);
         timer = undefined;
       };
-
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          goTo(Number(dot.dataset.index ?? 0));
-          startAuto();
-        });
-      });
 
       root.addEventListener('pointerdown', (e) => {
         dragging = true;
