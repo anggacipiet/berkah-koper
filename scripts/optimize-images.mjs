@@ -2,12 +2,17 @@
  * Otomatis di npm run build/dev — user Keystatic cukup upload JPG/PNG.
  * Convert ke WebP + varian .w800.webp (mobile srcset).
  * Skip folder Katalog (scan PDF, jarang di halaman utama).
+ *
+ * Cache pakai hash isi file (bukan mtime) — di CI/git checkout mtime
+ * sering sama, jadi WebP lama tidak ikut update saat JPG diganti.
  */
 import sharp from 'sharp';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.join(process.cwd(), 'public', 'images');
+const CACHE_PATH = path.join(process.cwd(), '.astro', 'optimize-images-cache.json');
 const SKIP_DIR = /katalog/i;
 const force = process.argv.includes('--force');
 const MOBILE_W = 800;
@@ -49,7 +54,6 @@ function walk(dir, out = []) {
       if (SKIP_DIR.test(name.name)) continue;
       walk(full, out);
     } else if (/\.(jpe?g|png)$/i.test(name.name)) {
-      // skip generated logo-96 source loops; logo.png is fine
       if (/\.w\d+\.(jpe?g|png)$/i.test(name.name)) continue;
       out.push(full);
     }
@@ -57,40 +61,94 @@ function walk(dir, out = []) {
   return out;
 }
 
-async function writeWebp(
-  src,
-  out,
-  { maxW, maxH, quality, alphaQuality = 90, smartSubsample = true },
-) {
-  const srcStat = fs.statSync(src);
-  if (
-    !force &&
-    fs.existsSync(out) &&
-    fs.statSync(out).mtimeMs >= srcStat.mtimeMs
-  ) {
+function loadCache() {
+  try {
+    return JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+function saveCache(cache) {
+  fs.mkdirSync(path.dirname(CACHE_PATH), { recursive: true });
+  fs.writeFileSync(CACHE_PATH, JSON.stringify(cache));
+}
+
+function fingerprint(src, opts) {
+  const h = crypto.createHash('sha1');
+  h.update(fs.readFileSync(src));
+  h.update(
+    JSON.stringify({
+      maxW: opts.maxW,
+      maxH: opts.maxH,
+      quality: opts.quality,
+      alphaQuality: opts.alphaQuality ?? 90,
+      smartSubsample: opts.smartSubsample ?? true,
+    }),
+  );
+  return h.digest('hex');
+}
+
+async function writeWebp(src, out, opts, cache, cacheKey) {
+  const fp = fingerprint(src, opts);
+  if (!force && fs.existsSync(out) && cache[cacheKey] === fp) {
     return 'skip';
   }
 
   await sharp(src)
     .rotate()
     .resize({
-      width: maxW,
-      height: maxH,
+      width: opts.maxW,
+      height: opts.maxH,
       fit: 'inside',
       withoutEnlargement: true,
       kernel: sharp.kernel.lanczos3,
     })
     .webp({
-      quality,
-      alphaQuality,
+      quality: opts.quality,
+      alphaQuality: opts.alphaQuality ?? 90,
       effort: 6,
-      smartSubsample,
+      smartSubsample: opts.smartSubsample ?? true,
     })
     .toFile(out);
 
+  cache[cacheKey] = fp;
   return 'ok';
 }
 
+/** Hapus .webp yatim jika JPG/PNG sumber sudah dihapus di Keystatic */
+function removeOrphanWebps(sources) {
+  const keep = new Set(
+    sources.flatMap((src) => {
+      const base = src.replace(/\.(jpe?g|png)$/i, '');
+      return [`${base}.webp`, `${base}.w${MOBILE_W}.webp`];
+    }),
+  );
+  // logo-96 dihasilkan dari logo.png — jangan dianggap yatim
+  keep.add(path.join(ROOT, 'logo-96.webp'));
+
+  let removed = 0;
+  function walkWebp(dir) {
+    if (!fs.existsSync(dir)) return;
+    for (const name of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, name.name);
+      if (name.isDirectory()) {
+        if (SKIP_DIR.test(name.name)) continue;
+        walkWebp(full);
+      } else if (/\.webp$/i.test(name.name)) {
+        if (!keep.has(full)) {
+          fs.unlinkSync(full);
+          removed++;
+          console.log(`  hapus yatim: ${path.relative(ROOT, full)}`);
+        }
+      }
+    }
+  }
+  walkWebp(ROOT);
+  return removed;
+}
+
+const cache = loadCache();
 const sources = walk(ROOT);
 let done = 0;
 let skipped = 0;
@@ -99,10 +157,12 @@ console.log(`[optimize:images] ${sources.length} file jpg/png (skip Katalog)`);
 
 for (const src of sources) {
   const rel = path.relative(ROOT, src).split(path.sep).join('/');
-  const { maxW, maxH, quality, mobile } = presetFor(rel);
+  const { maxW, maxH, quality, mobile, alphaQuality, smartSubsample } =
+    presetFor(rel);
+  const opts = { maxW, maxH, quality, alphaQuality, smartSubsample };
   const out = src.replace(/\.(jpe?g|png)$/i, '.webp');
 
-  const main = await writeWebp(src, out, { maxW, maxH, quality });
+  const main = await writeWebp(src, out, opts, cache, rel);
   if (main === 'ok') {
     done++;
     console.log(
@@ -114,11 +174,12 @@ for (const src of sources) {
 
   if (mobile && maxW > MOBILE_W) {
     const outSm = src.replace(/\.(jpe?g|png)$/i, `.w${MOBILE_W}.webp`);
-    const sm = await writeWebp(src, outSm, {
+    const smOpts = {
       maxW: MOBILE_W,
       maxH: MOBILE_W,
       quality: Math.min(quality, 80),
-    });
+    };
+    const sm = await writeWebp(src, outSm, smOpts, cache, `${rel}#w${MOBILE_W}`);
     if (sm === 'ok') {
       done++;
       console.log(
@@ -134,13 +195,19 @@ for (const src of sources) {
 const logoSrc = path.join(ROOT, 'logo.png');
 const logo96 = path.join(ROOT, 'logo-96.webp');
 if (fs.existsSync(logoSrc)) {
-  const r = await writeWebp(logoSrc, logo96, {
-    maxW: 96,
-    maxH: 96,
-    quality: 92,
-    alphaQuality: 100,
-    smartSubsample: false,
-  });
+  const r = await writeWebp(
+    logoSrc,
+    logo96,
+    {
+      maxW: 96,
+      maxH: 96,
+      quality: 92,
+      alphaQuality: 100,
+      smartSubsample: false,
+    },
+    cache,
+    'logo-96.webp',
+  );
   if (r === 'ok') {
     done++;
     console.log(
@@ -151,6 +218,10 @@ if (fs.existsSync(logoSrc)) {
   }
 }
 
+const orphans = removeOrphanWebps(sources);
+saveCache(cache);
+
 console.log(
-  `[optimize:images] selesai: ${done} dibuat, ${skipped} sudah up-to-date`,
+  `[optimize:images] selesai: ${done} dibuat, ${skipped} up-to-date` +
+    (orphans ? `, ${orphans} webp yatim dihapus` : ''),
 );
