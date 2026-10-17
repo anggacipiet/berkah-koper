@@ -52,17 +52,17 @@ const thumb = images[0] ? responsiveImage(images[0], '(max-width: 640px) 50vw, 4
   <!-- Konten -->
   <div class="flex flex-1 flex-col p-4">
     <!-- Kategori label -->
-    <div class="text-[10px] font-bold uppercase tracking-[.12em] text-[#c9a448]/70">
+    <div class="text-[10px] font-bold uppercase tracking-[.12em] text-[#c9a448]">
       {categoryLabel}
     </div>
 
     <!-- Nama produk -->
     <h3 class="mt-1.5 text-sm font-semibold leading-snug text-white/90">
-      <a href={`/produk/${slug}`} class="transition-colors hover:text-[#c9a448]">{name}</a>
+      <a href={`/produk/${slug}`} class="transition-colors hover:text-[#c9a448]" aria-label={`Detail produk ${name}`}>{name}</a>
     </h3>
 
     <!-- Deskripsi singkat -->
-    <p class="mt-1.5 line-clamp-2 text-xs leading-5 tracking-[0.02em] text-white/40">{shortDesc}</p>
+    <p class="mt-1.5 line-clamp-2 text-xs leading-5 tracking-[0.02em] text-white/55">{shortDesc}</p>
 
     <!-- CTA -->
     <div class="mt-auto pt-3">

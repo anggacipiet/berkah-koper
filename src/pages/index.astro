@@ -312,6 +312,7 @@ const categories = CATALOG_CATEGORIES.map((c) => ({
         {categories.map(({ iconPaths, label, slug }) => (
           <a
             href={`/katalog?kategori=${slug}`}
+            aria-label={`Lihat katalog kategori ${label}`}
             class="group flex flex-col items-center gap-3 rounded-xl border border-white/8 bg-[#161616] px-2 py-4 text-center transition-all duration-200 hover:border-[#c9a448]/40 hover:bg-[#c9a448]/6"
           >
             <div class="flex size-11 items-center justify-center rounded-xl border border-[#c9a448]/25 bg-[#c9a448]/10 text-[#c9a448] transition-all group-hover:border-[#c9a448]/55 group-hover:bg-[#c9a448]/18">
