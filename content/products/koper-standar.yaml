@@ -59,6 +59,33 @@ colorGroups:
       - name: merah tes
         hex: '#FF0000'
         imageIndex: 7
+  - label: Warna Aksesori (One Color)
+    type: accent
+    colors:
+      - name: Hijau Army
+        hex: '#3d5233'
+      - name: Biru BCA
+        hex: '#0a5fb4'
+      - name: Hijau Stabilo
+        hex: '#7aed0a'
+      - name: Gold
+        hex: '#d4a017'
+      - name: Kuning Kunyit
+        hex: '#c8960a'
+      - name: Orange
+        hex: '#e05c1a'
+      - name: Merah Cabe
+        hex: '#c0141e'
+      - name: Rosegold
+        hex: '#c4956a'
+      - name: Abu-Abu
+        hex: '#6a6a6a'
+      - name: Silver
+        hex: '#b0b0b0'
+      - name: Hijau Mint
+        hex: '#a8d5b0'
+      - name: Coklat
+        hex: '#7a4a2a'
   - label: Warna Aksesori Siku
     type: accent
     colors:
