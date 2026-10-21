@@ -40,8 +40,40 @@ const related = getProductsByCategory(category)
   .filter((p) => p.slug !== slug)
   .slice(0, 4);
 
-const pageTitle = `${name} — Berkah Koper`;
-const pageDesc  = product.shortDesc;
+const seoBySlug: Record<string, { title: string; description: string }> = {
+  'koper-premium-polypropylane': {
+    title: 'Koper PP Umroh & Haji Anti Pecah Custom — Berkah Koper',
+    description:
+      'Koper polypropylene (PP) haji umrah custom logo. Anti pecah, ringan, ukuran 20" 24" 28". Supplier koper umroh harga pabrik Jakarta Barat.',
+  },
+  'koper-polycarbonate-premium': {
+    title: 'Koper Polycarbonate Umroh & Haji Custom — Berkah Koper',
+    description:
+      'Koper polycarbonate (PC) glossy untuk haji & umrah custom. Aksen siku 9 warna, logo travel gratis. Pabrik koper haji Jakarta Barat.',
+  },
+  'koper-standar': {
+    title: 'Koper ABS Standar Umroh & Haji Custom — Berkah Koper',
+    description:
+      'Koper ABS standar haji umrah custom. Pilihan warna, aksesori siku, logo travel. Supplier koper umroh harga pabrik Jakarta Barat.',
+  },
+  'koper-embos-moulding': {
+    title: 'Koper Embos Moulding Haji Umrah Custom — Berkah Koper',
+    description:
+      'Koper embos moulding custom logo travel untuk haji & umrah. Pabrik koper haji Jakarta, harga pabrik, Kalideres.',
+  },
+  'koper-custom-embos-moulding': {
+    title: 'Koper Custom Embos Umroh & Haji — Berkah Koper',
+    description:
+      'Koper custom embos moulding untuk kloter haji umrah. Logo, warna, dan identitas travel. Supplier koper umroh Jakarta.',
+  },
+  'paket-bundling-umrah-starter': {
+    title: 'Paket Bundling Koper Umroh Starter — Berkah Koper',
+    description:
+      'Paket bundling koper haji umrah custom untuk travel. Hemat, siap kloter, harga pabrik dari supplier koper umroh Jakarta.',
+  },
+};
+const pageTitle = seoBySlug[String(slug)]?.title ?? `${name} — Berkah Koper`;
+const pageDesc = seoBySlug[String(slug)]?.description ?? product.shortDesc;
 const pageImage = images[0];
 const siteOrigin = Astro.site ?? new URL('https://berkah-koper.com');
 const absoluteImages = images.map((src) =>
