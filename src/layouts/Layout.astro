@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = 'Supplier Koper Umroh Haji Jakarta Barat | Berkah Koper',
+  title = 'Supplier Koper Umroh Haji',
   description = 'Supplier koper umroh & haji dan pabrik koper Jakarta Barat. Custom logo dan warna travel, bahan PP PC ABS anti pecah. Harga pabrik',
   image = '/og-image.jpg',
   type = 'website',
@@ -27,34 +27,49 @@ const WA_URL = siteWaLink(
   "Assalamu'alaikum Berkah Koper, saya ingin tanya produk.",
 );
 
+const siteOrigin = SITE.href.replace(/\/$/, '');
 const orgJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': ['Organization', 'LocalBusiness'],
-  name: 'Berkah Koper',
-  url: SITE.href.replace(/\/$/, ''),
-  logo: new URL('/images/logo.webp', SITE).href,
-  image: ogImage,
-  description,
-  telephone: `+${siteWa.number.replace(/\D/g, '')}`,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Kalideres, Jakarta Barat',
-    addressLocality: 'Kalideres',
-    addressRegion: 'Jakarta Barat',
-    addressCountry: 'ID',
-  },
-  areaServed: 'ID',
-  sameAs: [
-    'https://instagram.com/berkahkoper',
-    'https://tiktok.com/@berkahkoper',
-    'https://facebook.com/berkahkoper',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteOrigin}/#website`,
+      name: 'Berkah Koper',
+      alternateName: ['BerkahKoper', 'berkah-koper.com'],
+      url: siteOrigin,
+      inLanguage: 'id-ID',
+      publisher: { '@id': `${siteOrigin}/#organization` },
+    },
+    {
+      '@type': ['Organization', 'LocalBusiness'],
+      '@id': `${siteOrigin}/#organization`,
+      name: 'Berkah Koper',
+      url: siteOrigin,
+      logo: new URL('/images/logo.webp', SITE).href,
+      image: ogImage,
+      description,
+      telephone: `+${siteWa.number.replace(/\D/g, '')}`,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Kalideres, Jakarta Barat',
+        addressLocality: 'Kalideres',
+        addressRegion: 'Jakarta Barat',
+        addressCountry: 'ID',
+      },
+      areaServed: 'ID',
+      sameAs: [
+        'https://instagram.com/berkahkoper',
+        'https://tiktok.com/@berkahkoper',
+        'https://facebook.com/berkahkoper',
+      ],
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '08:00',
+        closes: '20:00',
+      },
+    },
   ],
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    opens: '08:00',
-    closes: '20:00',
-  },
 });
 
 const navLinks = [
