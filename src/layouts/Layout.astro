@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = 'Supplier Koper Umroh & Haji | Pabrik Koper Jakarta Barat — Berkah Koper',
-  description = 'Supplier koper umroh & haji dan pabrik koper Jakarta Barat. Koper haji umrah custom logo untuk travel. Bahan PP, PC, ABS anti pecah. Harga pabrik, Kalideres.',
+  title = 'Supplier Koper Umroh Haji Jakarta Barat | Berkah Koper',
+  description = 'Supplier koper umroh & haji dan pabrik koper Jakarta Barat. Custom logo dan warna travel, bahan PP PC ABS anti pecah. Harga pabrik',
   image = '/og-image.jpg',
   type = 'website',
 } = Astro.props;
@@ -38,8 +38,9 @@ const orgJsonLd = JSON.stringify({
   telephone: `+${siteWa.number.replace(/\D/g, '')}`,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Kalideres, Jakarta Barat',
     addressLocality: 'Kalideres',
-    addressRegion: 'DKI Jakarta',
+    addressRegion: 'Jakarta Barat',
     addressCountry: 'ID',
   },
   areaServed: 'ID',
@@ -251,13 +252,13 @@ const navLinks = [
           <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">Kontak</div>
           <ul class="mt-4 space-y-3 text-sm text-white/60">
             <li>
-              <div class="text-[11px] font-semibold uppercase tracking-wide text-white/60">WhatsApp</div>
-              <a href="/hubungi" class="mt-0.5 inline-block transition-colors hover:text-[#c9a448]">Formulir kontak →</a>
-              <a href={WA_URL} target="_blank" rel="noopener noreferrer" class="mt-1 block transition-colors hover:text-[#c9a448]">{siteWa.display}</a>
+              <div class="text-[11px] font-semibold uppercase tracking-wide text-white/60">WhatsApp / Telepon</div>
+              <a href={`tel:+${siteWa.number.replace(/\D/g, '')}`} class="mt-1 block transition-colors hover:text-[#c9a448]">{siteWa.display}</a>
+              <a href={WA_URL} target="_blank" rel="noopener noreferrer" class="mt-0.5 block text-xs transition-colors hover:text-[#c9a448]">Chat WhatsApp</a>
             </li>
             <li>
               <div class="text-[11px] font-semibold uppercase tracking-wide text-white/60">Alamat</div>
-              <p class="mt-0.5">Kalideres, Jakarta Barat</p>
+              <p class="mt-0.5">Kalideres, Jakarta Barat, DKI Jakarta, Indonesia</p>
             </li>
             <li>
               <div class="text-[11px] font-semibold uppercase tracking-wide text-white/60">Jam layanan</div>
