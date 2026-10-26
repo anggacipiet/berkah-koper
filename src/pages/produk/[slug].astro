@@ -24,8 +24,8 @@ if (!product) return Astro.redirect('/katalog');
 
 const {
   name, category, description, images,
-  badge, variants, colorGroups, features, weight, material,
-  sizes, inStock, isBundle, bundleItems,
+  badge, colorGroups, features, weight, material,
+  sizes, inStock, isBundle, bundleItems, priceLabel,
 } = product;
 
 const gallery = images.map((src) => ({
@@ -85,48 +85,21 @@ const imageAltMap: string[] = [
   `${name} — interior & kompartemen`,
 ];
 
-/** Harga untuk schema Google — wajib > 0 agar Merchant listings tidak error */
-const variantPrices = (variants ?? []).map(
-  (v) => product.price + (v.priceAdj ?? 0),
-);
-const offerPrices = [product.price, ...variantPrices].filter((p) => p > 0);
-const lowPrice = offerPrices.length ? Math.min(...offerPrices) : 0;
-const highPrice = offerPrices.length ? Math.max(...offerPrices) : 0;
-
 const offerUrl = new URL(`/produk/${product.slug}`, siteOrigin).href;
 const availability = inStock
   ? 'https://schema.org/InStock'
   : 'https://schema.org/OutOfStock';
 const seller = { '@type': 'Organization', name: 'Berkah Koper' };
+const askPriceLabel = priceLabel?.trim() || 'Tanya Harga';
 
-const offers =
-  lowPrice > 0 && highPrice > lowPrice
-    ? {
-        '@type': 'AggregateOffer',
-        priceCurrency: 'IDR',
-        lowPrice: String(lowPrice),
-        highPrice: String(highPrice),
-        offerCount: Math.max(1, variants?.length ?? 1),
-        availability,
-        url: offerUrl,
-        seller,
-      }
-    : lowPrice > 0
-      ? {
-          '@type': 'Offer',
-          priceCurrency: 'IDR',
-          price: String(lowPrice),
-          availability,
-          url: offerUrl,
-          seller,
-        }
-      : {
-          // Tanpa harga valid — Google akan flag; isi harga > 0 di CMS
-          '@type': 'Offer',
-          availability,
-          url: offerUrl,
-          seller,
-        };
+/** Tanpa angka harga — Google tidak menampilkan baris Rp di SERP */
+const offers = {
+  '@type': 'Offer',
+  name: askPriceLabel,
+  availability,
+  url: offerUrl,
+  seller,
+};
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -220,9 +193,9 @@ const descBlocks = parseProductDescription(description);
               <h1 class="mt-1.5 text-2xl font-black leading-snug text-white lg:text-3xl">{name}</h1>
             </div>
 
-            <!-- Harga — hubungi WA untuk info harga -->
+            <!-- Harga — tidak menampilkan angka Rp -->
             <div class="rounded-2xl bg-[#c9a448]/8 border border-[#c9a448]/20 p-4">
-              <div class="text-sm font-semibold text-[#c9a448]">Harga & Pemesanan</div>
+              <div class="text-sm font-semibold text-[#c9a448]">{askPriceLabel}</div>
               <div class="mt-1 text-base text-white/70">Hubungi kami via WhatsApp untuk info harga terkini dan ketersediaan stok.</div>
               {!inStock && (
                 <div class="mt-2 inline-block rounded-full bg-red-500/20 px-3 py-1 text-xs font-bold text-red-400">

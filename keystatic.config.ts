@@ -370,7 +370,10 @@ export default config({
           validation: { isRequired: true },
           defaultValue: 0,
         }),
-        priceLabel: fields.text({ label: 'Label harga (override, opsional)' }),
+        priceLabel: fields.text({
+          label: 'Label harga (tampil di halaman, bukan angka Rp)',
+          defaultValue: 'Tanya Harga',
+        }),
         images: fields.array(
           fields.image({
             label: 'Gambar',

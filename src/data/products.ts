@@ -86,19 +86,10 @@ export function getBundleProducts(): Product[] {
   return products.filter((p) => p.isBundle);
 }
 
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
-}
-
 /** Teks pesan WA (belum di-encode) */
 export function getWaMessageText(product: Product): string {
   if (product.waMessage?.trim()) return product.waMessage.trim();
-  return `Assalamu'alaikum Berkah Koper, saya tertarik dengan *${product.name}* (${formatPrice(product.price)}). Boleh info stok dan pemesanannya?`;
+  return `Assalamu'alaikum Berkah Koper, saya tertarik dengan *${product.name}*. Boleh info stok dan harganya?`;
 }
 
 /** Query string untuk ?text= (sudah di-encode) — kompatibel pemakaian lama */
