@@ -20,7 +20,10 @@ export const getStaticPaths: GetStaticPaths = () =>
 
 const { slug } = Astro.params;
 const product  = getProductBySlug(String(slug ?? ''));
-if (!product) return Astro.redirect('/katalog');
+if (!product) {
+  Astro.response.status = 404;
+  return Astro.rewrite('/404');
+}
 
 const {
   name, category, description, images,
