@@ -1,3 +1,5 @@
-# Apex domain — www selalu ke tanpa-www
+https://www.berkah-koper.com/ https://berkah-koper.com/ 301
 https://www.berkah-koper.com/* https://berkah-koper.com/:splat 301
+http://www.berkah-koper.com/ https://berkah-koper.com/ 301
 http://www.berkah-koper.com/* https://berkah-koper.com/:splat 301
+http://berkah-koper.com/* https://berkah-koper.com/:splat 301
