@@ -3,19 +3,29 @@ interface Props {
   placeholder?: string;
   value?: string;
   action?: string;
+  /** V2 putih — default gelap untuk situs live */
+  light?: boolean;
 }
 
 const {
   placeholder = 'Cari koper, tas kabin, tas paspor…',
   value       = '',
   action      = '/katalog',
+  light       = false,
 } = Astro.props;
+
+const inputClass = light
+  ? 'w-full rounded-full border border-[#e8e8e8] bg-white py-3 pl-11 pr-24 text-sm text-[#161412] shadow-sm placeholder:text-[#9a9084] transition focus:border-[#c9a448] focus:outline-none focus:ring-2 focus:ring-[#c9a448]/20'
+  : 'w-full rounded-full border border-white/12 bg-[#1a1a1a] py-3 pl-11 pr-24 text-sm text-white shadow-sm placeholder:text-white/30 transition focus:border-[#c9a448] focus:outline-none focus:ring-2 focus:ring-[#c9a448]/20';
+
+const iconClass = light ? 'size-4 text-[#9a9084]' : 'size-4 text-white/30';
+const clearClass = light ? 'mt-2 flex items-center gap-2 text-xs text-[#5c5854]' : 'mt-2 flex items-center gap-2 text-xs text-white/40';
+const clearStrong = light ? 'text-[#161412]' : 'text-white/70';
 ---
 
 <form method="get" action={action} role="search" class="relative w-full" aria-label="Cari produk">
-  <!-- Search icon -->
   <div class="pointer-events-none absolute inset-y-0 left-4 flex items-center" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 text-white/30">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class={iconClass}>
       <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
     </svg>
   </div>
@@ -28,7 +38,7 @@ const {
     placeholder={placeholder}
     autocomplete="off"
     spellcheck="false"
-    class="w-full rounded-full border border-white/12 bg-[#1a1a1a] py-3 pl-11 pr-24 text-sm text-white shadow-sm placeholder:text-white/30 focus:border-[#c9a448] focus:outline-none focus:ring-2 focus:ring-[#c9a448]/20 transition"
+    class={inputClass}
     aria-label="Kata kunci pencarian"
   />
 
@@ -42,8 +52,8 @@ const {
 </form>
 
 {value && (
-  <div class="mt-2 flex items-center gap-2 text-xs text-white/40">
-    <span>Hasil: <strong class="text-white/70">"{value}"</strong></span>
+  <div class={clearClass}>
+    <span>Hasil: <strong class={clearStrong}>"{value}"</strong></span>
     <a href={action} class="font-semibold text-[#c9a448] hover:underline" aria-label="Hapus pencarian">× Hapus</a>
   </div>
 )}

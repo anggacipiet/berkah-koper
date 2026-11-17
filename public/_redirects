@@ -1,5 +1,6 @@
-https://www.berkah-koper.com/ https://berkah-koper.com/ 301
-https://www.berkah-koper.com/* https://berkah-koper.com/:splat 301
-http://www.berkah-koper.com/ https://berkah-koper.com/ 301
-http://www.berkah-koper.com/* https://berkah-koper.com/:splat 301
-http://berkah-koper.com/* https://berkah-koper.com/:splat 301
+# Cloudflare Pages _redirects hanya cocokkan PATH, bukan hostname.
+# Aturan www → apex di file ini diabaikan (domain-level redirects: tidak didukung).
+# Canonicalization www harus lewat Redirect Rule di dashboard Cloudflare:
+#   Hostname equals www.berkah-koper.com
+#   Dynamic: concat("https://berkah-koper.com", http.request.uri.path)
+#   Status 301, Preserve query string ON

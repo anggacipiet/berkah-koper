@@ -2,28 +2,37 @@
 
 /* ── Brand tokens ───────────────────────────────────────────── */
 :root {
-  --black:   #0d0d0d;
+  --black:   #161412;
   --black2:  #1a1a1a;
-  --black3:  #252525;
   --gold:    #c9a448;
   --gold2:   #a07828;
   --gold3:   #e8c96a;
   --cream:   #fdf8ef;
   --white:   #ffffff;
-  --text:    #1a1a1a;
+  --muted:   #5c5854;
+  --line:    #e8e8e8;
+  --text:    #161412;
   --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  color-scheme: only light;
+}
+
+html,
+body,
+main {
+  background-color: #ffffff;
+  background-image: none;
+  color: var(--text);
+}
 
 body {
   margin: 0;
-  color: var(--text);
-  background: #0d0d0d;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  /* Plus Jakarta di size kecil cenderung rapat — longgarkan global */
   letter-spacing: 0.015em;
   word-spacing: 0.06em;
 }
@@ -41,7 +50,6 @@ h1, h2, .font-display {
   word-spacing: 0.06em;
 }
 
-/* Deskripsi produk / bundling / katalog */
 p {
   letter-spacing: 0.015em;
   word-spacing: 0.06em;
@@ -55,70 +63,33 @@ p {
 
 /* ── Buttons ─────────────────────────────────────────────────── */
 .btn-primary {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .4rem; border-radius: 999px; padding: .8rem 1.5rem;
-  font-weight: 700; font-size: .9rem;
-  background: var(--gold); color: var(--black);
-  transition: background .2s, transform .15s, box-shadow .2s;
-  cursor: pointer; text-decoration: none; border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  border-radius: 999px;
+  padding: .8rem 1.5rem;
+  font-weight: 700;
+  font-size: .9rem;
+  background: var(--gold);
+  color: var(--black);
+  transition: background .2s;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  box-shadow: none;
 }
 .btn-primary:hover {
-  background: var(--gold3); transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(201,164,72,.35);
+  background: #b3923a;
+  box-shadow: none;
+  transform: none;
 }
 
-.btn-wa {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .5rem; border-radius: 999px; padding: .8rem 1.5rem;
-  font-weight: 700; font-size: .9rem;
-  background: var(--gold); color: var(--black);
-  transition: background .2s, transform .15s, box-shadow .2s;
-  cursor: pointer; text-decoration: none; border: none;
-}
-.btn-wa:hover {
-  background: var(--gold3); transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(201,164,72,.35);
-}
-
-.btn-outline {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .4rem; border-radius: 999px; padding: .75rem 1.4rem;
-  font-weight: 600; font-size: .9rem;
-  background: transparent; color: #fff;
-  border: 1.5px solid rgba(255,255,255,.2);
-  transition: border-color .2s, background .2s, color .2s;
-  cursor: pointer; text-decoration: none;
-}
-.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,164,72,.08); }
-
-.btn-outline-gold {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: .4rem; border-radius: 999px; padding: .75rem 1.4rem;
-  font-weight: 600; font-size: .9rem;
-  background: transparent; color: var(--gold);
-  border: 1.5px solid var(--gold);
-  transition: all .2s; cursor: pointer; text-decoration: none;
-}
-.btn-outline-gold:hover { background: var(--gold); color: var(--black); box-shadow: 0 4px 16px rgba(201,164,72,.3); }
-
-/* ── Gold accent line ────────────────────────────────────────── */
-.gold-line {
-  width: 48px; height: 3px; border-radius: 999px;
-  background: var(--gold);
-  box-shadow: 0 0 10px rgba(201,164,72,.5);
-  transition: width .4s ease;
-}
-.gold-line:hover { width: 72px; }
-
-/* ── Section divider ─────────────────────────────────────────── */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,164,72,.25), transparent);
-  margin: 0;
-}
-
-/* ── Badge — gold solid, rounded pill ────────────────────────── */
-.badge {
+/* ── Badge ───────────────────────────────────────────────────── */
+.badge,
+.badge-gold,
+.badge-green,
+.badge-red {
   display: inline-block;
   border-radius: 999px;
   padding: .2rem .65rem;
@@ -130,34 +101,6 @@ p {
   color: #0d0d0d;
   border: 1px solid #c9a448;
 }
-/* semua varian → sama */
-.badge-gold,
-.badge-green,
-.badge-red {
-  background: #c9a448;
-  color: #0d0d0d;
-  border-color: #c9a448;
-}
-
-/* ── Hero pattern — black-gold Kabah ────────────────────────── */
-.hero-pattern {
-  background:
-    radial-gradient(circle at 10% 30%, rgba(201,164,72,.14), transparent 30%),
-    radial-gradient(circle at 88% 20%, rgba(201,164,72,.08), transparent 32%),
-    radial-gradient(circle at 50% 80%, rgba(201,164,72,.06), transparent 40%),
-    linear-gradient(135deg, #0d0d0d 0%, #160f00 100%);
-}
-
-/* ── Section backgrounds ─────────────────────────────────────── */
-.section-cream { background: var(--cream); }
-.section-dark  { background: linear-gradient(135deg, #0d0d0d 0%, #1a1410 100%); color: var(--white); }
-
-/* ── Card hover lift ─────────────────────────────────────────── */
-.card-lift { transition: transform .25s, box-shadow .25s; }
-.card-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(0,0,0,.3), 0 0 0 1px rgba(201,164,72,.1);
-}
 
 /* ── Image zoom on hover ─────────────────────────────────────── */
 .img-zoom { overflow: hidden; }
@@ -165,42 +108,65 @@ p {
 .img-zoom:hover img { transform: scale(1.07); }
 
 /* ── Focus ring ──────────────────────────────────────────────── */
-*:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
-/* ── Filter chip — DARK default ──────────────────────────────── */
-.filter-chip {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .45rem 1rem; border-radius: 999px;
-  font-size: .83rem; font-weight: 600; cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,.12);
-  background: #1a1a1a; color: rgba(255,255,255,.5);
-  transition: all .2s; text-decoration: none;
+/* ── Filter chip (light) ─────────────────────────────────────── */
+.filter-chip,
+.filter-chip--light {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .45rem 1rem;
+  border-radius: 999px;
+  font-size: .83rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  color: var(--muted);
+  transition: all .2s;
+  text-decoration: none;
   white-space: nowrap;
 }
-.filter-chip:hover {
-  border-color: rgba(201,164,72,.5); color: rgba(255,255,255,.9);
-  background: rgba(201,164,72,.08);
+.filter-chip:hover,
+.filter-chip--light:hover {
+  border-color: rgba(201, 164, 72, .55);
+  color: #161412;
+  background: rgba(201, 164, 72, .06);
 }
-.filter-chip.active {
-  border-color: var(--gold); background: var(--gold);
-  color: var(--black); font-weight: 700;
-  box-shadow: 0 2px 12px rgba(201,164,72,.3);
+.filter-chip.active,
+.filter-chip--light.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--black);
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(201, 164, 72, .22);
 }
 
 /* ── Floating WA button ──────────────────────────────────────── */
-/* Emas + putih; pakai --gold2 (#a07828) agar kontras AA lolos (#c9a448+putih gagal) */
-/* Pulse: transform+opacity (GPU) — jangan animate box-shadow */
 .wa-float {
-  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gold2); color: #fff;
-  font-weight: 700; font-size: .85rem;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold2);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: .85rem;
   border-radius: 999px;
-  /* Mobile: bulat sempurna */
-  width: 3.25rem; height: 3.25rem; padding: 0;
-  box-shadow: 0 4px 20px rgba(160,120,40,.45);
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(160, 120, 40, .45);
   text-decoration: none;
-  transition: transform .2s, box-shadow .2s, background .2s;
+  transition: box-shadow .2s, background .2s;
   isolation: isolate;
 }
 .wa-float::before {
@@ -213,18 +179,18 @@ p {
   animation: wa-pulse 2.5s ease-out infinite;
   pointer-events: none;
 }
-/* Desktop: pill dengan teks */
 @media (min-width: 640px) {
   .wa-float {
-    width: auto; height: auto;
+    width: auto;
+    height: auto;
     padding: .75rem 1.25rem;
     gap: .6rem;
   }
 }
 .wa-float:hover {
   background: var(--gold);
-  transform: translateY(-2px) scale(1.06);
-  box-shadow: 0 8px 28px rgba(201,164,72,.5);
+  color: #ffffff;
+  box-shadow: 0 8px 28px rgba(201, 164, 72, .5);
 }
 .wa-float:hover::before {
   animation: none;
@@ -250,58 +216,16 @@ p {
 .animate-fade-up-d3 { animation-delay: .36s; }
 .animate-fade-up-d4 { animation-delay: .48s; }
 
-/* ── Product card hover overlay ──────────────────────────────── */
-.card-img-overlay {
-  position: absolute; inset: 0;
-  display: flex; align-items: flex-end; justify-content: center;
-  padding-bottom: .75rem;
-  background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 60%);
-  opacity: 0; transition: opacity .25s;
-}
-.group:hover .card-img-overlay { opacity: 1; }
-
-/* ── Category card glow on hover ─────────────────────────────── */
-.cat-card {
-  transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
-}
-.cat-card:hover {
-  transform: translateY(-3px);
-  background: rgba(201,164,72,.08) !important;
-  border-color: rgba(201,164,72,.35) !important;
-  box-shadow: 0 0 20px rgba(201,164,72,.1);
-}
-.cat-card:hover .cat-icon { transform: scale(1.15); }
-.cat-icon { transition: transform .2s; display: inline-block; }
-
-/* ── Why-us card hover ───────────────────────────────────────── */
-.why-card {
-  transition: transform .2s, box-shadow .2s, border-color .2s;
-}
-.why-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(201,164,72,.25) !important;
-  box-shadow: 0 4px 24px rgba(201,164,72,.08);
-}
-
-/* ── Gold gradient text ──────────────────────────────────────── */
-.text-gold-gradient {
-  background: linear-gradient(135deg, var(--gold3) 0%, var(--gold) 50%, var(--gold2) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-
 /* ── Mitra / partner logo marquee ────────────────────────────── */
 .mitra-section {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(201,164,72,.1), transparent 55%),
-    linear-gradient(180deg, #111111 0%, #0d0d0d 100%);
-  border-top: 1px solid rgba(201,164,72,.12);
-  border-bottom: 1px solid rgba(201,164,72,.12);
+  background: #ffffff;
+  border-color: transparent;
 }
 .mitra-marquee {
   overflow: hidden;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(201,164,72,.14);
-  background: rgba(255,255,255,.02);
+  border: none;
+  border-radius: 0;
+  background: transparent;
   padding-block: 1rem;
 }
 .mitra-track {
@@ -325,10 +249,10 @@ p {
   width: 15rem;
   height: 7rem;
   padding: .35rem .5rem;
-  border-radius: 1rem;
-  background: #f7f4ec;
-  border: 1px solid rgba(201,164,72,.18);
-  transition: border-color .2s, transform .2s, box-shadow .2s;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 @media (min-width: 768px) {
   .mitra-logo {
@@ -346,16 +270,21 @@ p {
   transform: scale(1.08);
 }
 .mitra-logo:hover {
-  border-color: rgba(201,164,72,.55);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  border: none;
+  box-shadow: none;
+  transform: none;
 }
 @keyframes mitra-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mitra-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+  .mitra-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ── Scrollbar ───────────────────────────────────────────────── */

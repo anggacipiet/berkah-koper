@@ -3,21 +3,27 @@ import { CATALOG_CATEGORIES } from '../types/product';
 
 interface Props {
   basePath?: string;
+  /** V2 putih — default gelap untuk situs live */
+  light?: boolean;
 }
 
-const { basePath = '/katalog' } = Astro.props;
+const { basePath = '/katalog', light = false } = Astro.props;
 
 const allCategories = [
   { value: 'semua', label: 'Semua Produk' },
   ...CATALOG_CATEGORIES,
 ];
+
+const chipClass = light
+  ? 'filter-chip filter-chip--light'
+  : 'filter-chip';
 ---
 
 <div class="flex flex-wrap gap-2" role="list" aria-label="Filter kategori produk" id="category-filter">
   {allCategories.map(({ value, label }) => {
     const href = value === 'semua' ? basePath : `${basePath}?kategori=${value}`;
     return (
-      <a href={href} role="listitem" data-kategori={value} class="filter-chip">
+      <a href={href} role="listitem" data-kategori={value} class={chipClass}>
         {label}
       </a>
     );

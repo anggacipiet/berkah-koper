@@ -56,7 +56,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !page.includes('/keystatic') && !page.includes('/api/'),
+        !page.includes('/keystatic') &&
+        !page.includes('/api/'),
     }),
     ...(enableKeystatic ? [react(), markdoc(), keystaticUi()] : []),
   ],

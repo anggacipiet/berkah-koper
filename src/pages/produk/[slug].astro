@@ -19,7 +19,7 @@ export const getStaticPaths: GetStaticPaths = () =>
   getAllProducts().map((p) => ({ params: { slug: p.slug } }));
 
 const { slug } = Astro.params;
-const product  = getProductBySlug(String(slug ?? ''));
+const product = getProductBySlug(String(slug ?? ''));
 if (!product) {
   Astro.response.status = 404;
   return Astro.rewrite('/404');
@@ -36,48 +36,16 @@ const gallery = images.map((src) => ({
   ...responsiveImage(src, '(max-width: 1024px) 100vw, 560px'),
 }));
 
-const waBase    = buildWaUrl(product);
-const catLabel  = CATEGORY_LABELS[category] ?? category;
+const waBase = buildWaUrl(product);
+const catLabel = CATEGORY_LABELS[category] ?? category;
 
 const related = getProductsByCategory(category)
   .filter((p) => p.slug !== slug)
+  .filter((p) => (isBundle ? p.isBundle : !p.isBundle))
   .slice(0, 4);
 
-function toMetaDescription(text: string, max = 156): string {
-  const clean = String(text ?? '').replace(/\s+/g, ' ').trim();
-  if (clean.length <= max) return clean;
-  const cut = clean.slice(0, max);
-  const lastSpace = cut.lastIndexOf(' ');
-  return (lastSpace > 80 ? cut.slice(0, lastSpace) : cut).replace(/[.,;:\-–—\s]+$/, '');
-}
-
-const seoBySlug: Record<string, string> = {
-  'koper-premium-polypropylane':
-    'Koper polypropylene (PP) haji umrah custom logo. Anti pecah, ringan, ukuran 20" 24" 28". Supplier koper umroh harga pabrik Jakarta Barat.',
-  'koper-polycarbonate-premium':
-    'Koper polycarbonate (PC) glossy untuk haji & umrah custom. Aksen siku 9 warna, logo travel gratis. Pabrik koper haji Jakarta Barat.',
-  'koper-standar':
-    'Koper ABS standar haji umrah custom. Pilihan warna, aksesori siku, logo travel. Supplier koper umroh harga pabrik Jakarta Barat.',
-  'koper-embos-moulding':
-    'Koper embos moulding custom logo travel untuk haji & umrah. Pabrik koper haji Jakarta, harga pabrik, Kalideres.',
-  'koper-custom-embos-moulding':
-    'Koper custom embos moulding untuk kloter haji umrah. Logo, warna, dan identitas travel. Supplier koper umroh Jakarta.',
-  'paket-bundling-umrah-starter':
-    'Paket bundling koper haji umrah custom untuk travel. Hemat, set lengkap siap berangkat, harga pabrik dari supplier koper umroh Jakarta.',
-};
-
-const pageTitle = name;
-const pageDesc = toMetaDescription(seoBySlug[String(slug)] ?? product.shortDesc);
-const pageImage = images[0];
-const siteOrigin = Astro.site ?? new URL('https://berkah-koper.com');
-const absoluteImages = images.map((src) =>
-  src.startsWith('http') ? src : new URL(src, siteOrigin).href,
-);
-
-const badgeClass =
-  badge === 'TERLARIS' ? 'badge-gold'
-  : badge === 'BARU'   ? 'badge-green'
-  :                      'badge-red';
+const askPriceLabel = priceLabel?.trim() || 'Tanya Harga';
+const descBlocks = parseProductDescription(description);
 
 const imageAltMap: string[] = [
   `${name} — tampilan depan`,
@@ -87,67 +55,34 @@ const imageAltMap: string[] = [
   `${name} — pilihan warna lain`,
   `${name} — interior & kompartemen`,
 ];
-
-const offerUrl = new URL(`/produk/${product.slug}`, siteOrigin).href;
-const availability = inStock
-  ? 'https://schema.org/InStock'
-  : 'https://schema.org/OutOfStock';
-const seller = { '@type': 'Organization', name: 'Berkah Koper' };
-const askPriceLabel = priceLabel?.trim() || 'Tanya Harga';
-
-/** Tanpa angka harga — Google tidak menampilkan baris Rp di SERP */
-const offers = {
-  '@type': 'Offer',
-  name: askPriceLabel,
-  availability,
-  url: offerUrl,
-  seller,
-};
-
-const jsonLd = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name,
-  description,
-  image: absoluteImages,
-  brand: { '@type': 'Brand', name: 'Berkah Koper' },
-  offers,
-});
-
-const descBlocks = parseProductDescription(description);
 ---
 
-<Layout title={pageTitle} description={pageDesc} image={pageImage} type="product">
-  <script type="application/ld+json" set:html={jsonLd} />
-
-  <div class="min-h-screen bg-[#0d0d0d] py-8">
+<Layout
+  title={`${name} — Berkah Koper`}
+  description="Detail produk Berkah Koper — koper & perlengkapan Haji Umrah harga pabrik."
+  canonicalPath={`/produk/${product.slug}/`}
+>
+  <div class="min-h-screen bg-white py-8">
     <div class="container-page">
-
-      <!-- Breadcrumb -->
-      <nav class="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-white/30" aria-label="Breadcrumb">
-        <a href="/"         class="hover:text-[#c9a448] transition-colors">Beranda</a>
+      <nav class="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-[#7a756f]" aria-label="Breadcrumb">
+        <a href="/" class="transition-colors hover:text-[#c9a448]">Beranda</a>
         <span aria-hidden="true">/</span>
-        <a href="/katalog"  class="hover:text-[#c9a448] transition-colors">Katalog</a>
+        <a href="/katalog" class="transition-colors hover:text-[#c9a448]">Katalog</a>
         <span aria-hidden="true">/</span>
-        <a href={`/katalog?kategori=${category}`} class="hover:text-[#c9a448] transition-colors" aria-label={`Katalog kategori ${catLabel}`}>{catLabel}</a>
+        <a href={`/katalog?kategori=${category}`} class="transition-colors hover:text-[#c9a448]">{catLabel}</a>
         <span aria-hidden="true">/</span>
-        <span class="line-clamp-1 text-white/60">{name}</span>
+        <span class="line-clamp-1 text-[#161412]">{name}</span>
       </nav>
 
-      <!-- ── CARD DETAIL ─────────────────────────────────────── -->
-      <div class="overflow-hidden rounded-3xl border border-white/10 bg-[#111111] shadow-xl">
+      <div class="overflow-hidden border border-[#e8e8e8] bg-white">
         <div class="grid lg:grid-cols-[1fr_1fr]">
-
-          <!-- ── Galeri ─────────────────────────────────────── -->
-          <div class="relative bg-[#1a1a1a] p-6">
+          <div class="relative bg-white p-5 md:p-6">
             {badge && (
               <div class="absolute left-8 top-8 z-10">
-                <span class={`badge ${badgeClass}`}>{badge}</span>
+                <span class="badge">{badge}</span>
               </div>
             )}
-
-            <!-- Gambar utama — klik untuk zoom -->
-            <div class="img-zoom aspect-square cursor-zoom-in overflow-hidden rounded-2xl bg-[#222222]" id="main-img-wrap">
+            <div class="img-zoom aspect-square cursor-zoom-in overflow-hidden border border-[#e8e8e8] bg-white" id="main-img-wrap">
               {gallery[0] ? (
                 <img
                   id="main-img"
@@ -164,8 +99,6 @@ const descBlocks = parseProductDescription(description);
                 <div class="flex h-full items-center justify-center text-7xl" aria-hidden="true">🧳</div>
               )}
             </div>
-
-            <!-- Thumbnails -->
             {gallery.length > 1 && (
               <div class="mt-3 flex gap-2 overflow-x-auto pb-1" role="list" aria-label={`Galeri foto ${name}`}>
                 {gallery.map((g, i) => {
@@ -173,7 +106,7 @@ const descBlocks = parseProductDescription(description);
                   return (
                     <button
                       role="listitem"
-                      class="thumb-btn shrink-0 overflow-hidden rounded-xl border-2 border-white/10 transition-all hover:border-[#c9a448] focus:border-[#c9a448] focus:outline-none"
+                      class="thumb-btn shrink-0 overflow-hidden border-2 border-[#e8e8e8] transition-all hover:border-[#c9a448] focus:border-[#c9a448] focus:outline-none"
                       data-src={g.src}
                       data-srcset={g.srcset ?? ''}
                       data-full={g.full}
@@ -187,28 +120,21 @@ const descBlocks = parseProductDescription(description);
             )}
           </div>
 
-          <!-- ── Info produk ────────────────────────────────── -->
-          <div class="flex flex-col gap-5 p-6 lg:p-8">
-
-            <!-- Kategori + nama -->
+          <div class="flex flex-col gap-5 border-t border-[#e8e8e8] p-6 lg:border-l lg:border-t-0 lg:p-8">
             <div>
-              <div class="text-xs font-bold uppercase tracking-widest text-[#c9a448]">{catLabel}</div>
-              <h1 class="mt-1.5 text-2xl font-black leading-snug text-white lg:text-3xl">{name}</h1>
+              <div class="text-[10px] font-bold uppercase tracking-[.18em] text-[#c9a448]">{catLabel}</div>
+              <h1 class="mt-1.5 font-display text-3xl leading-snug text-[#161412] lg:text-4xl">{name}</h1>
             </div>
 
-            <!-- Harga — tidak menampilkan angka Rp -->
-            <div class="rounded-2xl bg-[#c9a448]/8 border border-[#c9a448]/20 p-4">
+            <div class="border border-[#c9a448]/35 bg-white p-4">
               <div class="text-sm font-semibold text-[#c9a448]">{askPriceLabel}</div>
-              <div class="mt-1 text-base text-white/70">Hubungi kami via WhatsApp untuk info harga terkini dan ketersediaan stok.</div>
+              <div class="mt-1 text-sm text-[#5c5854]">Hubungi kami via WhatsApp untuk info harga terkini dan ketersediaan stok.</div>
               {!inStock && (
-                <div class="mt-2 inline-block rounded-full bg-red-500/20 px-3 py-1 text-xs font-bold text-red-400">
-                  Stok Habis
-                </div>
+                <div class="mt-2 inline-block border border-red-300 px-3 py-1 text-xs font-bold text-red-600">Stok Habis</div>
               )}
             </div>
 
-            <!-- Hanging indent: * rata kiri dengan paragraf; teks turun rata huruf pertama -->
-            <div class="space-y-2 text-white/70">
+            <div class="space-y-2 text-[#5c5854]">
               {descBlocks.map((block) =>
                 block.type === 'p' ? (
                   <p class="leading-7">{block.text}</p>
@@ -223,7 +149,7 @@ const descBlocks = parseProductDescription(description);
                   >
                     <span
                       class:list={[
-                        'shrink-0 select-none text-[#c9a448]/80',
+                        'shrink-0 select-none text-[#c9a448]',
                         block.marker === 'star' ? 'w-[0.75rem] text-left' : 'w-4 text-left',
                       ]}
                       aria-hidden="true"
@@ -236,12 +162,11 @@ const descBlocks = parseProductDescription(description);
               )}
             </div>
 
-            <!-- Pilih ukuran -->
             {sizes && sizes.length > 0 && (
               <div>
-                <div class="mb-2 text-sm font-bold text-white">
+                <div class="mb-2 text-sm font-bold text-[#161412]">
                   Pilih Ukuran
-                  <span id="size-selected-label" class="ml-2 text-xs font-normal text-white/40">— belum dipilih</span>
+                  <span id="size-selected-label" class="ml-2 text-xs font-normal text-[#7a756f]">— belum dipilih</span>
                 </div>
                 <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="Pilihan ukuran">
                   {sizes.map((sz) => (
@@ -250,7 +175,7 @@ const descBlocks = parseProductDescription(description);
                       role="radio"
                       aria-checked="false"
                       data-size={sz}
-                      class="size-btn rounded-xl border-2 border-white/15 bg-white/5 px-5 py-2.5 text-sm font-bold text-white/80 transition-all hover:border-[#c9a448] hover:text-[#c9a448] aria-checked:border-[#c9a448] aria-checked:bg-[#c9a448]/10 aria-checked:text-[#c9a448]"
+                      class="size-btn border-2 border-[#e8e8e8] bg-white px-5 py-2.5 text-sm font-bold text-[#161412] transition-all hover:border-[#c9a448] hover:text-[#c9a448] aria-checked:border-[#c9a448] aria-checked:text-[#c9a448]"
                     >
                       {sz}
                     </button>
@@ -259,29 +184,25 @@ const descBlocks = parseProductDescription(description);
               </div>
             )}
 
-            <!-- Color picker -->
             {colorGroups && colorGroups.length > 0 && (
               <div>
                 <div class="mb-3 flex items-center gap-2">
-                  <div class="text-sm font-bold text-white">Pilih Warna</div>
+                  <div class="text-sm font-bold text-[#161412]">Pilih Warna</div>
                   <span class="rounded-full bg-[#c9a448]/15 px-2.5 py-0.5 text-xs font-semibold text-[#c9a448]">
                     {colorGroups.reduce((s, g) => s + g.colors.length, 0)} pilihan
                   </span>
                 </div>
-                <ColorPicker colorGroups={colorGroups} productName={name} />
+                <ColorPicker colorGroups={colorGroups} productName={name} light />
               </div>
             )}
 
-            <!-- Isi bundling -->
             {isBundle && bundleItems && bundleItems.length > 0 && (
               <div>
-                <div class="mb-2 text-sm font-bold text-white">Isi Paket</div>
+                <div class="mb-2 text-sm font-bold text-[#161412]">Isi Paket</div>
                 <ul class="space-y-1.5">
                   {bundleItems.map((item) => (
-                    <li class="flex items-center gap-2 text-sm text-white/70">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 shrink-0 text-[#c9a448]" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                      </svg>
+                    <li class="flex items-center gap-2 text-sm text-[#5c5854]">
+                      <span class="text-[#c9a448]" aria-hidden="true">✓</span>
                       {item}
                     </li>
                   ))}
@@ -289,16 +210,13 @@ const descBlocks = parseProductDescription(description);
               </div>
             )}
 
-            <!-- Fitur -->
             {features && features.length > 0 && (
               <div>
-                <div class="mb-2 text-sm font-bold text-white">Keunggulan Produk</div>
+                <div class="mb-2 text-sm font-bold text-[#161412]">Keunggulan Produk</div>
                 <ul class="grid gap-1.5 sm:grid-cols-2">
                   {features.map((f) => (
-                    <li class="flex items-start gap-2 text-sm text-white/70">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mt-0.5 size-4 shrink-0 text-[#c9a448]" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                      </svg>
+                    <li class="flex items-start gap-2 text-sm text-[#5c5854]">
+                      <span class="text-[#c9a448]" aria-hidden="true">—</span>
                       {f}
                     </li>
                   ))}
@@ -306,35 +224,33 @@ const descBlocks = parseProductDescription(description);
               </div>
             )}
 
-            <!-- Spesifikasi -->
             {(weight || material || sizes) && (
-              <div class="rounded-xl border border-white/10 bg-white/3 p-4">
-                <div class="mb-2 text-xs font-bold uppercase tracking-wider text-white/60">Spesifikasi</div>
+              <div class="border border-[#e8e8e8] bg-white p-4">
+                <div class="mb-2 text-[10px] font-bold uppercase tracking-[.16em] text-[#c9a448]">Spesifikasi</div>
                 <dl class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
                   {weight && (
                     <>
-                      <dt class="font-semibold text-white/60">Berat</dt>
-                      <dd class="text-white/50">{weight}</dd>
+                      <dt class="font-semibold text-[#7a756f]">Berat</dt>
+                      <dd class="text-[#5c5854]">{weight}</dd>
                     </>
                   )}
                   {material && (
                     <>
-                      <dt class="font-semibold text-white/60">Material</dt>
-                      <dd class="text-white/50">{material}</dd>
+                      <dt class="font-semibold text-[#7a756f]">Material</dt>
+                      <dd class="text-[#5c5854]">{material}</dd>
                     </>
                   )}
                   {sizes && (
                     <>
-                      <dt class="font-semibold text-white/60">Ukuran</dt>
-                      <dd class="text-white/50">{sizes.join(', ')}</dd>
+                      <dt class="font-semibold text-[#7a756f]">Ukuran</dt>
+                      <dd class="text-[#5c5854]">{sizes.join(', ')}</dd>
                     </>
                   )}
                 </dl>
               </div>
             )}
 
-            <!-- CTA -->
-            <div class="mt-auto flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row">
+            <div class="mt-auto flex flex-col gap-3 border-t border-[#e8e8e8] pt-4 sm:flex-row">
               {inStock ? (
                 <a
                   id="wa-btn"
@@ -342,77 +258,57 @@ const descBlocks = parseProductDescription(description);
                   data-wa-base={waBase}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="btn-wa flex-1 justify-center"
+                  class="btn-primary flex-1 justify-center"
                   aria-label={`Beli ${name} via WhatsApp`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5" aria-hidden="true">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
                   Beli via WhatsApp
                 </a>
               ) : (
                 <button disabled class="btn-primary flex-1 cursor-not-allowed opacity-40">Stok Habis</button>
               )}
-              <a href="/katalog" class="btn-outline-gold flex-1 justify-center">← Katalog</a>
+              <a href="/katalog" class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[#c9a448] bg-transparent px-5 py-3 text-sm font-semibold text-[#161412] no-underline transition hover:bg-[#c9a448] hover:text-[#111]">← Katalog</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Produk serupa -->
       {related.length > 0 && (
-        <section class="mt-16" aria-labelledby="related-heading">
-          <div class="gold-line"></div>
-          <h2 id="related-heading" class="mt-4 text-2xl font-black text-white">Produk Serupa</h2>
+        <section class="mt-16" aria-labelledby="related-heading" data-nosnippet>
+          <div class="inline-flex items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#c9a448]"><span class="h-px w-7 bg-[#c9a448]" aria-hidden="true"></span>Serupa</div>
+          <h2 id="related-heading" class="mt-3 text-2xl text-[#161412] md:text-3xl">Produk Serupa</h2>
           <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p) => <ProductCard product={p} />)}
           </div>
         </section>
       )}
-
     </div>
   </div>
-<!-- ── Lightbox ──────────────────────────────────────────────── -->
-<div
-  id="lightbox"
-  class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/92 backdrop-blur-sm"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Zoom gambar produk"
->
-  <!-- Tombol tutup -->
-  <button
-    id="lightbox-close"
-    class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-[#c9a448] hover:text-black"
-    aria-label="Tutup"
+
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Zoom gambar produk"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-    </svg>
-  </button>
-
-  <!-- Gambar zoom -->
-  <div class="flex max-h-[90vh] max-w-[90vw] items-center justify-center p-4">
-    <img
-      id="lightbox-img"
-      src=""
-      alt=""
-      class="max-h-[85vh] max-w-[85vw] rounded-xl object-contain shadow-2xl"
-    />
+    <button
+      id="lightbox-close"
+      class="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-[#c9a448] hover:text-black"
+      aria-label="Tutup"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="flex max-h-[90vh] max-w-[90vw] items-center justify-center p-4">
+      <img id="lightbox-img" src="" alt="" class="max-h-[85vh] max-w-[85vw] rounded-xl object-contain shadow-2xl" />
+    </div>
   </div>
-
-  <!-- Hint -->
-  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-white/30">
-    Klik di luar gambar atau tekan Esc untuk menutup
-  </div>
-</div>
-
 </Layout>
 
 <script>
-  // Thumbnail gallery
-  const mainImg   = document.getElementById('main-img') as HTMLImageElement | null;
-  const mainWrap  = document.getElementById('main-img-wrap');
+  const mainImg = document.getElementById('main-img') as HTMLImageElement | null;
+  const mainWrap = document.getElementById('main-img-wrap');
   const thumbBtns = document.querySelectorAll<HTMLButtonElement>('.thumb-btn');
 
   thumbBtns.forEach((btn) => {
@@ -428,8 +324,7 @@ const descBlocks = parseProductDescription(description);
     });
   });
 
-  // ── Lightbox ──────────────────────────────────────────────────
-  const lightbox    = document.getElementById('lightbox') as HTMLElement;
+  const lightbox = document.getElementById('lightbox') as HTMLElement;
   const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
   const lightboxClose = document.getElementById('lightbox-close');
 
@@ -447,23 +342,12 @@ const descBlocks = parseProductDescription(description);
     document.body.style.overflow = '';
   }
 
-  // Klik gambar utama → buka lightbox (versi penuh)
   mainWrap?.addEventListener('click', () => {
     if (!mainImg) return;
     const full = mainImg.dataset.full || mainImg.currentSrc || mainImg.src;
     if (full) openLightbox(full, mainImg.alt);
   });
 
-  // Klik thumbnail → update gambar utama DAN buka lightbox
-  thumbBtns.forEach((btn) => {
-    btn.addEventListener('dblclick', () => {
-      const src = btn.dataset.full || btn.dataset.src || '';
-      const alt = btn.querySelector('img')?.alt ?? '';
-      if (src) openLightbox(src, alt);
-    });
-  });
-
-  // Tutup lightbox
   lightboxClose?.addEventListener('click', closeLightbox);
   lightbox?.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
@@ -472,24 +356,21 @@ const descBlocks = parseProductDescription(description);
     if (e.key === 'Escape') closeLightbox();
   });
 
-  // Size selector — update WA message dengan ukuran terpilih
   const sizeBtns = document.querySelectorAll<HTMLButtonElement>('.size-btn');
   const sizeLabel = document.getElementById('size-selected-label');
-  const waBtn     = document.getElementById('wa-btn') as HTMLAnchorElement | null;
+  const waBtn = document.getElementById('wa-btn') as HTMLAnchorElement | null;
 
   sizeBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       sizeBtns.forEach((b) => b.setAttribute('aria-checked', 'false'));
       btn.setAttribute('aria-checked', 'true');
-
       const size = btn.dataset.size ?? '';
       if (sizeLabel) sizeLabel.textContent = size;
-
       if (waBtn) {
-        const base    = waBtn.dataset.waBase ?? waBtn.getAttribute('href') ?? '';
+        const base = waBtn.dataset.waBase ?? waBtn.getAttribute('href') ?? '';
         const cleaned = base.replace(/%0A%0AUkuran[^&]*/g, '');
         const updated = cleaned + encodeURIComponent(`\n\nUkuran: ${size}`);
-        waBtn.href           = updated;
+        waBtn.href = updated;
         waBtn.dataset.waBase = updated;
       }
     });

@@ -4,9 +4,11 @@ import type { ColorGroup } from '../types/product';
 interface Props {
   colorGroups: ColorGroup[];
   productName: string;
+  /** V2 putih — default gelap untuk situs live */
+  light?: boolean;
 }
 
-const { colorGroups, productName } = Astro.props;
+const { colorGroups, productName, light = false } = Astro.props;
 
 function toHex(hex: string): string {
   const cleaned = String(hex ?? '').trim().replace(/^#/, '');
@@ -18,18 +20,31 @@ const normalizedGroups = colorGroups.map((g) => ({
   colors: g.colors.map((c) => ({ ...c, hex: toHex(c.hex) })),
 }));
 const groupsJson = JSON.stringify(normalizedGroups);
+
+const groupLabelClass = light ? 'text-sm font-bold text-[#161412]' : 'text-sm font-bold text-white';
+const selectedLabelClass = light
+  ? 'selected-label rounded-full bg-[#c9a448]/15 px-2.5 py-0.5 text-xs font-semibold text-[#161412]'
+  : 'selected-label rounded-full bg-[#c9a448]/15 px-2.5 py-0.5 text-xs font-semibold text-[#c9a448]';
+const swatchBorder = light
+  ? 'relative size-8 border-2 border-[#e8e8e8] outline outline-2 outline-transparent'
+  : 'relative size-8 border-2 border-white/20 outline outline-2 outline-transparent';
+const summaryBox = light
+  ? 'hidden rounded-2xl border border-[#e8e8e8] bg-[#faf8f4] p-4'
+  : 'hidden rounded-2xl border border-[#c9a448]/20 bg-[#c9a448]/8 p-4';
+const summaryListClass = light ? 'mt-2 space-y-1 text-sm text-[#161412]' : 'mt-2 space-y-1 text-sm text-white/80';
+const summaryHintClass = light ? 'mt-3 text-xs text-[#5c5854]' : 'mt-3 text-xs text-white/40';
+const swatchInset = light
+  ? 'box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);'
+  : 'box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);';
 ---
 
-<div class="color-picker-root flex flex-col gap-6" data-groups={groupsJson}>
+<div class="color-picker-root flex flex-col gap-6" data-groups={groupsJson} data-light={light ? '1' : '0'}>
 
   {normalizedGroups.map((group, gi) => (
     <div>
       <div class="mb-2 flex items-center gap-2">
-        <span class="text-sm font-bold text-white">{group.label}</span>
-        <span
-          class="selected-label rounded-full bg-[#c9a448]/15 px-2.5 py-0.5 text-xs font-semibold text-[#c9a448]"
-          data-group={gi}
-        >
+        <span class={groupLabelClass}>{group.label}</span>
+        <span class={selectedLabelClass} data-group={gi}>
           — pilih warna
         </span>
       </div>
@@ -48,12 +63,12 @@ const groupsJson = JSON.stringify(normalizedGroups);
             data-img-index={color.imageIndex ?? ''}
             class:list={[
               'color-swatch',
-              'relative size-8 border-2 border-white/20 outline outline-2 outline-transparent',
+              swatchBorder,
               'transition-all duration-150 hover:scale-110 hover:outline-[#c9a448]',
               'focus:outline-[#c9a448] focus:scale-110',
               group.type === 'accent' ? 'rounded-lg' : 'rounded-full',
             ]}
-            style={`background-color: ${color.hex}; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);`}
+            style={`background-color: ${color.hex}; ${swatchInset}`}
             title={color.name}
           >
             <svg
@@ -71,11 +86,10 @@ const groupsJson = JSON.stringify(normalizedGroups);
     </div>
   ))}
 
-  <!-- Ringkasan pilihan -->
-  <div id="color-summary" class="hidden rounded-2xl border border-[#c9a448]/20 bg-[#c9a448]/8 p-4">
+  <div id="color-summary" class={summaryBox}>
     <div class="text-xs font-bold uppercase tracking-wider text-[#c9a448]">Pilihan Anda</div>
-    <ul id="summary-list" class="mt-2 space-y-1 text-sm text-white/80"></ul>
-    <p class="mt-3 text-xs text-white/40">
+    <ul id="summary-list" class={summaryListClass}></ul>
+    <p class={summaryHintClass}>
       Pilihan warna akan dikirimkan otomatis saat Anda klik tombol WhatsApp di bawah.
     </p>
   </div>
@@ -85,6 +99,7 @@ const groupsJson = JSON.stringify(normalizedGroups);
   const root = document.querySelector<HTMLElement>('.color-picker-root');
   if (!root) throw new Error('ColorPicker root not found');
 
+  const light = root.dataset.light === '1';
   const groups: Array<{ label: string; type: string; colors: Array<{ name: string; hex: string }> }> =
     JSON.parse(root.dataset.groups ?? '[]');
 
@@ -113,12 +128,14 @@ const groupsJson = JSON.stringify(normalizedGroups);
     if (chosen.length === 0) { summary.classList.add('hidden'); return; }
 
     summary.classList.remove('hidden');
+    const swatchBorder = light ? 'border-[#d0ccc4]' : 'border-white/20';
     list.innerHTML = selectedColors
       .map((sel, gi) =>
         sel
           ? `<li class="flex items-center gap-2">
-               <span class="inline-block size-4 rounded-full border border-white/20 shrink-0" style="background:${sel.hex}"></span>
-               <span class="font-semibold text-[#c9a448]">${groups[gi].label}:</span> ${sel.name}
+               <span class="inline-block size-4 shrink-0 rounded-full border ${swatchBorder}" style="background:${sel.hex}"></span>
+               <span class="font-semibold text-[#c9a448]">${groups[gi].label}:</span>
+               <span class="${light ? 'text-[#161412]' : ''}">${sel.name}</span>
              </li>`
           : '',
       )
