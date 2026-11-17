@@ -4,8 +4,11 @@
 :root {
   --black:   #161412;
   --black2:  #1a1a1a;
+  /* Decorative bright gold (borders, lines, badges) */
   --gold:    #c9a448;
-  --gold2:   #a07828;
+  /* AA ink / solid fills with white text (~5.3:1 on white; white-on-ink also AA) */
+  --gold2:   #8a6518;
+  --gold-ink:#8a6518;
   --gold3:   #e8c96a;
   --cream:   #fdf8ef;
   --white:   #ffffff;
@@ -80,7 +83,8 @@ p {
   box-shadow: none;
 }
 .btn-primary:hover {
-  background: #b3923a;
+  background: var(--gold2);
+  color: #ffffff;
   box-shadow: none;
   transform: none;
 }

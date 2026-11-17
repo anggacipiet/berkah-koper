@@ -39,20 +39,20 @@ const thumb = images[0] ? responsiveImage(images[0], '(max-width: 1024px) 100vw,
 
   <div class="flex flex-col gap-5 p-6 lg:p-8">
     <div>
-      <div class="text-[10px] font-bold uppercase tracking-[.18em] text-[#c9a448]">Paket Bundling</div>
+      <div class="text-[10px] font-bold uppercase tracking-[.18em] text-[#8a6518]">Paket Bundling</div>
       <h3 class="mt-2 font-display text-3xl font-semibold leading-snug text-[#161412]">
-        <a href={`/produk/${slug}`} class="transition-colors hover:text-[#c9a448]">{name}</a>
+        <a href={`/produk/${slug}`} class="transition-colors hover:text-[#8a6518]">{name}</a>
       </h3>
       <p class="mt-2 text-sm leading-7 text-[#5c5854]">{shortDesc}</p>
     </div>
 
     {bundleItems.length > 0 && (
       <div>
-        <div class="mb-2 text-[10px] font-bold uppercase tracking-[.16em] text-[#c9a448]">Isi Paket</div>
+        <div class="mb-2 text-[10px] font-bold uppercase tracking-[.16em] text-[#8a6518]">Isi Paket</div>
         <ul class="space-y-1.5">
           {bundleItems.map((item, i) => (
             <li class="flex items-start gap-3 text-sm leading-6 text-[#161412]">
-              <span class="mt-0.5 font-display text-sm text-[#c9a448]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span class="mt-0.5 font-display text-sm text-[#8a6518]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               {item}
             </li>
           ))}
@@ -64,7 +64,7 @@ const thumb = images[0] ? responsiveImage(images[0], '(max-width: 1024px) 100vw,
       <ul class="space-y-1 border-t border-[#e8e8e8] pt-4">
         {features.map((f) => (
           <li class="flex items-start gap-2 text-xs leading-5 text-[#5c5854]">
-            <span class="text-[#c9a448]" aria-hidden="true">—</span>
+            <span class="text-[#8a6518]" aria-hidden="true">—</span>
             {f}
           </li>
         ))}
