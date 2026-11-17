@@ -68,7 +68,7 @@ const sectionHeadP = 'mt-3 max-w-[34rem] text-[0.92rem] leading-[1.7] text-[#5c5
           aria-roledescription="carousel"
           aria-label="Foto produk unggulan"
         >
-          <figure class="m-0 mx-auto w-full max-w-[min(100%,28rem)] overflow-hidden border border-[#c9a448]/40 bg-white shadow-[0_18px_40px_rgba(17,17,17,0.06)] leading-[0] lg:mx-0 lg:h-full lg:max-h-[calc(100%-1.75rem)] lg:max-w-[min(100%,calc((100svh-8.5rem)*0.707))] lg:w-auto lg:self-center">
+          <figure class="m-0 mx-auto w-full max-w-[min(100%,28rem)] overflow-hidden border border-[#c9a448]/40 bg-white shadow-[0_18px_40px_rgba(17,17,17,0.06)] leading-[0] lg:mx-0 lg:h-full lg:max-h-full lg:max-w-[min(100%,calc((100svh-8.5rem)*0.707))] lg:w-auto lg:self-center">
             <div class="relative aspect-[1131/1600] w-full bg-white lg:h-full lg:max-h-full lg:w-auto lg:max-w-full">
               {heroSlides.map((slide, i) => (
                 <div
@@ -99,23 +99,6 @@ const sectionHeadP = 'mt-3 max-w-[34rem] text-[0.92rem] leading-[1.7] text-[#5c5
               ))}
             </div>
           </figure>
-          {heroSlides.length > 1 && (
-            <div class="mt-2.5 hidden shrink-0 justify-center gap-[0.45rem] md:flex" role="tablist" aria-label="Pilih slide">
-              {heroSlides.map((slide, i) => (
-                <button
-                  type="button"
-                  class:list={[
-                    'v2-hero-dot h-[0.45rem] w-[0.45rem] cursor-pointer rounded-full border-0 bg-[#d6d0c6] p-0 transition-[background,width] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a448]',
-                    i === 0 && 'is-active w-[1.35rem] bg-[#c9a448]',
-                  ]}
-                  role="tab"
-                  aria-selected={i === 0 ? 'true' : 'false'}
-                  aria-label={`Slide ${i + 1}: ${slide.alt}`}
-                  data-index={i}
-                ></button>
-              ))}
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -125,7 +108,6 @@ const sectionHeadP = 'mt-3 max-w-[34rem] text-[0.92rem] leading-[1.7] text-[#5c5
         const root = document.getElementById('v2-hero-carousel');
         if (!root) return;
         const slides = Array.from(root.querySelectorAll<HTMLElement>('.v2-hero-slide'));
-        const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.v2-hero-dot'));
         if (slides.length < 2) return;
 
         let index = 0;
@@ -145,28 +127,12 @@ const sectionHeadP = 'mt-3 max-w-[34rem] text-[0.92rem] leading-[1.7] text-[#5c5
             slide.classList.toggle('pointer-events-none', !on);
             slide.setAttribute('aria-hidden', on ? 'false' : 'true');
           });
-          dots.forEach((dot, i) => {
-            const on = i === index;
-            dot.classList.toggle('is-active', on);
-            dot.classList.toggle('w-[1.35rem]', on);
-            dot.classList.toggle('bg-[#c9a448]', on);
-            dot.classList.toggle('w-[0.45rem]', !on);
-            dot.classList.toggle('bg-[#d6d0c6]', !on);
-            dot.setAttribute('aria-selected', on ? 'true' : 'false');
-          });
         };
 
         const start = () => {
           if (timer) clearInterval(timer);
           timer = setInterval(() => goTo(index + 1), 4200);
         };
-
-        dots.forEach((dot) => {
-          dot.addEventListener('click', () => {
-            goTo(Number(dot.dataset.index ?? 0));
-            start();
-          });
-        });
 
         root.addEventListener('mouseenter', () => {
           if (timer) clearInterval(timer);
